@@ -2,5 +2,5 @@
 'use strict';
 
 module.exports = {
-  name: 'ember-cp-validators'
+  name: 'ember-validators'
 };

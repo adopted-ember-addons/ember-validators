@@ -4,7 +4,7 @@
  */
 
 import Ember from 'ember';
-import unwrapProxy from 'ember-cp-validators/utils/unwrap-proxy';
+import unwrapProxy from 'ember-validators/utils/unwrap-proxy';
 
 const {
   assert,

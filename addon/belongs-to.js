@@ -4,7 +4,7 @@
  */
 
 import Ember from 'ember';
-import isPromise from 'ember-cp-validators/utils/is-promise';
+import isPromise from 'ember-validators/utils/is-promise';
 
 const {
   get

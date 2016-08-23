@@ -3,7 +3,7 @@
  * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
  */
 
- import isPromise from 'ember-cp-validators/utils/is-promise';
+ import isPromise from 'ember-validators/utils/is-promise';
 
 /**
  *  @class Has Many

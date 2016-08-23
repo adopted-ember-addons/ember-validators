@@ -4,7 +4,7 @@
  */
 
 import Ember from 'ember';
-import requireModule from 'ember-cp-validators/utils/require-module';
+import requireModule from 'ember-validators/utils/require-module';
 
 const DS = requireModule('ember-data');
 

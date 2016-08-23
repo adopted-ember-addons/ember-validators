@@ -1,5 +1,5 @@
 {
-  "name": "ember-cp-validators",
+  "name": "ember-validators",
   "version": "0.0.0",
   "description": "The default blueprint for ember-cli addons.",
   "directories": {
