@@ -23,7 +23,7 @@ export const RegularExpressions = {
   url: /(?:([A-Za-z]+):)?(\/{0,3})[a-zA-Z0-9][a-zA-Z-0-9]*(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-{}]*[\w@?^=%&amp;\/~+#-{}])??/
 };
 
-export default function validateFormat(value, options, model, attribute) {
+export default function validateFormat(value, options, model, attribute, context) {
   const { regex, type, allowBlank } = getProperties(options, ['regex', 'type', 'allowBlank']);
 
   assert(`[validator:format] [${attribute}] no options were passed in`, !isEmpty(Object.keys(options)));
@@ -33,7 +33,7 @@ export default function validateFormat(value, options, model, attribute) {
   }
 
   if (regex && !regex.test(value)) {
-    return this.createErrorMessage(type || 'invalid', value, options);
+    return context.createErrorMessage(type || 'invalid', value, options);
   }
 
   return true;

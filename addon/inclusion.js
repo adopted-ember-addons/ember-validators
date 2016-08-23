@@ -18,7 +18,7 @@ const {
  *  @module Validators
  *  @extends Base
  */
-export default function validateInclusion(value, options, model, attribute) {
+export default function validateInclusion(value, options, model, attribute, context) {
   const array = get(options, 'in');
   const { range, allowBlank } = getProperties(options, ['range', 'allowBlank']);
 
@@ -29,7 +29,7 @@ export default function validateInclusion(value, options, model, attribute) {
   }
 
   if (array && array.indexOf(value) === -1) {
-    return this.createErrorMessage('inclusion', value, options);
+    return context.createErrorMessage('inclusion', value, options);
   }
 
   if (range && range.length === 2) {
@@ -38,7 +38,7 @@ export default function validateInclusion(value, options, model, attribute) {
     const equalType = typeOf(value) === typeOf(min) && typeOf(value) === typeOf(max);
 
     if (!equalType || min > value || value > max) {
-      return this.createErrorMessage('inclusion', value, options);
+      return context.createErrorMessage('inclusion', value, options);
     }
   }
 

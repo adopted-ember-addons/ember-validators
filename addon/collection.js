@@ -15,15 +15,15 @@ const {
  *  @module Validators
  *  @extends Base
  */
-export default function validateCollection(value, options) {
+export default function validateCollection(value, options, model, attribute, context) {
   const isCollection = get(options, 'collection');
 
   if (isCollection === true && !isArray(value)) {
-    return this.createErrorMessage('collection', value, options);
+    return context.createErrorMessage('collection', value, options);
   }
 
   if (isCollection === false && isArray(value)) {
-    return this.createErrorMessage('singular', value, options);
+    return context.createErrorMessage('singular', value, options);
   }
 
   return true;

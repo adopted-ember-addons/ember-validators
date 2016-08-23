@@ -16,7 +16,7 @@ const {
  *  @module Validators
  *  @extends Base
  */
-export default function validateNumber (value, options) {
+export default function validateNumber (value, options, model, attribute, context) {
   const numValue = Number(value);
   const optionKeys = Object.keys(options);
   const { allowBlank, allowString, integer } = getProperties(options, ['allowBlank', 'allowString', 'integer']);
@@ -26,20 +26,20 @@ export default function validateNumber (value, options) {
   }
 
   if (typeof value === 'string' && (isEmpty(value) || !allowString)) {
-    return this.createErrorMessage('notANumber', value, options);
+    return context.createErrorMessage('notANumber', value, options);
   }
 
   if (!isNumber(numValue)) {
-    return this.createErrorMessage('notANumber', value, options);
+    return context.createErrorMessage('notANumber', value, options);
   }
 
   if (integer && !isInteger(numValue)) {
-    return this.createErrorMessage('notAnInteger', value, options);
+    return context.createErrorMessage('notAnInteger', value, options);
   }
 
   for (let i = 0; i < optionKeys.length; i++) {
     const type = optionKeys[i];
-    const m = _validateType(type, options, numValue);
+    const m = _validateType(type, options, numValue, context);
 
     if (typeof m === 'string') {
       return m;
@@ -49,26 +49,27 @@ export default function validateNumber (value, options) {
   return true;
 }
 
-function _validateType(type, options, value) {
+function _validateType(type, options, value, context) {
+  const createErrorMessage = context.createErrorMessage;
   const expected = get(options, type);
   const actual = value;
 
   if (type === 'is' && actual !== expected) {
-    return this.createErrorMessage('equalTo', value, options);
+    return createErrorMessage('equalTo', value, options);
   } else if (type === 'lt' && actual >= expected) {
-    return this.createErrorMessage('lessThan', value, options);
+    return createErrorMessage('lessThan', value, options);
   } else if (type === 'lte' && actual > expected) {
-    return this.createErrorMessage('lessThanOrEqualTo', value, options);
+    return createErrorMessage('lessThanOrEqualTo', value, options);
   } else if (type === 'gt' && actual <= expected) {
-    return this.createErrorMessage('greaterThan', value, options);
+    return createErrorMessage('greaterThan', value, options);
   } else if (type === 'gte' && actual < expected) {
-    return this.createErrorMessage('greaterThanOrEqualTo', value, options);
+    return createErrorMessage('greaterThanOrEqualTo', value, options);
   } else if (type === 'positive' && actual < 0) {
-    return this.createErrorMessage('positive', value, options);
+    return createErrorMessage('positive', value, options);
   } else if (type === 'odd' && actual % 2 === 0) {
-    return this.createErrorMessage('odd', value, options);
+    return createErrorMessage('odd', value, options);
   } else if (type === 'even' && actual % 2 !== 0) {
-    return this.createErrorMessage('even', value, options);
+    return createErrorMessage('even', value, options);
   }
 
   return true;

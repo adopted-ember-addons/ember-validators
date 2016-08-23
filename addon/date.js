@@ -35,7 +35,7 @@ function _parseDate(date, format, useStrict = false) {
   return isNone(format) ? moment(new Date(date)) : moment(date, format, useStrict);
 }
 
-export default function validateDate(value, options) {
+export default function validateDate(value, options, model, attribute, context) {
   const errorFormat = getWithDefault(options, 'errorFormat', 'MMM Do, YYYY');
   const { format, precision, allowBlank } = getProperties(options, ['format', 'precision', 'allowBlank']);
   let { before, onOrBefore, after, onOrAfter } = getProperties(options, ['before', 'onOrBefore', 'after', 'onOrAfter']);
@@ -48,12 +48,12 @@ export default function validateDate(value, options) {
   if (format) {
     date = _parseDate(value, format, true);
     if (!date.isValid()) {
-      return this.createErrorMessage('wrongDateFormat', value, options);
+      return context.createErrorMessage('wrongDateFormat', value, options);
     }
   } else {
     date = _parseDate(value);
     if (!date.isValid()) {
-      return this.createErrorMessage('date', value, options);
+      return context.createErrorMessage('date', value, options);
     }
   }
 
@@ -61,7 +61,7 @@ export default function validateDate(value, options) {
     before = _parseDate(before, format);
     if (!date.isBefore(before, precision)) {
       set(options, 'before', before.format(errorFormat));
-      return this.createErrorMessage('before', value, options);
+      return context.createErrorMessage('before', value, options);
     }
   }
 
@@ -69,7 +69,7 @@ export default function validateDate(value, options) {
     onOrBefore = _parseDate(onOrBefore, format);
     if (!date.isSameOrBefore(onOrBefore, precision))  {
       set(options, 'onOrBefore', onOrBefore.format(errorFormat));
-      return this.createErrorMessage('onOrBefore', value, options);
+      return context.createErrorMessage('onOrBefore', value, options);
     }
   }
 
@@ -77,7 +77,7 @@ export default function validateDate(value, options) {
     after = _parseDate(after, format);
     if (!date.isAfter(after, precision)) {
       set(options, 'after', after.format(errorFormat));
-      return this.createErrorMessage('after', value, options);
+      return context.createErrorMessage('after', value, options);
     }
   }
 
@@ -85,7 +85,7 @@ export default function validateDate(value, options) {
     onOrAfter = _parseDate(onOrAfter, format);
     if (!date.isSameOrAfter(onOrAfter, precision)) {
       set(options, 'onOrAfter', onOrAfter.format(errorFormat));
-      return this.createErrorMessage('onOrAfter', value, options);
+      return context.createErrorMessage('onOrAfter', value, options);
     }
   }
 
