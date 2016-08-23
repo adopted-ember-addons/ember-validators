@@ -1,0 +1,47 @@
+/**
+ * Copyright 2016, Yahoo! Inc.
+ * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
+ */
+
+import Ember from 'ember';
+
+const {
+  get,
+  assert,
+  isNone,
+  isEmpty,
+  getProperties
+} = Ember;
+
+/**
+ *  @class Length
+ *  @module Validators
+ *  @extends Base
+ */
+export default function validateLength (value, options, model, attribute) {
+  const { allowNone, allowBlank, is, min, max } = getProperties(options, [ 'allowNone', 'allowBlank', 'is', 'min', 'max' ]);
+
+  assert(`[validator:length] [${attribute}] no options were passed in`, !isEmpty(Object.keys(options)));
+
+  if (isNone(value)) {
+    return allowNone ? true : this.createErrorMessage('invalid', value, options);
+  }
+
+  if (allowBlank && isEmpty(value)) {
+    return true;
+  }
+
+  if (!isNone(is) && is !== get(value, 'length')) {
+    return this.createErrorMessage('wrongLength', value, options);
+  }
+
+  if (!isNone(min) && min > get(value, 'length')) {
+    return this.createErrorMessage('tooShort', value, options);
+  }
+
+  if (!isNone(max) && max < get(value, 'length')) {
+    return this.createErrorMessage('tooLong', value, options);
+  }
+
+  return true;
+}
