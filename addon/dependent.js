@@ -21,7 +21,7 @@ const {
  *  @module Validators
  *  @extends Base
  */
-export default function validate(value, options, model, attribute, context) {
+export default function validateDependent(value, options, model, attribute, context) {
   const { on, allowBlank } = getProperties(options, ['on', 'allowBlank']);
 
   assert(`[validator:dependent] [${attribute}] option 'on' is required`, isPresent(on));

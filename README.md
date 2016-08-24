@@ -1,6 +1,14 @@
-# ember-validators
+# Ember Validators
 
-This README outlines the details of collaborating on this Ember addon.
+[![Build Status](https://travis-ci.org/offirgolan/ember-validators.svg)](https://travis-ci.org/offirgolan/ember-validators)
+[![npm version](https://badge.fury.io/js/ember-validators.svg)](http://badge.fury.io/js/ember-validators)
+[![Ember Observer Score](https://emberobserver.com/badges/ember-validators.svg)](https://emberobserver.com/addons/ember-validators)
+[![Code Climate](https://codeclimate.com/github/offirgolan/ember-validators/badges/gpa.svg)](https://codeclimate.com/github/offirgolan/ember-validators)
+[![Test Coverage](https://codeclimate.com/github/offirgolan/ember-validators/badges/coverage.svg)](https://codeclimate.com/github/offirgolan/ember-validators/coverage)
+[![Dependency Status](https://david-dm.org/offirgolan/ember-validators.svg)](https://david-dm.org/offirgolan/ember-validators)
+[![devDependency Status](https://david-dm.org/offirgolan/ember-validators/dev-status.svg)](https://david-dm.org/offirgolan/ember-validators#info=devDependencies)
+
+A collection of EmberJS validators
 
 ## Installation
 
