@@ -18,7 +18,7 @@ const {
  *  @module Validators
  *  @extends Base
  */
-export default function validateLength (value, options, model, attribute, context) {
+export default function validateLength (context, value, options, model, attribute) {
   const { allowNone, allowBlank, is, min, max } = getProperties(options, [ 'allowNone', 'allowBlank', 'is', 'min', 'max' ]);
 
   assert(`[validator:length] [${attribute}] no options were passed in`, !isEmpty(Object.keys(options)));

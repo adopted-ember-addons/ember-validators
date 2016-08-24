@@ -6,6 +6,7 @@
 import { module, test } from 'qunit';
 import validate from 'ember-validators/presence';
 import context from '../../helpers/validator-context';
+import cloneOptions from '../../helpers/clone-options';
 
 let options, message;
 
@@ -17,7 +18,7 @@ test('presence - value present', function(assert) {
   options = { presence: true };
 
 
-  message = validate('value', context.cloneOptions(options), undefined, undefined, context);
+  message = validate(context, 'value', cloneOptions(options));
   assert.equal(message, true);
 });
 
@@ -27,7 +28,7 @@ test('presence - value blank', function(assert) {
   options = { presence: true };
 
 
-  message = validate(' ', context.cloneOptions(options), undefined, undefined, context);
+  message = validate(context, ' ', cloneOptions(options));
   assert.equal(message, true);
 });
 
@@ -37,7 +38,7 @@ test('presence with ignoreBlank - value blank', function(assert) {
   options = { presence: true, ignoreBlank: true };
 
 
-  message = validate(' ', context.cloneOptions(options), undefined, undefined, context);
+  message = validate(context, ' ', cloneOptions(options));
   assert.equal(message, "This field can't be blank");
 });
 
@@ -46,7 +47,7 @@ test('presence - value not present', function(assert) {
 
   options = { presence: true };
 
-  message = validate(undefined, context.cloneOptions(options), undefined, undefined, context);
+  message = validate(context, undefined, cloneOptions(options));
   assert.equal(message, "This field can't be blank");
 });
 
@@ -55,7 +56,7 @@ test('absence - value present', function(assert) {
 
   options = { presence: false };
 
-  message = validate('value', context.cloneOptions(options), undefined, undefined, context);
+  message = validate(context, 'value', cloneOptions(options));
   assert.equal(message, "This field must be blank");
 });
 
@@ -64,6 +65,6 @@ test('absence - value not present', function(assert) {
 
   options = { presence: false };
 
-  message = validate(undefined, context.cloneOptions(options), undefined, undefined, context);
+  message = validate(context, undefined, cloneOptions(options));
   assert.equal(message, true);
 });

@@ -18,7 +18,7 @@ test('works with empty object', function(assert) {
 
   model = Ember.Object.create();
 
-  message = validate(undefined, undefined, model, 'username', context);
+  message = validate(context, undefined, undefined, model, 'username', context);
   assert.equal(message, true);
 });
 
@@ -30,12 +30,12 @@ test('it works', function(assert) {
     username: null
   });
 
-  message = validate(undefined, undefined, model, 'username', context);
+  message = validate(context, undefined, undefined, model, 'username', context);
   assert.equal(message, true);
 
   model.get('errors').add('username', 'Username is not unique');
 
-  message = validate(undefined, undefined, model, 'username', context);
+  message = validate(context, undefined, undefined, model, 'username', context);
   assert.equal(message, 'Username is not unique');
 });
 
@@ -47,12 +47,12 @@ test('gets last message', function(assert) {
     username: null
   });
 
-  message = validate(undefined, undefined, model, 'username', context);
+  message = validate(context, undefined, undefined, model, 'username', context);
   assert.equal(message, true);
 
   model.get('errors').add('username', 'Username is not unique');
   model.get('errors').add('username', 'Username is too long');
 
-  message = validate(undefined, undefined, model, 'username', context);
+  message = validate(context, undefined, undefined, model, 'username', context);
   assert.equal(message, 'Username is too long');
 });

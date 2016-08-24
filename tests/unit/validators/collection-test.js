@@ -6,6 +6,7 @@
 import { module, test } from 'qunit';
 import validate from 'ember-validators/collection';
 import context from '../../helpers/validator-context';
+import cloneOptions from '../../helpers/clone-options';
 
 let options, message;
 
@@ -16,7 +17,7 @@ test('value is collection', function(assert) {
 
   options = { collection: true };
 
-  message = validate(['foo', 'bar'], context.cloneOptions(options), undefined, undefined, context);
+  message = validate(context, ['foo', 'bar'], cloneOptions(options));
   assert.equal(message, true);
 });
 
@@ -25,7 +26,7 @@ test('value not collection', function(assert) {
 
   options = { collection: true };
 
-  message = validate('foo', context.cloneOptions(options), undefined, undefined, context);
+  message = validate(context, 'foo', cloneOptions(options));
   assert.equal(message, "This field must be a collection");
 });
 
@@ -34,7 +35,7 @@ test('singular - value is singular', function(assert) {
 
   options = { collection: false };
 
-  message = validate('value', context.cloneOptions(options), undefined, undefined, context);
+  message = validate(context, 'value', cloneOptions(options));
   assert.equal(message, true);
 });
 
@@ -43,6 +44,6 @@ test('singular - value not singular', function(assert) {
 
   options = { collection: false };
 
-  message = validate(['foo', 'bar'], context.cloneOptions(options), undefined, undefined, context);
+  message = validate(context, ['foo', 'bar'], cloneOptions(options));
   assert.equal(message, "This field can't be a collection");
 });

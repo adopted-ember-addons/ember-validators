@@ -16,7 +16,7 @@ const {
  *  @module Validators
  *  @extends Base
  */
-export default function validateNumber (value, options, model, attribute, context) {
+export default function validateNumber (context, value, options) {
   const numValue = Number(value);
   const optionKeys = Object.keys(options);
   const { allowBlank, allowString, integer } = getProperties(options, ['allowBlank', 'allowString', 'integer']);
@@ -39,10 +39,10 @@ export default function validateNumber (value, options, model, attribute, contex
 
   for (let i = 0; i < optionKeys.length; i++) {
     const type = optionKeys[i];
-    const m = _validateType(type, options, numValue, context);
+    const returnValue = _validateType(type, options, numValue, context);
 
-    if (typeof m === 'string') {
-      return m;
+    if (typeof returnValue === 'string') {
+      return returnValue;
     }
   }
 
@@ -50,32 +50,33 @@ export default function validateNumber (value, options, model, attribute, contex
 }
 
 function _validateType(type, options, value, context) {
-  const createErrorMessage = context.createErrorMessage;
   const expected = get(options, type);
   const actual = value;
 
   if (type === 'is' && actual !== expected) {
-    return createErrorMessage('equalTo', value, options);
+    return context.createErrorMessage('equalTo', value, options);
   } else if (type === 'lt' && actual >= expected) {
-    return createErrorMessage('lessThan', value, options);
+    return context.createErrorMessage('lessThan', value, options);
   } else if (type === 'lte' && actual > expected) {
-    return createErrorMessage('lessThanOrEqualTo', value, options);
+    return context.createErrorMessage('lessThanOrEqualTo', value, options);
   } else if (type === 'gt' && actual <= expected) {
-    return createErrorMessage('greaterThan', value, options);
+    return context.createErrorMessage('greaterThan', value, options);
   } else if (type === 'gte' && actual < expected) {
-    return createErrorMessage('greaterThanOrEqualTo', value, options);
+    return context.createErrorMessage('greaterThanOrEqualTo', value, options);
   } else if (type === 'positive' && actual < 0) {
-    return createErrorMessage('positive', value, options);
+    return context.createErrorMessage('positive', value, options);
   } else if (type === 'odd' && actual % 2 === 0) {
-    return createErrorMessage('odd', value, options);
+    return context.createErrorMessage('odd', value, options);
   } else if (type === 'even' && actual % 2 !== 0) {
-    return createErrorMessage('even', value, options);
+    return context.createErrorMessage('even', value, options);
   }
 
   return true;
 }
 
-/* Use polyfills instead of Number.isNaN or Number.isInteger to support IE & Safari */
+/*
+  Use polyfills instead of Number.isNaN or Number.isInteger to support IE & Safari
+ */
 
 function isNumber(value) {
   return typeof value === 'number' && !isNaN(value);

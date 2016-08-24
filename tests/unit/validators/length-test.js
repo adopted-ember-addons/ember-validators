@@ -6,6 +6,7 @@
 import { module, test } from 'qunit';
 import validate from 'ember-validators/length';
 import context from '../../helpers/validator-context';
+import cloneOptions from '../../helpers/clone-options';
 
 let options, message;
 
@@ -15,7 +16,7 @@ test('no options', function(assert) {
   assert.expect(1);
 
   try {
-    message = validate(undefined, {}, undefined, undefined, context);
+    message = validate(context, undefined, {});
   } catch (e) {
     assert.ok(true);
   }
@@ -29,10 +30,10 @@ test('allow blank', function(assert) {
     min: 5
   };
 
-  message = validate('', context.cloneOptions(options), undefined, undefined, context);
+  message = validate(context, '', cloneOptions(options));
   assert.equal(message, true);
 
-  message = validate('test', context.cloneOptions(options), undefined, undefined, context);
+  message = validate(context, 'test', cloneOptions(options));
   assert.equal(message, 'This field is too short (minimum is 5 characters)');
 });
 
@@ -43,11 +44,11 @@ test('allow none', function(assert) {
     allowNone: true
   };
 
-  message = validate(undefined, context.cloneOptions(options), undefined, undefined, context);
+  message = validate(context, undefined, cloneOptions(options));
   assert.equal(message, true);
 
   options.allowNone = false;
-  message = validate(null, context.cloneOptions(options), undefined, undefined, context);
+  message = validate(context, null, cloneOptions(options));
   assert.equal(message, 'This field is invalid');
 });
 
@@ -58,10 +59,10 @@ test('is', function(assert) {
     is: 4
   };
 
-  message = validate('testing', context.cloneOptions(options), undefined, undefined, context);
+  message = validate(context, 'testing', cloneOptions(options));
   assert.equal(message, 'This field is the wrong length (should be 4 characters)');
 
-  message = validate('test', context.cloneOptions(options), undefined, undefined, context);
+  message = validate(context, 'test', cloneOptions(options));
   assert.equal(message, true);
 });
 
@@ -72,10 +73,10 @@ test('min', function(assert) {
     min: 5
   };
 
-  message = validate('test', context.cloneOptions(options), undefined, undefined, context);
+  message = validate(context, 'test', cloneOptions(options));
   assert.equal(message, 'This field is too short (minimum is 5 characters)');
 
-  message = validate('testing', context.cloneOptions(options), undefined, undefined, context);
+  message = validate(context, 'testing', cloneOptions(options));
   assert.equal(message, true);
 });
 
@@ -86,10 +87,10 @@ test('max', function(assert) {
     max: 5
   };
 
-  message = validate('testing', context.cloneOptions(options), undefined, undefined, context);
+  message = validate(context, 'testing', cloneOptions(options));
   assert.equal(message, 'This field is too long (maximum is 5 characters)');
 
-  message = validate('test', context.cloneOptions(options), undefined, undefined, context);
+  message = validate(context, 'test', cloneOptions(options));
   assert.equal(message, true);
 });
 
@@ -100,9 +101,9 @@ test('array', function(assert) {
     min: 1
   };
 
-  message = validate([], context.cloneOptions(options), undefined, undefined, context);
+  message = validate(context, [], cloneOptions(options));
   assert.equal(message, 'This field is too short (minimum is 1 characters)');
 
-  message = validate([1], context.cloneOptions(options), undefined, undefined, context);
+  message = validate(context, [1], cloneOptions(options));
   assert.equal(message, true);
 });

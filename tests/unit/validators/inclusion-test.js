@@ -6,6 +6,7 @@
 import { module, test } from 'qunit';
 import validate from 'ember-validators/inclusion';
 import context from '../../helpers/validator-context';
+import cloneOptions from '../../helpers/clone-options';
 
 let options, message;
 
@@ -15,7 +16,7 @@ test('no options', function(assert) {
   assert.expect(1);
 
   try {
-    message = validate(undefined, {}, undefined, undefined, context);
+    message = validate(context, undefined, {});
   } catch (e) {
     assert.ok(true);
   }
@@ -29,10 +30,10 @@ test('allow blank', function(assert) {
     "in": ["foo", "bar", "baz"]
   };
 
-  message = validate('', context.cloneOptions(options), undefined, undefined, context);
+  message = validate(context, '', cloneOptions(options));
   assert.equal(message, true);
 
-  message = validate('test', context.cloneOptions(options), undefined, undefined, context);
+  message = validate(context, 'test', cloneOptions(options));
   assert.equal(message, 'This field is not included in the list');
 });
 
@@ -43,16 +44,16 @@ test('in array', function(assert) {
     "in": ["foo", "bar", "baz"]
   };
 
-  message = validate('test', context.cloneOptions(options), undefined, undefined, context);
+  message = validate(context, 'test', cloneOptions(options));
   assert.equal(message, 'This field is not included in the list');
 
-  message = validate('foo', context.cloneOptions(options), undefined, undefined, context);
+  message = validate(context, 'foo', cloneOptions(options));
   assert.equal(message, true);
 
-  message = validate('bar', context.cloneOptions(options), undefined, undefined, context);
+  message = validate(context, 'bar', cloneOptions(options));
   assert.equal(message, true);
 
-  message = validate('baz', context.cloneOptions(options), undefined, undefined, context);
+  message = validate(context, 'baz', cloneOptions(options));
   assert.equal(message, true);
 });
 
@@ -63,19 +64,19 @@ test('in range', function(assert) {
     range: [1, 10]
   };
 
-  message = validate(0, context.cloneOptions(options), undefined, undefined, context);
+  message = validate(context, 0, cloneOptions(options));
   assert.equal(message, 'This field is not included in the list');
 
-  message = validate(100, context.cloneOptions(options), undefined, undefined, context);
+  message = validate(context, 100, cloneOptions(options));
   assert.equal(message, 'This field is not included in the list');
 
-  message = validate(1, context.cloneOptions(options), undefined, undefined, context);
+  message = validate(context, 1, cloneOptions(options));
   assert.equal(message, true);
 
-  message = validate(5, context.cloneOptions(options), undefined, undefined, context);
+  message = validate(context, 5, cloneOptions(options));
   assert.equal(message, true);
 
-  message = validate(10, context.cloneOptions(options), undefined, undefined, context);
+  message = validate(context, 10, cloneOptions(options));
   assert.equal(message, true);
 });
 
@@ -86,25 +87,25 @@ test('range type check - number', function(assert) {
     range: [1, 10]
   };
 
-  message = validate('0', context.cloneOptions(options), undefined, undefined, context);
+  message = validate(context, '0', cloneOptions(options));
   assert.equal(message, 'This field is not included in the list');
 
-  message = validate(0, context.cloneOptions(options), undefined, undefined, context);
+  message = validate(context, 0, cloneOptions(options));
   assert.equal(message, 'This field is not included in the list');
 
-  message = validate('1', context.cloneOptions(options), undefined, undefined, context);
+  message = validate(context, '1', cloneOptions(options));
   assert.equal(message, 'This field is not included in the list');
 
-  message = validate('5', context.cloneOptions(options), undefined, undefined, context);
+  message = validate(context, '5', cloneOptions(options));
   assert.equal(message, 'This field is not included in the list');
 
-  message = validate(1, context.cloneOptions(options), undefined, undefined, context);
+  message = validate(context, 1, cloneOptions(options));
   assert.equal(message, true);
 
-  message = validate(5, context.cloneOptions(options), undefined, undefined, context);
+  message = validate(context, 5, cloneOptions(options));
   assert.equal(message, true);
 
-  message = validate(10, context.cloneOptions(options), undefined, undefined, context);
+  message = validate(context, 10, cloneOptions(options));
   assert.equal(message, true);
 });
 
@@ -115,18 +116,18 @@ test('range type check - string', function(assert) {
     range: ['a', 'z']
   };
 
-  message = validate(97, context.cloneOptions(options), undefined, undefined, context);
+  message = validate(context, 97, cloneOptions(options));
   assert.equal(message, 'This field is not included in the list');
 
-  message = validate('zzz', context.cloneOptions(options), undefined, undefined, context);
+  message = validate(context, 'zzz', cloneOptions(options));
   assert.equal(message, 'This field is not included in the list');
 
-  message = validate('a', context.cloneOptions(options), undefined, undefined, context);
+  message = validate(context, 'a', cloneOptions(options));
   assert.equal(message, true);
 
-  message = validate('o', context.cloneOptions(options), undefined, undefined, context);
+  message = validate(context, 'o', cloneOptions(options));
   assert.equal(message, true);
 
-  message = validate('z', context.cloneOptions(options), undefined, undefined, context);
+  message = validate(context, 'z', cloneOptions(options));
   assert.equal(message, true);
 });

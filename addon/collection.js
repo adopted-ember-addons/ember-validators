@@ -15,7 +15,7 @@ const {
  *  @module Validators
  *  @extends Base
  */
-export default function validateCollection(value, options, model, attribute, context) {
+export default function validateCollection(context, value, options) {
   const isCollection = get(options, 'collection');
 
   if (isCollection === true && !isArray(value)) {

@@ -11,23 +11,85 @@ A collection of EmberJS validators
 
 ## Installation
 
-* `git clone` this repository
-* `npm install`
-* `bower install`
+```shell
+ember install ember-validators
+```
 
-## Running
+## Helpful Links
 
-* `ember serve`
-* Visit your app at http://localhost:4200.
+- ### [Changelog](CHANGELOG.md)
 
-## Running Tests
+## Looking for help?
 
-* `npm test` (Runs `ember try:testall` to test your addon against multiple Ember versions)
-* `ember test`
-* `ember test --server`
+If it is a bug [please open an issue on GitHub](http://github.com/offirgolan/ember-validators/issues).
 
-## Building
+## Usage
 
-* `ember build`
+Each validator has the following signature:
 
-For more information on using ember-cli, visit [http://ember-cli.com/](http://ember-cli.com/).
+```js
+function (context, value, options, model, attribute) {}
+```
+
+#### Parameters:
+
+- context (**Object**):
+
+    Each validator must be passed a context. Please read below about what must be included in this object
+
+- value (**Mixed**):
+
+  The value to validate
+
+- options (**Object**):
+
+  A mutable object that holds validation specific options
+
+- model (**Object**):
+
+  The model that is being validated
+
+- attribute (**String**):
+
+  The attribute that is being validated
+
+#### Returns:
+
+- **true**
+
+  Validation passed
+
+- **String**
+
+  Validation failed with the given error message
+
+## Context
+
+A context object must have the following method:
+
+### createErrorMessage (type, value, context)
+
+#### Parameters:
+
+- type (**String**):
+
+    The type of error message (i.e. *wrongLength*, *notANumber*, etc.)
+
+- value (**Mixed**):
+
+  The value that was validated
+
+- context (**Object**):
+
+  The error message context
+
+  Given the following error message, the context should contain a **description**
+  and **format** property.
+
+  `{description} must be in the format of {format}`
+
+#### Returns:
+
+- **String**
+
+  The final error message

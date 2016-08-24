@@ -17,7 +17,7 @@ const {
  *  @module Validators
  *  @extends Base
  */
-export default function validateConfirmation(value, options, model, attribute, context) {
+export default function validateConfirmation(context, value, options, model, attribute) {
   const on = get(options, 'on');
 
   assert(`[validator:confirmation] [${attribute}] option 'on' is required`, isPresent(on));

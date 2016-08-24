@@ -6,6 +6,7 @@ import Ember from 'ember';
 import { module, test } from 'qunit';
 import validate from 'ember-validators/confirmation';
 import context from '../../helpers/validator-context';
+import cloneOptions from '../../helpers/clone-options';
 
 let model, options, message;
 
@@ -20,11 +21,11 @@ test('attribute', function(assert) {
     'email': 'foo@yahoo.com'
   });
 
-  message = validate('bar@yahoo.com', context.cloneOptions(options), model, undefined, context);
+  message = validate(context, 'bar@yahoo.com', cloneOptions(options), model);
   assert.equal(message, "This field doesn't match email");
 
   model.set('emailConfirmation', 'foo@yahoo.com');
 
-  message = validate('foo@yahoo.com', context.cloneOptions(options), model, undefined, context);
+  message = validate(context, 'foo@yahoo.com', cloneOptions(options), model);
   assert.equal(message, true);
 });

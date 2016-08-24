@@ -19,12 +19,12 @@ const {
  *  @extends Base
  */
 
-export default function validatePresence (value, options, model, attribute, context) {
+export default function validatePresence (context, value, options, model, attribute) {
   const { presence, ignoreBlank } = getProperties(options, ['presence', 'ignoreBlank']);
   const v = unwrapProxy(value);
   const _isPresent = ignoreBlank ? isPresent(v) : !isEmpty(v);
 
-  assert(`[validator:presence] [${attribute}] option 'presence' is required`, !isEmpty(presence));
+  assert(`[validator:presence] [${attribute}] option 'presence' is required`, isPresent(presence));
 
   if (presence === true && !_isPresent) {
     return context.createErrorMessage('blank', value, options);
