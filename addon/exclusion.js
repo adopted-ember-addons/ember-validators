@@ -4,6 +4,7 @@
  */
 
 import Ember from 'ember';
+import validationError from 'ember-validators/utils/validation-error';
 
 const {
   get,
@@ -18,7 +19,7 @@ const {
  *  @module Validators
  *  @extends Base
  */
-export default function validateExclusion(context, value, options, model, attribute) {
+export default function validateExclusion(value, options, model, attribute) {
   const array = get(options, 'in');
   const { range, allowBlank } = getProperties(options, ['range', 'allowBlank']);
 
@@ -29,7 +30,7 @@ export default function validateExclusion(context, value, options, model, attrib
   }
 
   if (array && array.indexOf(value) !== -1) {
-    return context.createErrorMessage('exclusion', value, options);
+    return validationError('exclusion', value, options);
   }
 
   if (range && range.length === 2) {
@@ -38,7 +39,7 @@ export default function validateExclusion(context, value, options, model, attrib
     const equalType = typeOf(value) === typeOf(min) && typeOf(value) === typeOf(max);
 
     if (equalType && min <= value && value <= max) {
-      return context.createErrorMessage('exclusion', value, options);
+      return validationError('exclusion', value, options);
     }
   }
 

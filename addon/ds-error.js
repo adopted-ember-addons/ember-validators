@@ -22,7 +22,7 @@ const {
  *  @module Validators
  *  @extends Base
  */
-export default function validateDsError(context, value, options, model, attribute) {
+export default function validateDsError(value, options, model, attribute) {
   let { path, key } = getPathAndKey(attribute);
 
   const errors = get(model, path);

@@ -4,6 +4,7 @@
  */
 
 import Ember from 'ember';
+import validationError from 'ember-validators/utils/validation-error';
 
 const {
   get,
@@ -16,7 +17,7 @@ const {
  *  @module Validators
  *  @extends Base
  */
-export default function validateNumber (context, value, options) {
+export default function validateNumber (value, options) {
   const numValue = Number(value);
   const optionKeys = Object.keys(options);
   const { allowBlank, allowString, integer } = getProperties(options, ['allowBlank', 'allowString', 'integer']);
@@ -26,20 +27,20 @@ export default function validateNumber (context, value, options) {
   }
 
   if (typeof value === 'string' && (isEmpty(value) || !allowString)) {
-    return context.createErrorMessage('notANumber', value, options);
+    return validationError('notANumber', value, options);
   }
 
   if (!isNumber(numValue)) {
-    return context.createErrorMessage('notANumber', value, options);
+    return validationError('notANumber', value, options);
   }
 
   if (integer && !isInteger(numValue)) {
-    return context.createErrorMessage('notAnInteger', value, options);
+    return validationError('notAnInteger', value, options);
   }
 
   for (let i = 0; i < optionKeys.length; i++) {
     const type = optionKeys[i];
-    const returnValue = _validateType(type, options, numValue, context);
+    const returnValue = _validateType(type, options, numValue);
 
     if (typeof returnValue === 'string') {
       return returnValue;
@@ -49,26 +50,26 @@ export default function validateNumber (context, value, options) {
   return true;
 }
 
-function _validateType(type, options, value, context) {
+function _validateType(type, options, value) {
   const expected = get(options, type);
   const actual = value;
 
   if (type === 'is' && actual !== expected) {
-    return context.createErrorMessage('equalTo', value, options);
+    return validationError('equalTo', value, options);
   } else if (type === 'lt' && actual >= expected) {
-    return context.createErrorMessage('lessThan', value, options);
+    return validationError('lessThan', value, options);
   } else if (type === 'lte' && actual > expected) {
-    return context.createErrorMessage('lessThanOrEqualTo', value, options);
+    return validationError('lessThanOrEqualTo', value, options);
   } else if (type === 'gt' && actual <= expected) {
-    return context.createErrorMessage('greaterThan', value, options);
+    return validationError('greaterThan', value, options);
   } else if (type === 'gte' && actual < expected) {
-    return context.createErrorMessage('greaterThanOrEqualTo', value, options);
+    return validationError('greaterThanOrEqualTo', value, options);
   } else if (type === 'positive' && actual < 0) {
-    return context.createErrorMessage('positive', value, options);
+    return validationError('positive', value, options);
   } else if (type === 'odd' && actual % 2 === 0) {
-    return context.createErrorMessage('odd', value, options);
+    return validationError('odd', value, options);
   } else if (type === 'even' && actual % 2 !== 0) {
-    return context.createErrorMessage('even', value, options);
+    return validationError('even', value, options);
   }
 
   return true;

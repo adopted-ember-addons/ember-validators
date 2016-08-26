@@ -4,6 +4,7 @@
  */
 
 import Ember from 'ember';
+import validationError from 'ember-validators/utils/validation-error';
 import unwrapProxy from 'ember-validators/utils/unwrap-proxy';
 
 const {
@@ -19,7 +20,7 @@ const {
  *  @extends Base
  */
 
-export default function validatePresence (context, value, options, model, attribute) {
+export default function validatePresence (value, options, model, attribute) {
   const { presence, ignoreBlank } = getProperties(options, ['presence', 'ignoreBlank']);
   const v = unwrapProxy(value);
   const _isPresent = ignoreBlank ? isPresent(v) : !isEmpty(v);
@@ -27,11 +28,11 @@ export default function validatePresence (context, value, options, model, attrib
   assert(`[validator:presence] [${attribute}] option 'presence' is required`, isPresent(presence));
 
   if (presence === true && !_isPresent) {
-    return context.createErrorMessage('blank', value, options);
+    return validationError('blank', value, options);
   }
 
   if (presence === false && _isPresent) {
-    return context.createErrorMessage('present', value, options);
+    return validationError('present', value, options);
   }
 
   return true;

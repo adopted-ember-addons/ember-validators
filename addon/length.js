@@ -4,6 +4,7 @@
  */
 
 import Ember from 'ember';
+import validationError from 'ember-validators/utils/validation-error';
 
 const {
   get,
@@ -18,13 +19,13 @@ const {
  *  @module Validators
  *  @extends Base
  */
-export default function validateLength (context, value, options, model, attribute) {
+export default function validateLength (value, options, model, attribute) {
   const { allowNone, allowBlank, is, min, max } = getProperties(options, [ 'allowNone', 'allowBlank', 'is', 'min', 'max' ]);
 
   assert(`[validator:length] [${attribute}] no options were passed in`, !isEmpty(Object.keys(options)));
 
   if (isNone(value)) {
-    return allowNone ? true : context.createErrorMessage('invalid', value, options);
+    return allowNone ? true : validationError('invalid', value, options);
   }
 
   if (allowBlank && isEmpty(value)) {
@@ -32,15 +33,15 @@ export default function validateLength (context, value, options, model, attribut
   }
 
   if (!isNone(is) && is !== get(value, 'length')) {
-    return context.createErrorMessage('wrongLength', value, options);
+    return validationError('wrongLength', value, options);
   }
 
   if (!isNone(min) && min > get(value, 'length')) {
-    return context.createErrorMessage('tooShort', value, options);
+    return validationError('tooShort', value, options);
   }
 
   if (!isNone(max) && max < get(value, 'length')) {
-    return context.createErrorMessage('tooLong', value, options);
+    return validationError('tooLong', value, options);
   }
 
   return true;

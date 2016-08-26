@@ -4,6 +4,7 @@
  */
 
 import Ember from 'ember';
+import validationError from 'ember-validators/utils/validation-error';
 
 const {
   get,
@@ -17,13 +18,13 @@ const {
  *  @module Validators
  *  @extends Base
  */
-export default function validateConfirmation(context, value, options, model, attribute) {
+export default function validateConfirmation(value, options, model, attribute) {
   const on = get(options, 'on');
 
   assert(`[validator:confirmation] [${attribute}] option 'on' is required`, isPresent(on));
 
   if (!isEqual(value, get(model, on))) {
-    return context.createErrorMessage('confirmation', value, options);
+    return validationError('confirmation', value, options);
   }
 
   return true;

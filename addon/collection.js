@@ -4,6 +4,7 @@
  */
 
 import Ember from 'ember';
+import validationError from 'ember-validators/utils/validation-error';
 
 const {
   get,
@@ -15,15 +16,15 @@ const {
  *  @module Validators
  *  @extends Base
  */
-export default function validateCollection(context, value, options) {
-  const isCollection = get(options, 'collection');
+export default function validateCollection(value, options) {
+  const collection = get(options, 'collection');
 
-  if (isCollection === true && !isArray(value)) {
-    return context.createErrorMessage('collection', value, options);
+  if (collection === true && !isArray(value)) {
+    return validationError('collection', value, options);
   }
 
-  if (isCollection === false && isArray(value)) {
-    return context.createErrorMessage('singular', value, options);
+  if (collection === false && isArray(value)) {
+    return validationError('singular', value, options);
   }
 
   return true;

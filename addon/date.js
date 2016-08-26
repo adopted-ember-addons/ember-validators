@@ -4,6 +4,7 @@
  */
 
 import Ember from 'ember';
+import validationError from 'ember-validators/utils/validation-error';
 import requireModule from 'ember-validators/utils/require-module';
 
 const moment = requireModule('moment');
@@ -35,7 +36,7 @@ function _parseDate(date, format, useStrict = false) {
   return isNone(format) ? moment(new Date(date)) : moment(date, format, useStrict);
 }
 
-export default function validateDate(context, value, options) {
+export default function validateDate(value, options) {
   const errorFormat = getWithDefault(options, 'errorFormat', 'MMM Do, YYYY');
   const { format, precision, allowBlank } = getProperties(options, ['format', 'precision', 'allowBlank']);
   let { before, onOrBefore, after, onOrAfter } = getProperties(options, ['before', 'onOrBefore', 'after', 'onOrAfter']);
@@ -48,12 +49,12 @@ export default function validateDate(context, value, options) {
   if (format) {
     date = _parseDate(value, format, true);
     if (!date.isValid()) {
-      return context.createErrorMessage('wrongDateFormat', value, options);
+      return validationError('wrongDateFormat', value, options);
     }
   } else {
     date = _parseDate(value);
     if (!date.isValid()) {
-      return context.createErrorMessage('date', value, options);
+      return validationError('date', value, options);
     }
   }
 
@@ -61,7 +62,7 @@ export default function validateDate(context, value, options) {
     before = _parseDate(before, format);
     if (!date.isBefore(before, precision)) {
       set(options, 'before', before.format(errorFormat));
-      return context.createErrorMessage('before', value, options);
+      return validationError('before', value, options);
     }
   }
 
@@ -69,7 +70,7 @@ export default function validateDate(context, value, options) {
     onOrBefore = _parseDate(onOrBefore, format);
     if (!date.isSameOrBefore(onOrBefore, precision))  {
       set(options, 'onOrBefore', onOrBefore.format(errorFormat));
-      return context.createErrorMessage('onOrBefore', value, options);
+      return validationError('onOrBefore', value, options);
     }
   }
 
@@ -77,7 +78,7 @@ export default function validateDate(context, value, options) {
     after = _parseDate(after, format);
     if (!date.isAfter(after, precision)) {
       set(options, 'after', after.format(errorFormat));
-      return context.createErrorMessage('after', value, options);
+      return validationError('after', value, options);
     }
   }
 
@@ -85,7 +86,7 @@ export default function validateDate(context, value, options) {
     onOrAfter = _parseDate(onOrAfter, format);
     if (!date.isSameOrAfter(onOrAfter, precision)) {
       set(options, 'onOrAfter', onOrAfter.format(errorFormat));
-      return context.createErrorMessage('onOrAfter', value, options);
+      return validationError('onOrAfter', value, options);
     }
   }
 
