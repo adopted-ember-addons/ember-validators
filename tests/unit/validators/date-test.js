@@ -6,10 +6,10 @@
 import moment from 'moment';
 import { module, test } from 'qunit';
 import validate from 'ember-validators/date';
-import context from '../../helpers/validator-context';
+import processResult from '../../helpers/process-result';
 import cloneOptions from '../../helpers/clone-options';
 
-let  options, message;
+let  options, result;
 
 module('Unit | Validator | date');
 
@@ -17,8 +17,8 @@ test('no options', function(assert) {
   assert.expect(1);
 
   options = {};
-  message = validate(context, undefined, options);
-  assert.equal(message, true);
+  result = validate(undefined, options);
+  assert.equal(processResult(result), true);
 });
 
 test('allow blank', function(assert) {
@@ -29,11 +29,11 @@ test('allow blank', function(assert) {
     before: '1/1/2015'
   };
 
-  message = validate(context, '', cloneOptions(options));
-  assert.equal(message, true);
+  result = validate('', cloneOptions(options));
+  assert.equal(processResult(result), true);
 
-  message = validate(context, '1/1/2016', cloneOptions(options));
-  assert.equal(message, 'This field must be before Jan 1st, 2015');
+  result = validate('1/1/2016', cloneOptions(options));
+  assert.equal(processResult(result), 'This field must be before Jan 1st, 2015');
 });
 
 test('valid date', function(assert) {
@@ -41,11 +41,11 @@ test('valid date', function(assert) {
 
   options = {};
 
-  message = validate(context, 'abc', cloneOptions(options));
-  assert.equal(message, 'This field must be a valid date');
+  result = validate('abc', cloneOptions(options));
+  assert.equal(processResult(result), 'This field must be a valid date');
 
-  message = validate(context, new Date(), cloneOptions(options));
-  assert.equal(message, true);
+  result = validate(new Date(), cloneOptions(options));
+  assert.equal(processResult(result), true);
 });
 
 test('valid input date format', function(assert) {
@@ -55,11 +55,11 @@ test('valid input date format', function(assert) {
     format: 'DD/M/YYYY'
   };
 
-  message = validate(context, '27/3/15', cloneOptions(options));
-  assert.equal(message, 'This field must be in the format of DD/M/YYYY');
+  result = validate('27/3/15', cloneOptions(options));
+  assert.equal(processResult(result), 'This field must be in the format of DD/M/YYYY');
 
-  message = validate(context, '27/3/2015', cloneOptions(options));
-  assert.equal(message, true);
+  result = validate('27/3/2015', cloneOptions(options));
+  assert.equal(processResult(result), true);
 });
 
 test('error date format', function(assert) {
@@ -70,8 +70,8 @@ test('error date format', function(assert) {
     before: '1/1/2015'
   };
 
-  message = validate(context, '1/1/2016', cloneOptions(options));
-  assert.equal(message, 'This field must be before 1/1/2015');
+  result = validate('1/1/2016', cloneOptions(options));
+  assert.equal(processResult(result), 'This field must be before 1/1/2015');
 });
 
 test('before', function(assert) {
@@ -81,11 +81,11 @@ test('before', function(assert) {
     before: '1/1/2015'
   };
 
-  message = validate(context, '1/1/2016', cloneOptions(options));
-  assert.equal(message, 'This field must be before Jan 1st, 2015');
+  result = validate('1/1/2016', cloneOptions(options));
+  assert.equal(processResult(result), 'This field must be before Jan 1st, 2015');
 
-  message = validate(context, '1/1/2014', cloneOptions(options));
-  assert.equal(message, true);
+  result = validate('1/1/2014', cloneOptions(options));
+  assert.equal(processResult(result), true);
 });
 
 test('before now', function(assert) {
@@ -95,11 +95,11 @@ test('before now', function(assert) {
     before: 'now'
   };
 
-  message = validate(context, '1/1/3015', cloneOptions(options));
-  assert.equal(message, `This field must be before ${now}`);
+  result = validate('1/1/3015', cloneOptions(options));
+  assert.equal(processResult(result), `This field must be before ${now}`);
 
-  message = validate(context, '1/1/2014', cloneOptions(options));
-  assert.equal(message, true);
+  result = validate('1/1/2014', cloneOptions(options));
+  assert.equal(processResult(result), true);
 });
 
 test('before or on', function(assert) {
@@ -109,14 +109,14 @@ test('before or on', function(assert) {
     onOrBefore: '1/1/2015'
   };
 
-  message = validate(context, '1/1/2016', cloneOptions(options));
-  assert.equal(message, 'This field must be on or before Jan 1st, 2015');
+  result = validate('1/1/2016', cloneOptions(options));
+  assert.equal(processResult(result), 'This field must be on or before Jan 1st, 2015');
 
-  message = validate(context, '1/1/2014', cloneOptions(options));
-  assert.equal(message, true);
+  result = validate('1/1/2014', cloneOptions(options));
+  assert.equal(processResult(result), true);
 
-  message = validate(context, '1/1/2015', cloneOptions(options));
-  assert.equal(message, true);
+  result = validate('1/1/2015', cloneOptions(options));
+  assert.equal(processResult(result), true);
 });
 
 test('before now or on', function(assert) {
@@ -126,14 +126,14 @@ test('before now or on', function(assert) {
     onOrBefore: 'now'
   };
 
-  message = validate(context, '1/1/3015', cloneOptions(options));
-  assert.equal(message, `This field must be on or before ${now}`);
+  result = validate('1/1/3015', cloneOptions(options));
+  assert.equal(processResult(result), `This field must be on or before ${now}`);
 
-  message = validate(context, '1/1/2014', cloneOptions(options));
-  assert.equal(message, true);
+  result = validate('1/1/2014', cloneOptions(options));
+  assert.equal(processResult(result), true);
 
-  message = validate(context, 'now', cloneOptions(options));
-  assert.equal(message, true);
+  result = validate('now', cloneOptions(options));
+  assert.equal(processResult(result), true);
 });
 
 test('before or on precision', function(assert) {
@@ -149,17 +149,17 @@ test('before or on precision', function(assert) {
 
     options = { onOrBefore: dateString };
 
-    message = validate(context, now, cloneOptions(options));
-    assert.equal(message, true);
+    result = validate(now, cloneOptions(options));
+    assert.equal(processResult(result), true);
 
-    message = validate(context, moment(now).add(1, precision), cloneOptions(options));
-    assert.equal(message, `This field must be on or before ${nowMessage}`);
+    result = validate(moment(now).add(1, precision), cloneOptions(options));
+    assert.equal(processResult(result), `This field must be on or before ${nowMessage}`);
 
     if ((i + 1) !== precisions.length) {
       options = { onOrBefore: dateString, precision: precisions[i + 1] };
 
-      message = validate(context, moment(now).add(1, precisions), cloneOptions(options));
-      assert.equal(message, true);
+      result = validate(moment(now).add(1, precisions), cloneOptions(options));
+      assert.equal(processResult(result), true);
     }
   }
 });
@@ -171,11 +171,11 @@ test('after', function(assert) {
     after: '1/1/2015'
   };
 
-  message = validate(context, '1/1/2014', cloneOptions(options));
-  assert.equal(message, 'This field must be after Jan 1st, 2015');
+  result = validate('1/1/2014', cloneOptions(options));
+  assert.equal(processResult(result), 'This field must be after Jan 1st, 2015');
 
-  message = validate(context, '1/1/2016', cloneOptions(options));
-  assert.equal(message, true);
+  result = validate('1/1/2016', cloneOptions(options));
+  assert.equal(processResult(result), true);
 });
 
 test('after now', function(assert) {
@@ -185,11 +185,11 @@ test('after now', function(assert) {
     after: 'now'
   };
 
-  message = validate(context, '1/1/2014', cloneOptions(options));
-  assert.equal(message, `This field must be after ${now}`);
+  result = validate('1/1/2014', cloneOptions(options));
+  assert.equal(processResult(result), `This field must be after ${now}`);
 
-  message = validate(context, '1/1/3015', cloneOptions(options));
-  assert.equal(message, true);
+  result = validate('1/1/3015', cloneOptions(options));
+  assert.equal(processResult(result), true);
 });
 
 test('after or on', function(assert) {
@@ -199,14 +199,14 @@ test('after or on', function(assert) {
     onOrAfter: '1/1/2015'
   };
 
-  message = validate(context, '1/1/2014', cloneOptions(options));
-  assert.equal(message, 'This field must be on or after Jan 1st, 2015');
+  result = validate('1/1/2014', cloneOptions(options));
+  assert.equal(processResult(result), 'This field must be on or after Jan 1st, 2015');
 
-  message = validate(context, '1/1/2016', cloneOptions(options));
-  assert.equal(message, true);
+  result = validate('1/1/2016', cloneOptions(options));
+  assert.equal(processResult(result), true);
 
-  message = validate(context, '1/1/2015', cloneOptions(options));
-  assert.equal(message, true);
+  result = validate('1/1/2015', cloneOptions(options));
+  assert.equal(processResult(result), true);
 });
 
 test('after now or on', function(assert) {
@@ -217,14 +217,14 @@ test('after now or on', function(assert) {
     precision: 'second'
   };
 
-  message = validate(context, '1/1/2014', cloneOptions(options));
-  assert.equal(message, `This field must be on or after ${now}`);
+  result = validate('1/1/2014', cloneOptions(options));
+  assert.equal(processResult(result), `This field must be on or after ${now}`);
 
-  message = validate(context, '1/1/3015', cloneOptions(options));
-  assert.equal(message, true);
+  result = validate('1/1/3015', cloneOptions(options));
+  assert.equal(processResult(result), true);
 
-  message = validate(context, 'now', cloneOptions(options));
-  assert.equal(message, true);
+  result = validate('now', cloneOptions(options));
+  assert.equal(processResult(result), true);
 });
 
 test('after or on precision', function(assert) {
@@ -240,17 +240,17 @@ test('after or on precision', function(assert) {
 
     options = { onOrAfter: dateString };
 
-    message = validate(context, now, cloneOptions(options));
-    assert.equal(message, true);
+    result = validate(now, cloneOptions(options));
+    assert.equal(processResult(result), true);
 
-    message = validate(context, moment(now).subtract(1, precision), cloneOptions(options));
-    assert.equal(message, `This field must be on or after ${nowMessage}`);
+    result = validate(moment(now).subtract(1, precision), cloneOptions(options));
+    assert.equal(processResult(result), `This field must be on or after ${nowMessage}`);
 
     if ((i + 1) !== precisions.length) {
       options = { onOrAfter: dateString, precision: precisions[i + 1] };
 
-      message = validate(context, moment(now).subtract(1, precisions), cloneOptions(options));
-      assert.equal(message, true);
+      result = validate(moment(now).subtract(1, precisions), cloneOptions(options));
+      assert.equal(processResult(result), true);
     }
   }
 });

@@ -5,10 +5,10 @@
 
 import { module, test } from 'qunit';
 import validate from 'ember-validators/length';
-import context from '../../helpers/validator-context';
+import processResult from '../../helpers/process-result';
 import cloneOptions from '../../helpers/clone-options';
 
-let options, message;
+let options, result;
 
 module('Unit | Validator | length');
 
@@ -16,7 +16,7 @@ test('no options', function(assert) {
   assert.expect(1);
 
   try {
-    message = validate(context, undefined, {});
+    result = validate(undefined, {});
   } catch (e) {
     assert.ok(true);
   }
@@ -30,11 +30,11 @@ test('allow blank', function(assert) {
     min: 5
   };
 
-  message = validate(context, '', cloneOptions(options));
-  assert.equal(message, true);
+  result = validate('', cloneOptions(options));
+  assert.equal(processResult(result), true);
 
-  message = validate(context, 'test', cloneOptions(options));
-  assert.equal(message, 'This field is too short (minimum is 5 characters)');
+  result = validate('test', cloneOptions(options));
+  assert.equal(processResult(result), 'This field is too short (minimum is 5 characters)');
 });
 
 test('allow none', function(assert) {
@@ -44,12 +44,12 @@ test('allow none', function(assert) {
     allowNone: true
   };
 
-  message = validate(context, undefined, cloneOptions(options));
-  assert.equal(message, true);
+  result = validate(undefined, cloneOptions(options));
+  assert.equal(processResult(result), true);
 
   options.allowNone = false;
-  message = validate(context, null, cloneOptions(options));
-  assert.equal(message, 'This field is invalid');
+  result = validate(null, cloneOptions(options));
+  assert.equal(processResult(result), 'This field is invalid');
 });
 
 test('is', function(assert) {
@@ -59,11 +59,11 @@ test('is', function(assert) {
     is: 4
   };
 
-  message = validate(context, 'testing', cloneOptions(options));
-  assert.equal(message, 'This field is the wrong length (should be 4 characters)');
+  result = validate('testing', cloneOptions(options));
+  assert.equal(processResult(result), 'This field is the wrong length (should be 4 characters)');
 
-  message = validate(context, 'test', cloneOptions(options));
-  assert.equal(message, true);
+  result = validate('test', cloneOptions(options));
+  assert.equal(processResult(result), true);
 });
 
 test('min', function(assert) {
@@ -73,11 +73,11 @@ test('min', function(assert) {
     min: 5
   };
 
-  message = validate(context, 'test', cloneOptions(options));
-  assert.equal(message, 'This field is too short (minimum is 5 characters)');
+  result = validate('test', cloneOptions(options));
+  assert.equal(processResult(result), 'This field is too short (minimum is 5 characters)');
 
-  message = validate(context, 'testing', cloneOptions(options));
-  assert.equal(message, true);
+  result = validate('testing', cloneOptions(options));
+  assert.equal(processResult(result), true);
 });
 
 test('max', function(assert) {
@@ -87,11 +87,11 @@ test('max', function(assert) {
     max: 5
   };
 
-  message = validate(context, 'testing', cloneOptions(options));
-  assert.equal(message, 'This field is too long (maximum is 5 characters)');
+  result = validate('testing', cloneOptions(options));
+  assert.equal(processResult(result), 'This field is too long (maximum is 5 characters)');
 
-  message = validate(context, 'test', cloneOptions(options));
-  assert.equal(message, true);
+  result = validate('test', cloneOptions(options));
+  assert.equal(processResult(result), true);
 });
 
 test('array', function(assert) {
@@ -101,9 +101,9 @@ test('array', function(assert) {
     min: 1
   };
 
-  message = validate(context, [], cloneOptions(options));
-  assert.equal(message, 'This field is too short (minimum is 1 characters)');
+  result = validate([], cloneOptions(options));
+  assert.equal(processResult(result), 'This field is too short (minimum is 1 characters)');
 
-  message = validate(context, [1], cloneOptions(options));
-  assert.equal(message, true);
+  result = validate([1], cloneOptions(options));
+  assert.equal(processResult(result), true);
 });

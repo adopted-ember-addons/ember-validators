@@ -5,10 +5,10 @@
 
 import { module, test } from 'qunit';
 import { default as validate, regularExpressions } from 'ember-validators/format';
-import context from '../../helpers/validator-context';
+import processResult from '../../helpers/process-result';
 import cloneOptions from '../../helpers/clone-options';
 
-let options, message;
+let options, result;
 
 module('Unit | Validator | format');
 
@@ -16,7 +16,7 @@ test('no options', function(assert) {
   assert.expect(1);
 
   try {
-    message = validate(context, undefined, {});
+    result = validate(undefined, {});
   } catch (e) {
     assert.ok(true);
   }
@@ -32,11 +32,11 @@ test('allow blank', function(assert) {
   };
   options = cloneOptions(options);
 
-  message = validate(context, undefined, options);
-  assert.equal(message, true);
+  result = validate(undefined, options);
+  assert.equal(processResult(result), true);
 
-  message = validate(context, 'email', options);
-  assert.equal(message, 'This field must be a valid email address');
+  result = validate('email', options);
+  assert.equal(processResult(result), 'This field must be a valid email address');
 });
 
 test('email', function(assert) {
@@ -79,8 +79,8 @@ test('email', function(assert) {
 
   options = cloneOptions(options);
 
-  validAddresses.forEach((email) => assert.equal(validate(context, email, options), true, `validation of ${email} must succeed`));
-  invalidAddresses.forEach((email) => assert.equal(validate(context, email, options), 'This field must be a valid email address', `validation of ${email} must fail`));
+  validAddresses.forEach((email) => assert.equal(processResult(validate(email, options)), true, `validation of ${email} must succeed`));
+  invalidAddresses.forEach((email) => assert.equal(processResult(validate(email, options)), 'This field must be a valid email address', `validation of ${email} must fail`));
 });
 
 test('phone', function(assert) {
@@ -93,11 +93,11 @@ test('phone', function(assert) {
 
   options = cloneOptions(options);
 
-  message = validate(context, '123', options);
-  assert.equal(message, 'This field must be a valid phone number');
+  result = validate('123', options);
+  assert.equal(processResult(result), 'This field must be a valid phone number');
 
-  message = validate(context, '(408) 555-1234', options);
-  assert.equal(message, true);
+  result = validate('(408) 555-1234', options);
+  assert.equal(processResult(result), true);
 });
 
 test('url', function(assert) {
@@ -110,11 +110,11 @@ test('url', function(assert) {
 
   options = cloneOptions(options);
 
-  message = validate(context, 'yahoo', options);
-  assert.equal(message, 'This field must be a valid url');
+  result = validate('yahoo', options);
+  assert.equal(processResult(result), 'This field must be a valid url');
 
-  message = validate(context, 'http://www.yahoo.com', options);
-  assert.equal(message, true);
+  result = validate('http://www.yahoo.com', options);
+  assert.equal(processResult(result), true);
 });
 
 test('custom', function(assert) {
@@ -126,9 +126,9 @@ test('custom', function(assert) {
 
   options = cloneOptions(options);
 
-  message = validate(context, 'password', options);
-  assert.equal(message, 'This field is invalid');
+  result = validate('password', options);
+  assert.equal(processResult(result), 'This field is invalid');
 
-  message = validate(context, 'Pass123', options);
-  assert.equal(message, true);
+  result = validate('Pass123', options);
+  assert.equal(processResult(result), true);
 });

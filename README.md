@@ -33,10 +33,6 @@ function (context, value, options, model, attribute) {}
 
 #### Parameters:
 
-- context (**Object**):
-
-    Each validator must be passed a context. Please read below about what must be included in this object
-
 - value (**Mixed**):
 
   The value to validate
@@ -55,41 +51,26 @@ function (context, value, options, model, attribute) {}
 
 #### Returns:
 
-- **true**
+- **Boolean**
 
-  Validation passed
+  `true` will be returned if the validation passed
 
 - **String**
 
   Validation failed with the given error message
 
-## Context
+- **Object**
 
-A context object must have the following method:
+  Validation failed and a message should be built with the given attributes
 
-### createErrorMessage (type, value, context)
+  - type (**String**):
 
-#### Parameters:
+    The message type
 
-- type (**String**):
+  - value (**Mixed**):
 
-    The type of error message (i.e. *wrongLength*, *notANumber*, etc.)
+    The value that was validated
 
-- value (**Mixed**):
+  - context (**Object**):
 
-  The value that was validated
-
-- context (**Object**):
-
-  The error message context
-
-  Given the following error message, the context should contain a **description**
-  and **format** property.
-
-  `{description} must be in the format of {format}`
-
-#### Returns:
-
-- **String**
-
-  The final error message
+    The error message context

@@ -42,7 +42,7 @@ export default function validateNumber (value, options) {
     const type = optionKeys[i];
     const returnValue = _validateType(type, options, numValue);
 
-    if (typeof returnValue === 'string') {
+    if (typeof returnValue !== 'boolean') {
       return returnValue;
     }
   }

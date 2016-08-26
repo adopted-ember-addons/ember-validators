@@ -5,10 +5,10 @@
 
 import { module, test } from 'qunit';
 import validate from 'ember-validators/presence';
-import context from '../../helpers/validator-context';
+import processResult from '../../helpers/process-result';
 import cloneOptions from '../../helpers/clone-options';
 
-let options, message;
+let options, result;
 
 module('Unit | Validator | presence');
 
@@ -18,8 +18,8 @@ test('presence - value present', function(assert) {
   options = { presence: true };
 
 
-  message = validate(context, 'value', cloneOptions(options));
-  assert.equal(message, true);
+  result = validate('value', cloneOptions(options));
+  assert.equal(processResult(result), true);
 });
 
 test('presence - value blank', function(assert) {
@@ -28,8 +28,8 @@ test('presence - value blank', function(assert) {
   options = { presence: true };
 
 
-  message = validate(context, ' ', cloneOptions(options));
-  assert.equal(message, true);
+  result = validate(' ', cloneOptions(options));
+  assert.equal(processResult(result), true);
 });
 
 test('presence with ignoreBlank - value blank', function(assert) {
@@ -38,8 +38,8 @@ test('presence with ignoreBlank - value blank', function(assert) {
   options = { presence: true, ignoreBlank: true };
 
 
-  message = validate(context, ' ', cloneOptions(options));
-  assert.equal(message, "This field can't be blank");
+  result = validate(' ', cloneOptions(options));
+  assert.equal(processResult(result), "This field can't be blank");
 });
 
 test('presence - value not present', function(assert) {
@@ -47,8 +47,8 @@ test('presence - value not present', function(assert) {
 
   options = { presence: true };
 
-  message = validate(context, undefined, cloneOptions(options));
-  assert.equal(message, "This field can't be blank");
+  result = validate(undefined, cloneOptions(options));
+  assert.equal(processResult(result), "This field can't be blank");
 });
 
 test('absence - value present', function(assert) {
@@ -56,8 +56,8 @@ test('absence - value present', function(assert) {
 
   options = { presence: false };
 
-  message = validate(context, 'value', cloneOptions(options));
-  assert.equal(message, "This field must be blank");
+  result = validate('value', cloneOptions(options));
+  assert.equal(processResult(result), "This field must be blank");
 });
 
 test('absence - value not present', function(assert) {
@@ -65,6 +65,6 @@ test('absence - value not present', function(assert) {
 
   options = { presence: false };
 
-  message = validate(context, undefined, cloneOptions(options));
-  assert.equal(message, true);
+  result = validate(undefined, cloneOptions(options));
+  assert.equal(processResult(result), true);
 });

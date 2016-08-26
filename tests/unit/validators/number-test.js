@@ -5,21 +5,21 @@
 
 import { module, test } from 'qunit';
 import validate from 'ember-validators/number';
-import context from '../../helpers/validator-context';
+import processResult from '../../helpers/process-result';
 import cloneOptions from '../../helpers/clone-options';
 
-let options, message;
+let options, result;
 
 module('Unit | Validator | number');
 
 test('no options', function(assert) {
   assert.expect(2);
 
-  message = validate(context, undefined, {});
-  assert.equal(message, 'This field must be a number');
+  result = validate(undefined, {});
+  assert.equal(processResult(result), 'This field must be a number');
 
-  message = validate(context, 22, cloneOptions(options));
-  assert.equal(message, true);
+  result = validate(22, cloneOptions(options));
+  assert.equal(processResult(result), true);
 });
 
 test('allow string', function(assert) {
@@ -29,25 +29,25 @@ test('allow string', function(assert) {
     allowString: true
   };
 
-  message = validate(context, '22', cloneOptions(options));
-  assert.equal(message, true);
+  result = validate('22', cloneOptions(options));
+  assert.equal(processResult(result), true);
 
-  message = validate(context, '22.22', cloneOptions(options));
-  assert.equal(message, true);
+  result = validate('22.22', cloneOptions(options));
+  assert.equal(processResult(result), true);
 
-  message = validate(context, 'test', cloneOptions(options));
-  assert.equal(message, 'This field must be a number');
+  result = validate('test', cloneOptions(options));
+  assert.equal(processResult(result), 'This field must be a number');
 
-  message = validate(context, '', cloneOptions(options));
-  assert.equal(message, 'This field must be a number');
+  result = validate('', cloneOptions(options));
+  assert.equal(processResult(result), 'This field must be a number');
 
   options.allowString = false;
 
-  message = validate(context, '22', cloneOptions(options));
-  assert.equal(message, 'This field must be a number');
+  result = validate('22', cloneOptions(options));
+  assert.equal(processResult(result), 'This field must be a number');
 
-  message = validate(context, '22.22', cloneOptions(options));
-  assert.equal(message, 'This field must be a number');
+  result = validate('22.22', cloneOptions(options));
+  assert.equal(processResult(result), 'This field must be a number');
 
 
 });
@@ -59,14 +59,14 @@ test('integer', function(assert) {
     integer: true
   };
 
-  message = validate(context, 22, cloneOptions(options));
-  assert.equal(message, true);
+  result = validate(22, cloneOptions(options));
+  assert.equal(processResult(result), true);
 
-  message = validate(context, 22.22, cloneOptions(options));
-  assert.equal(message, 'This field must be an integer');
+  result = validate(22.22, cloneOptions(options));
+  assert.equal(processResult(result), 'This field must be an integer');
 
-  message = validate(context, -2.2, cloneOptions(options));
-  assert.equal(message, 'This field must be an integer');
+  result = validate(-2.2, cloneOptions(options));
+  assert.equal(processResult(result), 'This field must be an integer');
 });
 
 test('is', function(assert) {
@@ -76,11 +76,11 @@ test('is', function(assert) {
     is: 22
   };
 
-  message = validate(context, 1, cloneOptions(options));
-  assert.equal(message, 'This field must be equal to 22');
+  result = validate(1, cloneOptions(options));
+  assert.equal(processResult(result), 'This field must be equal to 22');
 
-  message = validate(context, 22, cloneOptions(options));
-  assert.equal(message, true);
+  result = validate(22, cloneOptions(options));
+  assert.equal(processResult(result), true);
 });
 
 test('lt', function(assert) {
@@ -90,14 +90,14 @@ test('lt', function(assert) {
     lt: 22
   };
 
-  message = validate(context, 21, cloneOptions(options));
-  assert.equal(message, true);
+  result = validate(21, cloneOptions(options));
+  assert.equal(processResult(result), true);
 
-  message = validate(context, 22, cloneOptions(options));
-  assert.equal(message, 'This field must be less than 22');
+  result = validate(22, cloneOptions(options));
+  assert.equal(processResult(result), 'This field must be less than 22');
 
-  message = validate(context, 23, cloneOptions(options));
-  assert.equal(message, 'This field must be less than 22');
+  result = validate(23, cloneOptions(options));
+  assert.equal(processResult(result), 'This field must be less than 22');
 });
 
 test('lte', function(assert) {
@@ -107,14 +107,14 @@ test('lte', function(assert) {
     lte: 22
   };
 
-  message = validate(context, 21, cloneOptions(options));
-  assert.equal(message, true);
+  result = validate(21, cloneOptions(options));
+  assert.equal(processResult(result), true);
 
-  message = validate(context, 22, cloneOptions(options));
-  assert.equal(message, true);
+  result = validate(22, cloneOptions(options));
+  assert.equal(processResult(result), true);
 
-  message = validate(context, 23, cloneOptions(options));
-  assert.equal(message, 'This field must be less than or equal to 22');
+  result = validate(23, cloneOptions(options));
+  assert.equal(processResult(result), 'This field must be less than or equal to 22');
 });
 
 test('gt', function(assert) {
@@ -124,14 +124,14 @@ test('gt', function(assert) {
     gt: 22
   };
 
-  message = validate(context, 21, cloneOptions(options));
-  assert.equal(message, 'This field must be greater than 22');
+  result = validate(21, cloneOptions(options));
+  assert.equal(processResult(result), 'This field must be greater than 22');
 
-  message = validate(context, 22, cloneOptions(options));
-  assert.equal(message, 'This field must be greater than 22');
+  result = validate(22, cloneOptions(options));
+  assert.equal(processResult(result), 'This field must be greater than 22');
 
-  message = validate(context, 23, cloneOptions(options));
-  assert.equal(message, true);
+  result = validate(23, cloneOptions(options));
+  assert.equal(processResult(result), true);
 });
 
 test('gte', function(assert) {
@@ -141,14 +141,14 @@ test('gte', function(assert) {
     gte: 22
   };
 
-  message = validate(context, 21, cloneOptions(options));
-  assert.equal(message, 'This field must be greater than or equal to 22');
+  result = validate(21, cloneOptions(options));
+  assert.equal(processResult(result), 'This field must be greater than or equal to 22');
 
-  message = validate(context, 22, cloneOptions(options));
-  assert.equal(message, true);
+  result = validate(22, cloneOptions(options));
+  assert.equal(processResult(result), true);
 
-  message = validate(context, 23, cloneOptions(options));
-  assert.equal(message, true);
+  result = validate(23, cloneOptions(options));
+  assert.equal(processResult(result), true);
 });
 
 test('positive', function(assert) {
@@ -158,17 +158,17 @@ test('positive', function(assert) {
     positive: true
   };
 
-  message = validate(context, -1, cloneOptions(options));
-  assert.equal(message, 'This field must be positive');
+  result = validate(-1, cloneOptions(options));
+  assert.equal(processResult(result), 'This field must be positive');
 
-  message = validate(context, -144, cloneOptions(options));
-  assert.equal(message, 'This field must be positive');
+  result = validate(-144, cloneOptions(options));
+  assert.equal(processResult(result), 'This field must be positive');
 
-  message = validate(context, 0, cloneOptions(options));
-  assert.equal(message, true);
+  result = validate(0, cloneOptions(options));
+  assert.equal(processResult(result), true);
 
-  message = validate(context, 22, cloneOptions(options));
-  assert.equal(message, true);
+  result = validate(22, cloneOptions(options));
+  assert.equal(processResult(result), true);
 });
 
 test('odd', function(assert) {
@@ -178,17 +178,17 @@ test('odd', function(assert) {
     odd: true
   };
 
-  message = validate(context, 22, cloneOptions(options));
-  assert.equal(message, 'This field must be odd');
+  result = validate(22, cloneOptions(options));
+  assert.equal(processResult(result), 'This field must be odd');
 
-  message = validate(context, -144, cloneOptions(options));
-  assert.equal(message, 'This field must be odd');
+  result = validate(-144, cloneOptions(options));
+  assert.equal(processResult(result), 'This field must be odd');
 
-  message = validate(context, 21, cloneOptions(options));
-  assert.equal(message, true);
+  result = validate(21, cloneOptions(options));
+  assert.equal(processResult(result), true);
 
-  message = validate(context, -21, cloneOptions(options));
-  assert.equal(message, true);
+  result = validate(-21, cloneOptions(options));
+  assert.equal(processResult(result), true);
 });
 
 test('even', function(assert) {
@@ -198,20 +198,20 @@ test('even', function(assert) {
     even: true
   };
 
-  message = validate(context, 22, cloneOptions(options));
-  assert.equal(message, true);
+  result = validate(22, cloneOptions(options));
+  assert.equal(processResult(result), true);
 
-  message = validate(context, -22, cloneOptions(options));
-  assert.equal(message, true);
+  result = validate(-22, cloneOptions(options));
+  assert.equal(processResult(result), true);
 
-  message = validate(context, 22.22, cloneOptions(options));
-  assert.equal(message, 'This field must be even');
+  result = validate(22.22, cloneOptions(options));
+  assert.equal(processResult(result), 'This field must be even');
 
-  message = validate(context, 21, cloneOptions(options));
-  assert.equal(message, 'This field must be even');
+  result = validate(21, cloneOptions(options));
+  assert.equal(processResult(result), 'This field must be even');
 
-  message = validate(context, -33, cloneOptions(options));
-  assert.equal(message, 'This field must be even');
+  result = validate(-33, cloneOptions(options));
+  assert.equal(processResult(result), 'This field must be even');
 });
 
 test('allowBlank', function(assert) {
@@ -221,12 +221,12 @@ test('allowBlank', function(assert) {
     allowBlank: true
   };
 
-  message = validate(context, null, cloneOptions(options));
-  assert.equal(message, true);
+  result = validate(null, cloneOptions(options));
+  assert.equal(processResult(result), true);
 
-  message = validate(context, undefined, cloneOptions(options));
-  assert.equal(message, true);
+  result = validate(undefined, cloneOptions(options));
+  assert.equal(processResult(result), true);
 
-  message = validate(context, '', cloneOptions(options));
-  assert.equal(message, true);
+  result = validate('', cloneOptions(options));
+  assert.equal(processResult(result), true);
 });

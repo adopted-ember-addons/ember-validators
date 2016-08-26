@@ -3,7 +3,8 @@ language: node_js
 node_js:
   - "4"
 
-sudo: false
+sudo: required
+dist: trusty
 
 cache:
   directories:
@@ -12,24 +13,44 @@ cache:
 addons:
   code_climate:
     repo_token: d0c0b77e8e686f0574c52fea34c6b2d7accf687c6946c5862ad9bfd727b9e999
+  apt:
+    sources:
+      - google-chrome
+    packages:
+      - google-chrome-stable
+
+env:
+  - EMBER_TRY_SCENARIO=ember-1.11
+  - EMBER_TRY_SCENARIO=ember-1.12
+  - EMBER_TRY_SCENARIO=ember-1.13
+  - EMBER_TRY_SCENARIO=ember-2.0
+  - EMBER_TRY_SCENARIO=ember-2.1
+  - EMBER_TRY_SCENARIO=ember-2.2
+  - EMBER_TRY_SCENARIO=ember-2.3
+  - EMBER_TRY_SCENARIO=ember-release
+  - EMBER_TRY_SCENARIO=ember-beta
+  - EMBER_TRY_SCENARIO=ember-canary
+
+matrix:
+  fast_finish: true
+  allow_failures:
+    - env: EMBER_TRY_SCENARIO=ember-beta
+    - env: EMBER_TRY_SCENARIO=ember-canary
 
 before_install:
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
   - npm config set spin false
-  - npm install -g bower
-  - bower --version
-  - npm install phantomjs-prebuilt
-  - phantomjs --version
+  - npm install -g npm@^3
   - npm install -g codeclimate-test-reporter
 
-
 install:
+  - npm install -g bower
   - npm install
   - bower install
 
 script:
-  # Usually, it's ok to finish the test scenario without reverting
-  #  to the addon's original dependency state, skipping "cleanup".
-  - ember try:each
+  - ember try:one $EMBER_TRY_SCENARIO --- ember test
 
 after_script:
   - codeclimate-test-reporter < lcov.dat

@@ -5,10 +5,10 @@
 
 import { module, test } from 'qunit';
 import validate from 'ember-validators/collection';
-import context from '../../helpers/validator-context';
+import processResult from '../../helpers/process-result';
 import cloneOptions from '../../helpers/clone-options';
 
-let options, message;
+let options, result;
 
 module('Unit | Validator | collection');
 
@@ -17,8 +17,8 @@ test('value is collection', function(assert) {
 
   options = { collection: true };
 
-  message = validate(context, ['foo', 'bar'], cloneOptions(options));
-  assert.equal(message, true);
+  result = validate(['foo', 'bar'], cloneOptions(options));
+  assert.equal(processResult(result), true);
 });
 
 test('value not collection', function(assert) {
@@ -26,8 +26,8 @@ test('value not collection', function(assert) {
 
   options = { collection: true };
 
-  message = validate(context, 'foo', cloneOptions(options));
-  assert.equal(message, "This field must be a collection");
+  result = validate('foo', cloneOptions(options));
+  assert.equal(processResult(result), "This field must be a collection");
 });
 
 test('singular - value is singular', function(assert) {
@@ -35,8 +35,8 @@ test('singular - value is singular', function(assert) {
 
   options = { collection: false };
 
-  message = validate(context, 'value', cloneOptions(options));
-  assert.equal(message, true);
+  result = validate('value', cloneOptions(options));
+  assert.equal(processResult(result), true);
 });
 
 test('singular - value not singular', function(assert) {
@@ -44,6 +44,6 @@ test('singular - value not singular', function(assert) {
 
   options = { collection: false };
 
-  message = validate(context, ['foo', 'bar'], cloneOptions(options));
-  assert.equal(message, "This field can't be a collection");
+  result = validate(['foo', 'bar'], cloneOptions(options));
+  assert.equal(processResult(result), "This field can't be a collection");
 });

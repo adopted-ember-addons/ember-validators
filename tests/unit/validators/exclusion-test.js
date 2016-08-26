@@ -5,10 +5,10 @@
 
 import { module, test } from 'qunit';
 import validate from 'ember-validators/exclusion';
-import context from '../../helpers/validator-context';
+import processResult from '../../helpers/process-result';
 import cloneOptions from '../../helpers/clone-options';
 
-let options, message;
+let options, result;
 
 module('Unit | Validator | exclusion');
 
@@ -16,7 +16,7 @@ test('no options', function(assert) {
   assert.expect(1);
 
   try {
-    message = validate(context, undefined, {});
+    result = validate(undefined, {});
   } catch (e) {
     assert.ok(true);
   }
@@ -30,11 +30,11 @@ test('allow blank', function(assert) {
     "in": ["foo", "bar", "baz"]
   };
 
-  message = validate(context, '', cloneOptions(options));
-  assert.equal(message, true);
+  result = validate('', cloneOptions(options));
+  assert.equal(processResult(result), true);
 
-  message = validate(context, 'foo', cloneOptions(options));
-  assert.equal(message, 'This field is reserved');
+  result = validate('foo', cloneOptions(options));
+  assert.equal(processResult(result), 'This field is reserved');
 });
 
 test('not in array', function(assert) {
@@ -44,17 +44,17 @@ test('not in array', function(assert) {
     "in": ["foo", "bar", "baz"]
   };
 
-  message = validate(context, 'foo', cloneOptions(options));
-  assert.equal(message, 'This field is reserved');
+  result = validate('foo', cloneOptions(options));
+  assert.equal(processResult(result), 'This field is reserved');
 
-  message = validate(context, 'bar', cloneOptions(options));
-  assert.equal(message, 'This field is reserved');
+  result = validate('bar', cloneOptions(options));
+  assert.equal(processResult(result), 'This field is reserved');
 
-  message = validate(context, 'baz', cloneOptions(options));
-  assert.equal(message, 'This field is reserved');
+  result = validate('baz', cloneOptions(options));
+  assert.equal(processResult(result), 'This field is reserved');
 
-  message = validate(context, 'test', cloneOptions(options));
-  assert.equal(message, true);
+  result = validate('test', cloneOptions(options));
+  assert.equal(processResult(result), true);
 });
 
 test('not in range', function(assert) {
@@ -64,20 +64,20 @@ test('not in range', function(assert) {
     range: [1, 10]
   };
 
-  message = validate(context, 1, cloneOptions(options));
-  assert.equal(message, "This field is reserved");
+  result = validate(1, cloneOptions(options));
+  assert.equal(processResult(result), "This field is reserved");
 
-  message = validate(context, 5, cloneOptions(options));
-  assert.equal(message, "This field is reserved");
+  result = validate(5, cloneOptions(options));
+  assert.equal(processResult(result), "This field is reserved");
 
-  message = validate(context, 10, cloneOptions(options));
-  assert.equal(message, "This field is reserved");
+  result = validate(10, cloneOptions(options));
+  assert.equal(processResult(result), "This field is reserved");
 
-  message = validate(context, 0, cloneOptions(options));
-  assert.equal(message, true);
+  result = validate(0, cloneOptions(options));
+  assert.equal(processResult(result), true);
 
-  message = validate(context, 100, cloneOptions(options));
-  assert.equal(message, true);
+  result = validate(100, cloneOptions(options));
+  assert.equal(processResult(result), true);
 });
 
 test('range type check - number', function(assert) {
@@ -87,17 +87,17 @@ test('range type check - number', function(assert) {
     range: [1, 10]
   };
 
-  message = validate(context, 1, cloneOptions(options));
-  assert.equal(message, "This field is reserved");
+  result = validate(1, cloneOptions(options));
+  assert.equal(processResult(result), "This field is reserved");
 
-  message = validate(context, 5, cloneOptions(options));
-  assert.equal(message, "This field is reserved");
+  result = validate(5, cloneOptions(options));
+  assert.equal(processResult(result), "This field is reserved");
 
-  message = validate(context, '1', cloneOptions(options));
-  assert.equal(message, true);
+  result = validate('1', cloneOptions(options));
+  assert.equal(processResult(result), true);
 
-  message = validate(context, '5', cloneOptions(options));
-  assert.equal(message, true);
+  result = validate('5', cloneOptions(options));
+  assert.equal(processResult(result), true);
 });
 
 test('range type check - string', function(assert) {
@@ -107,15 +107,15 @@ test('range type check - string', function(assert) {
     range: ['a', 'z']
   };
 
-  message = validate(context, 'a', cloneOptions(options));
-  assert.equal(message, "This field is reserved");
+  result = validate('a', cloneOptions(options));
+  assert.equal(processResult(result), "This field is reserved");
 
-  message = validate(context, 'z', cloneOptions(options));
-  assert.equal(message, "This field is reserved");
+  result = validate('z', cloneOptions(options));
+  assert.equal(processResult(result), "This field is reserved");
 
-  message = validate(context, 97, cloneOptions(options));
-  assert.equal(message, true);
+  result = validate(97, cloneOptions(options));
+  assert.equal(processResult(result), true);
 
-  message = validate(context, 'zzz', cloneOptions(options));
-  assert.equal(message, true);
+  result = validate('zzz', cloneOptions(options));
+  assert.equal(processResult(result), true);
 });

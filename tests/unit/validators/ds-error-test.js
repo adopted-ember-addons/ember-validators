@@ -7,9 +7,9 @@ import Ember from 'ember';
 import DS from 'ember-data';
 import { module, test } from 'qunit';
 import validate from 'ember-validators/ds-error';
-import context from '../../helpers/validator-context';
+import processResult from '../../helpers/process-result';
 
-let model, message;
+let model, result;
 
 module('Unit | Validator | ds-error');
 
@@ -18,8 +18,8 @@ test('works with empty object', function(assert) {
 
   model = Ember.Object.create();
 
-  message = validate(context, undefined, undefined, model, 'username', context);
-  assert.equal(message, true);
+  result = validate(undefined, undefined, model, 'username');
+  assert.equal(processResult(result), true);
 });
 
 test('it works', function(assert) {
@@ -30,13 +30,13 @@ test('it works', function(assert) {
     username: null
   });
 
-  message = validate(context, undefined, undefined, model, 'username', context);
-  assert.equal(message, true);
+  result = validate(undefined, undefined, model, 'username');
+  assert.equal(processResult(result), true);
 
   model.get('errors').add('username', 'Username is not unique');
 
-  message = validate(context, undefined, undefined, model, 'username', context);
-  assert.equal(message, 'Username is not unique');
+  result = validate(undefined, undefined, model, 'username');
+  assert.equal(processResult(result), 'Username is not unique');
 });
 
 test('gets last message', function(assert) {
@@ -47,12 +47,12 @@ test('gets last message', function(assert) {
     username: null
   });
 
-  message = validate(context, undefined, undefined, model, 'username', context);
-  assert.equal(message, true);
+  result = validate(undefined, undefined, model, 'username');
+  assert.equal(processResult(result), true);
 
   model.get('errors').add('username', 'Username is not unique');
   model.get('errors').add('username', 'Username is too long');
 
-  message = validate(context, undefined, undefined, model, 'username', context);
-  assert.equal(message, 'Username is too long');
+  result = validate(undefined, undefined, model, 'username');
+  assert.equal(processResult(result), 'Username is too long');
 });

@@ -5,10 +5,10 @@
 import Ember from 'ember';
 import { module, test } from 'qunit';
 import validate from 'ember-validators/confirmation';
-import context from '../../helpers/validator-context';
+import processResult from '../../helpers/process-result';
 import cloneOptions from '../../helpers/clone-options';
 
-let model, options, message;
+let model, options, result;
 
 module('Unit | Validator | confirmation');
 
@@ -21,11 +21,11 @@ test('attribute', function(assert) {
     'email': 'foo@yahoo.com'
   });
 
-  message = validate(context, 'bar@yahoo.com', cloneOptions(options), model);
-  assert.equal(message, "This field doesn't match email");
+  result = validate('bar@yahoo.com', cloneOptions(options), model);
+  assert.equal(processResult(result), "This field doesn't match email");
 
   model.set('emailConfirmation', 'foo@yahoo.com');
 
-  message = validate(context, 'foo@yahoo.com', cloneOptions(options), model);
-  assert.equal(message, true);
+  result = validate('foo@yahoo.com', cloneOptions(options), model);
+  assert.equal(processResult(result), true);
 });
