@@ -25,6 +25,27 @@ If it is a bug [please open an issue on GitHub](http://github.com/offirgolan/emb
 
 ## Usage
 
+Validators can be individually imported and used as such
+
+```js
+import validatePresence from 'ember-validators/presence';
+import validateLength from 'ember-validators/length';
+
+validatePresence('foo', { presence: true });
+validateLength('foo', { min: 1 });
+```
+
+or via the **validate** method provided
+
+```js
+import { validate } from 'ember-validators';
+
+validate('presence', 'foo', { presence: true });
+validate('length', 'foo', { min: 1 });
+```
+
+## Validator Method Signature
+
 Each validator has the following signature:
 
 ```js
