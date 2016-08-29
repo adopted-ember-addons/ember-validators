@@ -28,7 +28,7 @@ If it is a bug [please open an issue on GitHub](http://github.com/offirgolan/emb
 Each validator has the following signature:
 
 ```js
-function (context, value, options, model, attribute) {}
+function (value, options, model, attribute) {}
 ```
 
 #### Parameters:
