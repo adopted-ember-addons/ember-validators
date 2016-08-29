@@ -15,7 +15,7 @@ test('unwraps proxy content', function(assert) {
   });
 
   const arrProxy = Ember.ArrayProxy.create({
-    content: ['foo', 'bar']
+    content: Ember.A(['foo', 'bar'])
   });
 
   const unwrappedObj = unwrapProxy(objProxy);
