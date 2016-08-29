@@ -8,7 +8,9 @@ import validationError from 'ember-validators/utils/validation-error';
 
 const {
   get,
-  isArray
+  assert,
+  isArray,
+  isPresent
 } = Ember;
 
 /**
@@ -16,8 +18,10 @@ const {
  *  @module Validators
  *  @extends Base
  */
-export default function validateCollection(value, options) {
+export default function validateCollection(value, options, model, attribute) {
   const collection = get(options, 'collection');
+
+  assert(`[validator:collection] [${attribute}] option 'collection' is required`, isPresent(collection));
 
   if (collection === true && !isArray(value)) {
     return validationError('collection', value, options);

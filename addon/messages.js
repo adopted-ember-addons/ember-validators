@@ -33,8 +33,8 @@ export default {
    * @param  {Object} options
    * @return {String}
    */
-  getDescriptionFor(attribute, options = {}) {
-    return get(options, 'description') || get(this, 'defaultDescription');
+  getDescriptionFor(attribute, context = {}) {
+    return get(context, 'description') || get(this, 'defaultDescription');
   },
 
   /**
