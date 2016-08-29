@@ -17,7 +17,6 @@ const {
 /**
  *  @class Inclusion
  *  @module Validators
- *  @extends Base
  */
 export default function validateInclusion(value, options, model, attribute) {
   const array = get(options, 'in');

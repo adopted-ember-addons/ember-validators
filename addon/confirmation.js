@@ -16,7 +16,6 @@ const {
 /**
  *  @class Confirmation
  *  @module Validators
- *  @extends Base
  */
 export default function validateConfirmation(value, options, model, attribute) {
   const on = get(options, 'on');

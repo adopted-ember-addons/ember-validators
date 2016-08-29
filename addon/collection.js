@@ -16,7 +16,6 @@ const {
 /**
  *  @class Collection
  *  @module Validators
- *  @extends Base
  */
 export default function validateCollection(value, options, model, attribute) {
   const collection = get(options, 'collection');

@@ -25,7 +25,6 @@ const {
 /**
  *  @class Date
  *  @module Validators
- *  @extends Base
  */
 
 function _parseDate(date, format, useStrict = false) {

@@ -20,7 +20,6 @@ const {
 /**
  *  @class DS Error
  *  @module Validators
- *  @extends Base
  */
 export default function validateDsError(value, options, model, attribute) {
   let { path, key } = getPathAndKey(attribute);

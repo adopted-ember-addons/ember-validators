@@ -15,7 +15,6 @@ const {
 /**
  *  @class Number
  *  @module Validators
- *  @extends Base
  */
 export default function validateNumber (value, options) {
   const numValue = Number(value);

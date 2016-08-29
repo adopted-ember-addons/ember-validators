@@ -17,7 +17,6 @@ const {
 /**
  *  @class Presence
  *  @module Validators
- *  @extends Base
  */
 
 export default function validatePresence (value, options, model, attribute) {

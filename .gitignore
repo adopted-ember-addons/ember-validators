@@ -16,3 +16,4 @@
 npm-debug.log
 testem.log
 lcov.dat
+*.ember-try

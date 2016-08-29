@@ -17,7 +17,6 @@ const {
 /**
  *  @class Length
  *  @module Validators
- *  @extends Base
  */
 export default function validateLength (value, options, model, attribute) {
   const { allowNone, allowBlank, is, min, max } = getProperties(options, [ 'allowNone', 'allowBlank', 'is', 'min', 'max' ]);

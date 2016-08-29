@@ -16,7 +16,6 @@ const {
 /**
  *  @class Format
  *  @module Validators
- *  @extends Base
  */
 export const regularExpressions = {
   email: /^[a-z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i,
