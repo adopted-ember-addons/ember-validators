@@ -17,3 +17,7 @@ npm-debug.log
 testem.log
 lcov.dat
 *.ember-try
+.vscode
+jsconfig.json
+/typings/*
+.vscodeignore

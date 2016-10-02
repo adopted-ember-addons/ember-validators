@@ -10,8 +10,7 @@ import requireModule from 'ember-validators/utils/require-module';
 const moment = requireModule('moment');
 
 if (!moment) {
-  throw new Error('MomentJS is required to use the Date validator. The easiest way to install moment.js is to install ember-moment.\n' +
-    'Installation instructions and documentation can be found at https://github.com/stefanpenner/ember-moment');
+  throw new Error('MomentJS is required to use the Date validator.');
 }
 
 const {
