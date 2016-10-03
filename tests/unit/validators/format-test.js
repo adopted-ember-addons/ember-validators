@@ -40,7 +40,7 @@ test('allow blank', function(assert) {
 });
 
 test('email', function(assert) {
-  const validAddresses = [
+  let validAddresses = [
     'email@domain.com',
     'firstname.lastname@domain.com',
     'email@subdomain.domain.com',
@@ -53,7 +53,7 @@ test('email', function(assert) {
     'firstname-lastname@domain.com',
     'EMAIL@DOMAIN.COM'
   ];
-  const invalidAddresses = [
+  let invalidAddresses = [
     'plainaddress',
     '#@%^%#$@#$@#.com',
     '@domain.com',
@@ -92,7 +92,7 @@ test('email', function(assert) {
 });
 
 test('email + allowNonTld', function(assert) {
-  const validAddresses = [
+  let validAddresses = [
     'email@domain.com',
     'firstname.lastname@domain.com',
     'email@subdomain.domain.com',
@@ -106,7 +106,7 @@ test('email + allowNonTld', function(assert) {
     'EMAIL@DOMAIN.COM',
     'email@domain'
   ];
-  const invalidAddresses = [
+  let invalidAddresses = [
     'plainaddress',
     '#@%^%#$@#$@#.com',
     '@domain.com',

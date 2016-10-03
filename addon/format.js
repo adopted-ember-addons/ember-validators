@@ -25,7 +25,7 @@ export const regularExpressions = {
 };
 
 export default function validateFormat(value, options, model, attribute) {
-  const { regex, type, allowBlank } = getProperties(options, ['regex', 'type', 'allowBlank']);
+  let { regex, type, allowBlank } = getProperties(options, ['regex', 'type', 'allowBlank']);
 
   assert(`[validator:format] [${attribute}] no options were passed in`, !isEmpty(Object.keys(options)));
 

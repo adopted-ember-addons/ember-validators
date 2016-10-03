@@ -27,7 +27,7 @@ test('allow blank', function(assert) {
 
   options = {
     allowBlank: true,
-    "in": ["foo", "bar", "baz"]
+    'in': ['foo', 'bar', 'baz']
   };
 
   result = validate('', cloneOptions(options));
@@ -41,7 +41,7 @@ test('in array', function(assert) {
   assert.expect(4);
 
   options = {
-    "in": ["foo", "bar", "baz"]
+    'in': ['foo', 'bar', 'baz']
   };
 
   result = validate('test', cloneOptions(options));

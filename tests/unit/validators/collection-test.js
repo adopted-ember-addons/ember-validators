@@ -27,7 +27,7 @@ test('value not collection', function(assert) {
   options = { collection: true };
 
   result = validate('foo', cloneOptions(options));
-  assert.equal(processResult(result), "This field must be a collection");
+  assert.equal(processResult(result), 'This field must be a collection');
 });
 
 test('singular - value is singular', function(assert) {
@@ -45,5 +45,5 @@ test('singular - value not singular', function(assert) {
   options = { collection: false };
 
   result = validate(['foo', 'bar'], cloneOptions(options));
-  assert.equal(processResult(result), "This field can't be a collection");
+  assert.equal(processResult(result), 'This field can\'t be a collection');
 });

@@ -6,7 +6,7 @@
 import Ember from 'ember';
 
 const {
-  canInvoke,
+  canInvoke
 } = Ember;
 
 export default function isPromise(p) {

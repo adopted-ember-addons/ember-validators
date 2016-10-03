@@ -27,7 +27,7 @@ test('allow blank', function(assert) {
 
   options = {
     allowBlank: true,
-    "in": ["foo", "bar", "baz"]
+    'in': ['foo', 'bar', 'baz']
   };
 
   result = validate('', cloneOptions(options));
@@ -41,7 +41,7 @@ test('not in array', function(assert) {
   assert.expect(4);
 
   options = {
-    "in": ["foo", "bar", "baz"]
+    'in': ['foo', 'bar', 'baz']
   };
 
   result = validate('foo', cloneOptions(options));
@@ -65,13 +65,13 @@ test('not in range', function(assert) {
   };
 
   result = validate(1, cloneOptions(options));
-  assert.equal(processResult(result), "This field is reserved");
+  assert.equal(processResult(result), 'This field is reserved');
 
   result = validate(5, cloneOptions(options));
-  assert.equal(processResult(result), "This field is reserved");
+  assert.equal(processResult(result), 'This field is reserved');
 
   result = validate(10, cloneOptions(options));
-  assert.equal(processResult(result), "This field is reserved");
+  assert.equal(processResult(result), 'This field is reserved');
 
   result = validate(0, cloneOptions(options));
   assert.equal(processResult(result), true);
@@ -88,10 +88,10 @@ test('range type check - number', function(assert) {
   };
 
   result = validate(1, cloneOptions(options));
-  assert.equal(processResult(result), "This field is reserved");
+  assert.equal(processResult(result), 'This field is reserved');
 
   result = validate(5, cloneOptions(options));
-  assert.equal(processResult(result), "This field is reserved");
+  assert.equal(processResult(result), 'This field is reserved');
 
   result = validate('1', cloneOptions(options));
   assert.equal(processResult(result), true);
@@ -108,10 +108,10 @@ test('range type check - string', function(assert) {
   };
 
   result = validate('a', cloneOptions(options));
-  assert.equal(processResult(result), "This field is reserved");
+  assert.equal(processResult(result), 'This field is reserved');
 
   result = validate('z', cloneOptions(options));
-  assert.equal(processResult(result), "This field is reserved");
+  assert.equal(processResult(result), 'This field is reserved');
 
   result = validate(97, cloneOptions(options));
   assert.equal(processResult(result), true);

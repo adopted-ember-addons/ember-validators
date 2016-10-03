@@ -10,16 +10,16 @@ import { default as unwrapProxy, isProxy } from 'ember-validators/utils/unwrap-p
 module('Unit | Util | unwrapProxy');
 
 test('unwraps proxy content', function(assert) {
-  const objProxy = Ember.ObjectProxy.create({
+  let objProxy = Ember.ObjectProxy.create({
     content: { foo: 'bar' }
   });
 
-  const arrProxy = Ember.ArrayProxy.create({
+  let arrProxy = Ember.ArrayProxy.create({
     content: Ember.A(['foo', 'bar'])
   });
 
-  const unwrappedObj = unwrapProxy(objProxy);
-  const unwrappedArr = unwrapProxy(arrProxy);
+  let unwrappedObj = unwrapProxy(objProxy);
+  let unwrappedArr = unwrapProxy(arrProxy);
 
   assert.notOk(isProxy(unwrappedObj));
   assert.deepEqual(unwrappedObj, { foo: 'bar' });
@@ -29,13 +29,13 @@ test('unwraps proxy content', function(assert) {
 });
 
 test('unwraps nested proxy content', function(assert) {
-  const objProxy = Ember.ObjectProxy.create({
+  let objProxy = Ember.ObjectProxy.create({
     content: Ember.ObjectProxy.create({
       content: { foo: 'bar' }
     })
   });
 
-  const unwrappedObj = unwrapProxy(objProxy);
+  let unwrappedObj = unwrapProxy(objProxy);
 
   assert.notOk(isProxy(unwrappedObj));
   assert.deepEqual(unwrappedObj, { foo: 'bar' });

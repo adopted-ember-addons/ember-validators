@@ -18,7 +18,7 @@ const {
  *  @module Validators
  */
 export default function validateCollection(value, options, model, attribute) {
-  const collection = get(options, 'collection');
+  let collection = get(options, 'collection');
 
   assert(`[validator:collection] [${attribute}] option 'collection' is required`, isPresent(collection));
 

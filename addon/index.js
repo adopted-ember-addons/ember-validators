@@ -15,7 +15,7 @@ const {
 export function validate(type, ...args) {
   let validator;
 
-  if(validatorsCache[type]) {
+  if (validatorsCache[type]) {
     validator = validatorsCache[type];
   } else {
     validator = requireModule(`ember-validators/${type}`);

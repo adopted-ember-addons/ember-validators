@@ -24,7 +24,7 @@ const {
 export default function validateDsError(value, options, model, attribute) {
   let { path, key } = getPathAndKey(attribute);
 
-  const errors = get(model, path);
+  let errors = get(model, path);
 
   if (!isNone(errors) && errors instanceof DS.Errors && errors.has(key)) {
     return get(errors.errorsFor(key), 'lastObject.message');

@@ -21,7 +21,7 @@ test('formatMessage', function(assert) {
   };
   assert.equal(messages.formatMessage(undefined, context), 'This field is invalid');
   assert.equal(messages.formatMessage('{foo} is undefined'), 'undefined is undefined');
-  assert.equal(messages.formatMessage('{foo} {foo} {bar} {baz}', {foo: 'a', bar: 1, baz: 'abc'}), 'a a 1 abc');
+  assert.equal(messages.formatMessage('{foo} {foo} {bar} {baz}', { foo: 'a', bar: 1, baz: 'abc' }), 'a a 1 abc');
 });
 
 test('getMessageFor', function(assert) {

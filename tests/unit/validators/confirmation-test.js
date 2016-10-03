@@ -22,7 +22,7 @@ test('attribute', function(assert) {
   });
 
   result = validate('bar@yahoo.com', cloneOptions(options), model);
-  assert.equal(processResult(result), "This field doesn't match email");
+  assert.equal(processResult(result), 'This field doesn\'t match email');
 
   model.set('emailConfirmation', 'foo@yahoo.com');
 

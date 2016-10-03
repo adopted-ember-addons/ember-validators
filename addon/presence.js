@@ -19,10 +19,10 @@ const {
  *  @module Validators
  */
 
-export default function validatePresence (value, options, model, attribute) {
-  const { presence, ignoreBlank } = getProperties(options, ['presence', 'ignoreBlank']);
-  const v = unwrapProxy(value);
-  const _isPresent = ignoreBlank ? isPresent(v) : !isEmpty(v);
+export default function validatePresence(value, options, model, attribute) {
+  let { presence, ignoreBlank } = getProperties(options, ['presence', 'ignoreBlank']);
+  let v = unwrapProxy(value);
+  let _isPresent = ignoreBlank ? isPresent(v) : !isEmpty(v);
 
   assert(`[validator:presence] [${attribute}] option 'presence' is required`, isPresent(presence));
 

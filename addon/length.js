@@ -18,8 +18,8 @@ const {
  *  @class Length
  *  @module Validators
  */
-export default function validateLength (value, options, model, attribute) {
-  const { allowNone, allowBlank, is, min, max } = getProperties(options, [ 'allowNone', 'allowBlank', 'is', 'min', 'max' ]);
+export default function validateLength(value, options, model, attribute) {
+  let { allowNone, allowBlank, is, min, max } = getProperties(options, [ 'allowNone', 'allowBlank', 'is', 'min', 'max' ]);
 
   assert(`[validator:length] [${attribute}] no options were passed in`, !isEmpty(Object.keys(options)));
 

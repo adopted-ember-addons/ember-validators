@@ -6,7 +6,7 @@ const {
 } = Ember;
 
 export default function processResult(result) {
-  if(result && typeof result === 'object') {
+  if (result && typeof result === 'object') {
     let { type, context } = result;
     set(context, 'description', Messages.getDescriptionFor(undefined, context));
     return Messages.getMessageFor(type, context);

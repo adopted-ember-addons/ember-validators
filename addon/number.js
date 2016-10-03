@@ -16,10 +16,10 @@ const {
  *  @class Number
  *  @module Validators
  */
-export default function validateNumber (value, options) {
-  const numValue = Number(value);
-  const optionKeys = Object.keys(options);
-  const { allowBlank, allowString, integer } = getProperties(options, ['allowBlank', 'allowString', 'integer']);
+export default function validateNumber(value, options) {
+  let numValue = Number(value);
+  let optionKeys = Object.keys(options);
+  let { allowBlank, allowString, integer } = getProperties(options, ['allowBlank', 'allowString', 'integer']);
 
   if (allowBlank && isEmpty(value)) {
     return true;
@@ -38,8 +38,8 @@ export default function validateNumber (value, options) {
   }
 
   for (let i = 0; i < optionKeys.length; i++) {
-    const type = optionKeys[i];
-    const returnValue = _validateType(type, options, numValue);
+    let type = optionKeys[i];
+    let returnValue = _validateType(type, options, numValue);
 
     if (typeof returnValue !== 'boolean') {
       return returnValue;
@@ -50,8 +50,8 @@ export default function validateNumber (value, options) {
 }
 
 function _validateType(type, options, value) {
-  const expected = get(options, type);
-  const actual = value;
+  let expected = get(options, type);
+  let actual = value;
 
   if (type === 'is' && actual !== expected) {
     return validationError('equalTo', value, options);

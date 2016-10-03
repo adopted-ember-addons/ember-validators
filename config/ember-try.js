@@ -21,7 +21,7 @@ module.exports = {
     },
     npm: {
       dependencies: {
-        'ember-get-helper': '^1.0.4',
+        'ember-get-helper': '^1.0.4'
       }
     }
   }, {
@@ -35,7 +35,7 @@ module.exports = {
     },
     npm: {
       dependencies: {
-        'ember-get-helper': '^1.0.4',
+        'ember-get-helper': '^1.0.4'
       }
     }
   }, {
@@ -49,7 +49,7 @@ module.exports = {
     },
     npm: {
       dependencies: {
-        'ember-get-helper': '^1.0.4',
+        'ember-get-helper': '^1.0.4'
       }
     }
   }, {

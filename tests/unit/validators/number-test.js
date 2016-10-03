@@ -48,8 +48,6 @@ test('allow string', function(assert) {
 
   result = validate('22.22', cloneOptions(options));
   assert.equal(processResult(result), 'This field must be a number');
-
-
 });
 
 test('integer', function(assert) {

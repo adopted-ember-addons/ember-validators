@@ -35,8 +35,8 @@ function _parseDate(date, format, useStrict = false) {
 }
 
 export default function validateDate(value, options) {
-  const errorFormat = getWithDefault(options, 'errorFormat', 'MMM Do, YYYY');
-  const { format, precision, allowBlank } = getProperties(options, ['format', 'precision', 'allowBlank']);
+  let errorFormat = getWithDefault(options, 'errorFormat', 'MMM Do, YYYY');
+  let { format, precision, allowBlank } = getProperties(options, ['format', 'precision', 'allowBlank']);
   let { before, onOrBefore, after, onOrAfter } = getProperties(options, ['before', 'onOrBefore', 'after', 'onOrAfter']);
   let date;
 

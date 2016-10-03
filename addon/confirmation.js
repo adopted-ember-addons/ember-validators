@@ -10,7 +10,7 @@ const {
   get,
   assert,
   isEqual,
-  isPresent,
+  isPresent
 } = Ember;
 
 /**
@@ -18,7 +18,7 @@ const {
  *  @module Validators
  */
 export default function validateConfirmation(value, options, model, attribute) {
-  const on = get(options, 'on');
+  let on = get(options, 'on');
 
   assert(`[validator:confirmation] [${attribute}] option 'on' is required`, isPresent(on));
 
