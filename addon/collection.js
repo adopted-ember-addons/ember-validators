@@ -17,6 +17,15 @@ const {
  *  @class Collection
  *  @module Validators
  */
+
+/**
+  * @method validate
+  * @param {Any} value
+  * @param {Object} options
+  * @param {Boolean} options.collection
+  * @param {Object} model
+  * @param {String} attribute
+  */
 export default function validateCollection(value, options, model, attribute) {
   let collection = get(options, 'collection');
 

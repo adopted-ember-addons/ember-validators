@@ -17,6 +17,15 @@ const {
  *  @class Confirmation
  *  @module Validators
  */
+
+/**
+ * @method validate
+ * @param {Any} value
+ * @param {Object} options
+ * @param {String} options.on The attribute to confirm against
+ * @param {Object} model
+ * @param {String} attribute
+ */
 export default function validateConfirmation(value, options, model, attribute) {
   let on = get(options, 'on');
 

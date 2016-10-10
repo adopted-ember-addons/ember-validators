@@ -21,6 +21,14 @@ const {
  *  @class DS Error
  *  @module Validators
  */
+
+/**
+ * @method validate
+ * @param {Any} value
+ * @param {Object} options
+ * @param {Object} model
+ * @param {String} attribute
+ */
 export default function validateDsError(value, options, model, attribute) {
   let { path, key } = getPathAndKey(attribute);
 

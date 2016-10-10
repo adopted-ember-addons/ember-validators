@@ -10,6 +10,10 @@ const {
   isNone
 } = Ember;
 
+/**
+ *  @class Messages
+ *  @module Validators
+ */
 export default {
   /**
    * Regex for matching error message placeholders

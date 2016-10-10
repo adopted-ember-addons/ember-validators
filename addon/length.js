@@ -18,6 +18,19 @@ const {
  *  @class Length
  *  @module Validators
  */
+
+/**
+ * @method validate
+ * @param {Any} value
+ * @param {Object} options
+ * @param {Boolean} options.allowNone If true, skips validation if the value is null or undefined. __Default: true__
+ * @param {Boolean} options.allowBlank If true, skips validation if the value is empty
+ * @param {Number} options.is The exact length the value can be
+ * @param {Number} options.min The minimum length the value can be
+ * @param {Number} options.max The maximum length the value can be
+ * @param {Object} model
+ * @param {String} attribute
+ */
 export default function validateLength(value, options, model, attribute) {
   let { allowNone, allowBlank, is, min, max } = getProperties(options, [ 'allowNone', 'allowBlank', 'is', 'min', 'max' ]);
 

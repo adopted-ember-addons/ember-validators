@@ -16,6 +16,25 @@ const {
  *  @class Number
  *  @module Validators
  */
+
+/**
+ * @method validate
+ * @param {Any} value
+ * @param {Object} options
+ * @param {Boolean} options.allowBlank If true, skips validation if the value is empty
+ * @param {Boolean} options.allowString If true, validator will accept string representation of a number
+ * @param {Boolean} options.integer Number must be an integer
+ * @param {Boolean} options.positive Number must be greater than 0
+ * @param {Boolean} options.odd Number must be odd
+ * @param {Boolean} options.even Number must be even
+ * @param {Number} options.is Number must be equal to this value
+ * @param {Number} options.lt Number must be less than this value
+ * @param {Number} options.lte Number must be less than or equal to this value
+ * @param {Number} options.gt Number must be greater than this value
+ * @param {Number} options.gte Number must be greater than or equal to this value
+ * @param {Object} model
+ * @param {String} attribute
+ */
 export default function validateNumber(value, options) {
   let numValue = Number(value);
   let optionKeys = Object.keys(options);

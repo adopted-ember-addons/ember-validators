@@ -22,18 +22,26 @@ const {
 } = Ember;
 
 /**
- *  @class Date
- *  @module Validators
+ * @class Date
+ * @module Validators
  */
 
-function _parseDate(date, format, useStrict = false) {
-  if (date === 'now' || isEmpty(date)) {
-    return moment();
-  }
-
-  return isNone(format) ? moment(new Date(date)) : moment(date, format, useStrict);
-}
-
+/**
+ * @method validate
+ * @param {Any} value
+ * @param {Object} options
+ * @param {Boolean} options.allowBlank If true, skips validation if the value is empty
+ * @param {String} options.before The specified date must be before this date
+ * @param {String} options.onOrBefore The specified date must be on or before this date
+ * @param {String} options.after The specified date must be after this date
+ * @param {String} options.onOrAfter The specified date must be on or after this date
+ * @param {String} options.precision Limit the comparison check to a specific granularity.
+ *                                   Possible Options: [`year`, `month`, `week`, `day`, `hour`, `minute`, `second`].
+ * @param {String} options.format Input value date format
+ * @param {String} options.errorFormat Error output date format. Defaults to `MMM Do, YYYY`
+ * @param {Object} model
+ * @param {String} attribute
+ */
 export default function validateDate(value, options) {
   let errorFormat = getWithDefault(options, 'errorFormat', 'MMM Do, YYYY');
   let { format, precision, allowBlank } = getProperties(options, ['format', 'precision', 'allowBlank']);
@@ -89,4 +97,12 @@ export default function validateDate(value, options) {
   }
 
   return true;
+}
+
+function _parseDate(date, format, useStrict = false) {
+  if (date === 'now' || isEmpty(date)) {
+    return moment();
+  }
+
+  return isNone(format) ? moment(new Date(date)) : moment(date, format, useStrict);
 }

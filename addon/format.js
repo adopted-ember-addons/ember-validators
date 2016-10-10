@@ -17,6 +17,18 @@ const {
  *  @class Format
  *  @module Validators
  */
+
+/**
+ * @method validate
+ * @param {Any} value
+ * @param {Object} options
+ * @param {Boolean} options.allowBlank If true, skips validation if the value is empty
+ * @param {String} options.type Can be the one of the following options [`email`, `phone`, `url`]
+ * @param {Regex} options.regex The regular expression to test against
+ * @param {Boolean} options.allowNonTld If true, the predefined regular expression `email` allows non top-level domains
+ * @param {Object} model
+ * @param {String} attribute
+ */
 export const regularExpressions = {
   email: /^[a-z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i,
   emailOptionalTld: /^[a-z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.?)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i,

@@ -18,6 +18,17 @@ const {
  *  @class Inclusion
  *  @module Validators
  */
+
+/**
+ * @method validate
+ * @param {Any} value
+ * @param {Object} options
+ * @param {Boolean} options.allowBlank If true, skips validation if the value is empty
+ * @param {Array} options.in The list of values this attribute could be
+ * @param {Array} options.range The range in which the attribute's value should reside in
+ * @param {Object} model
+ * @param {String} attribute
+ */
 export default function validateInclusion(value, options, model, attribute) {
   let array = get(options, 'in');
   let { range, allowBlank } = getProperties(options, ['range', 'allowBlank']);
