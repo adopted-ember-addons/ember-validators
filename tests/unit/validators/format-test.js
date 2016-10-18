@@ -75,7 +75,8 @@ test('email', function(assert) {
     'email@domain.com-',
     'email@domain.com-.',
     'email@-domain.com',
-    'email@domain..com'
+    'email@domain..com',
+    'email@a.a'
   ];
 
   assert.expect(validAddresses.length + invalidAddresses.length);
