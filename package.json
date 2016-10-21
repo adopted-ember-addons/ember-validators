@@ -21,7 +21,7 @@
   "author": "Offir Golan <offirgolan@gmail.com>",
   "license": "BSD-3-Clause",
   "devDependencies": {
-    "broccoli-asset-rev": "^2.4.2",
+    "broccoli-asset-rev": "^2.5.0",
     "ember-addon-genie": "^0.1.0",
     "ember-ajax": "^2.5.2",
     "ember-cli": "2.7.0",
