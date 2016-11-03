@@ -5,7 +5,7 @@
 
 import Ember from 'ember';
 import validationError from 'ember-validators/utils/validation-error';
-import requireModule from 'ember-validators/utils/require-module';
+import requireModule from 'ember-require-module';
 
 const moment = requireModule('moment');
 
