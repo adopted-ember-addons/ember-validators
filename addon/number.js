@@ -36,6 +36,10 @@ const {
  * @param {String} attribute
  */
 export default function validateNumber(value, options) {
+  if (typeof value === 'string') {
+    value = value.replace(/,/g, '.');
+  }
+
   let numValue = Number(value);
   let optionKeys = Object.keys(options);
   let { allowBlank, allowString, integer } = getProperties(options, ['allowBlank', 'allowString', 'integer']);
