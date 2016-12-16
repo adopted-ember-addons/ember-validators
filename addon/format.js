@@ -29,7 +29,7 @@ const {
  * @param {String} options.type Can be the one of the following options [`email`, `phone`, `url`]
  * @param {Regex} options.regex The regular expression to test against
  * @param {Boolean} options.allowNonTld If true, the predefined regular expression `email` allows non top-level domains
- * @param {Boolean} options.minTldLength The min length of the top-level domain on the predefined `email` regular expression
+ * @param {Number} options.minTldLength The min length of the top-level domain on the predefined `email` regular expression
  * @param {Object} model
  * @param {String} attribute
  */
