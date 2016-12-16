@@ -7,13 +7,14 @@ import Ember from 'ember';
 import requireModule from 'ember-require-module';
 
 const {
-  assert
+  assert,
+  isPresent
 } = Ember;
 
 export function validate(type, ...args) {
   let validator = requireModule(`ember-validators/${type}`);
 
-  assert(`Validator not found of type: ${type}.`, validator);
+  assert(`Validator not found of type: ${type}.`, isPresent(validator));
 
   return validator(...args);
 }
