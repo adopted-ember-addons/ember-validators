@@ -77,7 +77,7 @@ export default function validateFormat(value, options, model, attribute) {
 
 function formatEmailRegex(options) {
   let regex = regularExpressions.email;
-  let { source, flags } = regex;
+  let { source } = regex;
   let { allowNonTld, minTldLength } = getProperties(options, ['allowNonTld', 'minTldLength']);
 
   if (!isNone(minTldLength) && typeof minTldLength === 'number') {
@@ -88,5 +88,5 @@ function formatEmailRegex(options) {
     source = source.replace('@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)', '@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.?)');
   }
 
-  return new RegExp(source, flags);
+  return new RegExp(source, 'i');
 }
