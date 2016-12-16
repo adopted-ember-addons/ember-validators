@@ -5,23 +5,15 @@
 
 import Ember from 'ember';
 import requireModule from 'ember-require-module';
-import validatorsCache from 'ember-validators/-private/validators-cache';
 
 const {
-  assert,
-  isPresent
+  assert
 } = Ember;
 
 export function validate(type, ...args) {
-  let validator;
+  let validator = requireModule(`ember-validators/${type}`);
 
-  if (validatorsCache[type]) {
-    validator = validatorsCache[type];
-  } else {
-    validator = requireModule(`ember-validators/${type}`);
-    assert(`Validator not found of type: ${type}.`, isPresent(validator));
-    validatorsCache[type] = validator;
-  }
+  assert(`Validator not found of type: ${type}.`, validator);
 
   return validator(...args);
 }
