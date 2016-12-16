@@ -10,6 +10,12 @@ import cloneOptions from '../../helpers/clone-options';
 
 let options, result;
 
+function testEmailAddresses(assert, options, valid = [], invalid = []) {
+  options = cloneOptions(options);
+  valid.forEach((email) => assert.equal(processResult(validate(email, options)), true, `validation of ${email} must succeed`));
+  invalid.forEach((email) => assert.equal(processResult(validate(email, options)), 'This field must be a valid email address', `validation of ${email} must fail`));
+}
+
 module('Unit | Validator | format');
 
 test('no options', function(assert) {
@@ -85,62 +91,48 @@ test('email', function(assert) {
     regex: regularExpressions.email
   };
 
-  options = cloneOptions(options);
-
-  validAddresses.forEach((email) => assert.equal(processResult(validate(email, options)), true, `validation of ${email} must succeed`));
-  invalidAddresses.forEach((email) => assert.equal(processResult(validate(email, options)), 'This field must be a valid email address', `validation of ${email} must fail`));
+  testEmailAddresses(assert, options, validAddresses, invalidAddresses);
 });
 
 test('email + allowNonTld', function(assert) {
   let validAddresses = [
     'email@domain.com',
-    'firstname.lastname@domain.com',
-    'email@subdomain.domain.com',
-    'firstname+lastname@domain.com',
-    '1234567890@domain.com',
-    'email@domain-one.com',
-    '_______@domain.com',
-    'email@domain.name',
-    'email@domain.co.jp',
-    'firstname-lastname@domain.com',
-    'EMAIL@DOMAIN.COM',
     'email@domain'
   ];
+
+  assert.expect(validAddresses.length);
+
+  options = {
+    type: 'email',
+    regex: regularExpressions.email,
+    allowNonTld: true
+  };
+
+  testEmailAddresses(assert, options, validAddresses);
+});
+
+test('email + minTldLength', function(assert) {
+  let validAddresses = [
+    'email@domain.com',
+    'email@domain.co',
+    'email@domain.co.nz',
+    'email@domain.c.nz'
+  ];
+
   let invalidAddresses = [
-    'plainaddress',
-    '#@%^%#$@#$@#.com',
-    '@domain.com',
-    'Joe Smith <email@domain.com>',
-    'email.domain.com',
-    'email@domain@domain.com',
-    '.email@domain.com',
-    'email.@domain.com',
-    'email..email@domain.com',
-    'あいうえお@domain.com',
-    'email@domain.com (Joe Smith)',
-    'email@domain.',
-    'email@domain.-',
-    'email@domain-',
-    'email@domain-.',
-    'email@domain.com.',
-    'email@domain.com.-',
-    'email@domain.com-',
-    'email@domain.com-.',
-    'email@-domain.com',
-    'email@domain..com'
+    'email@domain.c',
+    'email@domain.c.i'
   ];
 
   assert.expect(validAddresses.length + invalidAddresses.length);
 
   options = {
     type: 'email',
-    regex: regularExpressions.emailOptionalTld
+    regex: regularExpressions.email,
+    minTldLength: 2
   };
 
-  options = cloneOptions(options);
-
-  validAddresses.forEach((email) => assert.equal(processResult(validate(email, options)), true, `validation of ${email} must succeed`));
-  invalidAddresses.forEach((email) => assert.equal(processResult(validate(email, options)), 'This field must be a valid email address', `validation of ${email} must fail`));
+  testEmailAddresses(assert, options, validAddresses, invalidAddresses);
 });
 
 test('phone', function(assert) {
