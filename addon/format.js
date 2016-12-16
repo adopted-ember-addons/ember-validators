@@ -76,8 +76,7 @@ export default function validateFormat(value, options, model, attribute) {
 }
 
 function formatEmailRegex(options) {
-  let regex = regularExpressions.email;
-  let { source } = regex;
+  let { source } = regularExpressions.email;
   let { allowNonTld, minTldLength } = getProperties(options, ['allowNonTld', 'minTldLength']);
 
   if (!isNone(minTldLength) && typeof minTldLength === 'number') {
