@@ -170,7 +170,7 @@ test('url', function(assert) {
 });
 
 test('custom', function(assert) {
-  assert.expect(2);
+  assert.expect(3);
 
   options = {
     regex: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,8}$/
@@ -178,9 +178,31 @@ test('custom', function(assert) {
 
   options = cloneOptions(options);
 
+  result = validate(null, options);
+  assert.equal(processResult(result), 'This field is invalid');
+
   result = validate('password', options);
   assert.equal(processResult(result), 'This field is invalid');
 
   result = validate('Pass123', options);
   assert.equal(processResult(result), true);
+});
+
+test('custom with g flag', function(assert) {
+  assert.expect(3);
+
+  options = {
+    regex: /foo/g
+  };
+
+  options = cloneOptions(options);
+
+  result = validate('foo', options);
+  assert.equal(processResult(result), true);
+
+  result = validate('foo', options);
+  assert.equal(processResult(result), true);
+
+  result = validate('bar', options);
+  assert.equal(processResult(result), 'This field is invalid');
 });
