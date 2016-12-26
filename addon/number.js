@@ -28,6 +28,7 @@ const {
  * @param {Boolean} options.odd Number must be odd
  * @param {Boolean} options.even Number must be even
  * @param {Number} options.is Number must be equal to this value
+ * @param {Number} options.not Number must not be equal to this value
  * @param {Number} options.lt Number must be less than this value
  * @param {Number} options.lte Number must be less than or equal to this value
  * @param {Number} options.gt Number must be greater than this value
@@ -74,6 +75,8 @@ function _validateType(type, options, value) {
 
   if (type === 'is' && actual !== expected) {
     return validationError('equalTo', value, options);
+  } else if (type === 'not' && actual === expected) {
+    return validationError('notEqualTo', value, options);
   } else if (type === 'lt' && actual >= expected) {
     return validationError('lessThan', value, options);
   } else if (type === 'lte' && actual > expected) {

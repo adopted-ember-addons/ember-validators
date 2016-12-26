@@ -81,6 +81,20 @@ test('is', function(assert) {
   assert.equal(processResult(result), true);
 });
 
+test('not', function(assert) {
+  assert.expect(2);
+
+  options = {
+    not: 22
+  };
+
+  result = validate(22, cloneOptions(options));
+  assert.equal(processResult(result), 'This field mustn\'t be equal to 22');
+
+  result = validate(1, cloneOptions(options));
+  assert.equal(processResult(result), true);
+});
+
 test('lt', function(assert) {
   assert.expect(3);
 
