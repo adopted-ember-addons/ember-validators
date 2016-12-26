@@ -82,6 +82,7 @@ export default {
   email: '{description} must be a valid email address',
   empty: '{description} can\'t be empty',
   equalTo: '{description} must be equal to {is}',
+  notEqualTo: '{description} mustn\'t be equal to {not}',
   even: '{description} must be even',
   exclusion: '{description} is reserved',
   greaterThan: '{description} must be greater than {gt}',

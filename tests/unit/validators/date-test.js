@@ -74,6 +74,34 @@ test('error date format', function(assert) {
   assert.equal(processResult(result), 'This field must be before 1/1/2015');
 });
 
+test('is', function(assert) {
+  assert.expect(2);
+
+  options = {
+    is: '1/1/2015'
+  };
+
+  result = validate('1/1/2016', cloneOptions(options));
+  assert.equal(processResult(result), 'This field must be Jan 1st, 2015');
+
+  result = validate('1/1/2015', cloneOptions(options));
+  assert.equal(processResult(result), true);
+});
+
+test('not', function(assert) {
+  assert.expect(2);
+
+  options = {
+    not: '1/1/2015'
+  };
+
+  result = validate('1/1/2015', cloneOptions(options));
+  assert.equal(processResult(result), 'This field mustn \'t be Jan 1st, 2015');
+
+  result = validate('1/1/2016', cloneOptions(options));
+  assert.equal(processResult(result), true);
+});
+
 test('before', function(assert) {
   assert.expect(2);
 
