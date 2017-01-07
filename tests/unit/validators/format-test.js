@@ -60,6 +60,9 @@ test('email', function(assert) {
     'EMAIL@DOMAIN.COM'
   ];
   let invalidAddresses = [
+    null,
+    undefined,
+    404,
     'plainaddress',
     '#@%^%#$@#$@#.com',
     '@domain.com',

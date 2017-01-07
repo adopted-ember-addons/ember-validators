@@ -13,6 +13,7 @@ const {
   isEmpty,
   assert,
   deprecate,
+  canInvoke,
   getProperties
 } = Ember;
 
@@ -68,7 +69,7 @@ export default function validateFormat(value, options, model, attribute) {
     set(options, 'regex', regex);
   }
 
-  if ((isNone(value) || typeof value !== 'string') || (regex && isEmpty(value.match(regex)))) {
+  if (!canInvoke(value, 'match') || (regex && isEmpty(value.match(regex)))) {
     return validationError(type || 'invalid', value, options);
   }
 
