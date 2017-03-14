@@ -32,6 +32,7 @@ const {
  * @param {Number} options.lte Number must be less than or equal to this value
  * @param {Number} options.gt Number must be greater than this value
  * @param {Number} options.gte Number must be greater than or equal to this value
+ * @param {Number} options.multipleOf Number must be a multiple of this value
  * @param {Object} model
  * @param {String} attribute
  */
@@ -88,6 +89,8 @@ function _validateType(type, options, value) {
     return validationError('odd', value, options);
   } else if (type === 'even' && actual % 2 !== 0) {
     return validationError('even', value, options);
+  } else if (type === 'multipleOf' && !isInteger(actual / expected)) {
+    return validationError('multipleOf', value, options);
   }
 
   return true;

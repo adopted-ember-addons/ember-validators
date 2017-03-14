@@ -44,15 +44,21 @@ export default function validateLength(value, options, model, attribute) {
     return true;
   }
 
-  if (!isNone(is) && is !== get(value, 'length')) {
+  let length = get(value, 'length');
+
+  if (!isNone(is) && is !== length) {
     return validationError('wrongLength', value, options);
   }
 
-  if (!isNone(min) && min > get(value, 'length')) {
+  if (!isNone(min) && !isNone(max) && (length < min || length > max)) {
+    return validationError('between', value, options);
+  }
+
+  if (!isNone(min) && min > length) {
     return validationError('tooShort', value, options);
   }
 
-  if (!isNone(max) && max < get(value, 'length')) {
+  if (!isNone(max) && max < length) {
     return validationError('tooLong', value, options);
   }
 
