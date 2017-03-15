@@ -10,6 +10,7 @@ const {
   get,
   assert,
   isEqual,
+  isEmpty,
   isPresent
 } = Ember;
 
@@ -23,13 +24,19 @@ const {
  * @param {Any} value
  * @param {Object} options
  * @param {String} options.on The attribute to confirm against
+ * @param {String} options.allowBlank If true, skips validation if the value is empty
  * @param {Object} model
  * @param {String} attribute
  */
 export default function validateConfirmation(value, options, model, attribute) {
   let on = get(options, 'on');
+  let allowBlank = get(options, 'allowBlank');
 
   assert(`[validator:confirmation] [${attribute}] option 'on' is required`, isPresent(on));
+
+  if (allowBlank && isEmpty(value)) {
+    return true;
+  }
 
   if (!isEqual(value, get(model, on))) {
     return validationError('confirmation', value, options);

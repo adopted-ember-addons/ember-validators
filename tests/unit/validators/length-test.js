@@ -99,7 +99,8 @@ test('between', function(assert) {
 
   options = {
     min: 1,
-    max: 5
+    max: 5,
+    useBetweenMessage: true
   };
 
   result = validate('', cloneOptions(options));
