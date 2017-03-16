@@ -1,6 +1,12 @@
 Changelog
 =========
 
+## v1.0.0
+
+### Pull Requests
+
+- [#45](https://github.com/offirgolan/ember-validators/pull/45)  [FEATURE] Support Ember Changeset Validations  *by [Offir Golan](https://github.com/offirgolan)*
+
 ## v0.2.0
 
 ### Pull Requests
