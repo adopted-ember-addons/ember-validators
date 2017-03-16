@@ -8,6 +8,7 @@ import validationError from 'ember-validators/utils/validation-error';
 
 const {
   get,
+  isNone,
   isEmpty,
   getProperties
 } = Ember;
@@ -22,6 +23,7 @@ const {
  * @param {Any} value
  * @param {Object} options
  * @param {Boolean} options.allowBlank If true, skips validation if the value is empty
+ * @param {Boolean} options.allowNone If true, skips validation if the value is null or undefined. __Default: true__
  * @param {Boolean} options.allowString If true, validator will accept string representation of a number
  * @param {Boolean} options.integer Number must be an integer
  * @param {Boolean} options.positive Number must be greater than 0
@@ -32,13 +34,18 @@ const {
  * @param {Number} options.lte Number must be less than or equal to this value
  * @param {Number} options.gt Number must be greater than this value
  * @param {Number} options.gte Number must be greater than or equal to this value
+ * @param {Number} options.multipleOf Number must be a multiple of this value
  * @param {Object} model
  * @param {String} attribute
  */
 export default function validateNumber(value, options) {
   let numValue = Number(value);
   let optionKeys = Object.keys(options);
-  let { allowBlank, allowString, integer } = getProperties(options, ['allowBlank', 'allowString', 'integer']);
+  let { allowBlank, allowNone = true, allowString, integer } = getProperties(options, ['allowBlank', 'allowNone', 'allowString', 'integer']);
+
+  if (!allowNone && isNone(value)) {
+    return validationError('notANumber', value, options);
+  }
 
   if (allowBlank && isEmpty(value)) {
     return true;
@@ -88,6 +95,8 @@ function _validateType(type, options, value) {
     return validationError('odd', value, options);
   } else if (type === 'even' && actual % 2 !== 0) {
     return validationError('even', value, options);
+  } else if (type === 'multipleOf' && !isInteger(actual / expected)) {
+    return validationError('multipleOf', value, options);
   }
 
   return true;

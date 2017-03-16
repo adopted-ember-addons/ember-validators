@@ -5,6 +5,7 @@
 
 import Ember from 'ember';
 import requireModule from 'ember-require-module';
+import validationError from 'ember-validators/utils/validation-error';
 
 const DS = requireModule('ember-data');
 
@@ -35,7 +36,7 @@ export default function validateDsError(value, options, model, attribute) {
   let errors = get(model, path);
 
   if (!isNone(errors) && errors instanceof DS.Errors && errors.has(key)) {
-    return get(errors.errorsFor(key), 'lastObject.message');
+    return validationError('ds', null, options, get(errors.errorsFor(key), 'lastObject.message'));
   }
 
   return true;

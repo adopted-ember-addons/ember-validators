@@ -4,7 +4,7 @@
  */
 
 import { module, test } from 'qunit';
-import { default as validate, regularExpressions } from 'ember-validators/format';
+import validate from 'ember-validators/format';
 import processResult from '../../helpers/process-result';
 import cloneOptions from '../../helpers/clone-options';
 
@@ -33,8 +33,7 @@ test('allow blank', function(assert) {
 
   options = {
     allowBlank: true,
-    type: 'email',
-    regex: regularExpressions.email
+    type: 'email'
   };
   options = cloneOptions(options);
 
@@ -90,8 +89,7 @@ test('email', function(assert) {
   assert.expect(validAddresses.length + invalidAddresses.length);
 
   options = {
-    type: 'email',
-    regex: regularExpressions.email
+    type: 'email'
   };
 
   testEmailAddresses(assert, options, validAddresses, invalidAddresses);
@@ -107,7 +105,6 @@ test('email + allowNonTld', function(assert) {
 
   options = {
     type: 'email',
-    regex: regularExpressions.email,
     allowNonTld: true
   };
 
@@ -131,7 +128,6 @@ test('email + minTldLength', function(assert) {
 
   options = {
     type: 'email',
-    regex: regularExpressions.email,
     minTldLength: 2
   };
 
@@ -142,8 +138,7 @@ test('phone', function(assert) {
   assert.expect(2);
 
   options = {
-    type: 'phone',
-    regex: regularExpressions.phone
+    type: 'phone'
   };
 
   options = cloneOptions(options);
@@ -159,8 +154,7 @@ test('url', function(assert) {
   assert.expect(2);
 
   options = {
-    type: 'url',
-    regex: regularExpressions.url
+    type: 'url'
   };
 
   options = cloneOptions(options);
@@ -169,6 +163,40 @@ test('url', function(assert) {
   assert.equal(processResult(result), 'This field must be a valid url');
 
   result = validate('http://www.yahoo.com', options);
+  assert.equal(processResult(result), true);
+});
+
+test('inverse - with type', function(assert) {
+  assert.expect(2);
+
+  options = {
+    type: 'email',
+    inverse: true
+  };
+
+  options = cloneOptions(options);
+
+  result = validate('email@domain.com', options);
+  assert.equal(processResult(result), 'This field must be a valid email address');
+
+  result = validate('foobar123', options);
+  assert.equal(processResult(result), true);
+});
+
+test('inverse - custom', function(assert) {
+  assert.expect(2);
+
+  options = {
+    inverse: true,
+    regex: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,8}$/
+  };
+
+  options = cloneOptions(options);
+
+  result = validate('Pass123', options);
+  assert.equal(processResult(result), 'This field is invalid');
+
+  result = validate('foobar', options);
   assert.equal(processResult(result), true);
 });
 

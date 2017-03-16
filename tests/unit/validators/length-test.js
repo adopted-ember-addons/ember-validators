@@ -94,6 +94,25 @@ test('max', function(assert) {
   assert.equal(processResult(result), true);
 });
 
+test('between', function(assert) {
+  assert.expect(3);
+
+  options = {
+    min: 1,
+    max: 5,
+    useBetweenMessage: true
+  };
+
+  result = validate('', cloneOptions(options));
+  assert.equal(processResult(result), 'This field must be between 1 and 5 characters');
+
+  result = validate('123456', cloneOptions(options));
+  assert.equal(processResult(result), 'This field must be between 1 and 5 characters');
+
+  result = validate('1234', cloneOptions(options));
+  assert.equal(processResult(result), true);
+});
+
 test('array', function(assert) {
   assert.expect(2);
 
