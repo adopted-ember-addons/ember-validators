@@ -17,6 +17,7 @@ ember install ember-validators
 
 ## Helpful Links
 
+- ### [Documentation](https://offirgolan.github.io/ember-validators)
 - ### [Changelog](CHANGELOG.md)
 
 ## Looking for help?

@@ -61,6 +61,7 @@
     "ember-require-module": "0.1.1"
   },
   "ember-addon": {
-    "configPath": "tests/dummy/config"
+    "configPath": "tests/dummy/config",
+    "demoURL": "https://offirgolan.github.io/ember-validators"
   }
 }
