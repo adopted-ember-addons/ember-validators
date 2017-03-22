@@ -4,7 +4,7 @@
         "description": "A collection of EmberJS validators",
         "url": "https://github.com/offirgolan/ember-validators",
         "indexModule": "Validators",
-        "version": "1.0.0.30f72aed"
+        "version": "1.0.0.9ab2010e"
     },
     "files": {
         "addon/utils/is-promise.js": {
