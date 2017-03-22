@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>addon/format.js - Ember Validators</title>
+    <meta name="description" content="A collection of EmberJS validators">
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="stylesheet" href="../assets/css/custom.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../assets/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../assets/css/theme.css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700' rel='stylesheet' type='text/css'>
+    
+</head>
+<body>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a href="../" class="navbar-brand">
+            <img src="../assets/img/ember-logo.png" alt="">
+            <span>Validators</span>
+          </a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="nav">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="https://github.com/offirgolan/ember-validators" class="fa fa-github github"></a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div id="main-wrapper" class="row">
+        <div id="content-wrapper">
+            <ol class="panel-group" id="sidebar" role="tablist" aria-multiselectable="true">
+                <li class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="sidebar-search-heading">
+                        <h4 class="panel-title">
+                      <a role="button" data-toggle="collapse" href="#sidebar-search" aria-expanded="true" aria-controls="collapseOne">
+                        Search
+                      </a>
+                    </h4>
+                    </div>
+                    <div id="sidebar-search" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="sidebar-search-heading">
+                        <div class="panel-body">
+                            <div id="api-tabview-filter">
+                                <input type="search" id="api-filter" placeholder="Search...">
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                    <li class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="sidebar-version-heading">
+                            <h4 class="panel-title">
+                                <a role="button" href="https://github.com/offirgolan/ember-validators/commits/30f72aed" target="_blank">
+                                  Tag: 1.0.0.30f72aed
+                                </a>
+                            </h4>
+                        </div>
+                    </li>
+                <li class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="sidebar-modules-heading">
+                        <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" href="#sidebar-modules" aria-expanded="true" aria-controls="collapseOne">
+                      Modules
+                    </a>
+                  </h4>
+                    </div>
+                    <div id="sidebar-modules" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="sidebar-modules-heading">
+                        <div class="panel-body">
+                                <ol>
+                                        <li>
+                                            <a href="../modules/Validators.html">Validators</a>
+                                        </li>
+                                </ol>
+                        </div>
+                    </div>
+                </li>
+            
+                <li class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="sidebar-classes-heading">
+                        <h4 class="panel-title">
+                      <a role="button" data-toggle="collapse" href="#sidebar-classes" aria-expanded="true" aria-controls="collapseOne">
+                        Classes
+                      </a>
+                    </h4>
+                    </div>
+                    <div id="sidebar-classes" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="sidebar-classes-heading">
+                        <div class="panel-body">
+                            <ol>
+                                    <li>
+                                        <a href="../classes/Collection.html">Collection</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Confirmation.html">Confirmation</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Date.html">Date</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/DS Error.html">DS Error</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Exclusion.html">Exclusion</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Format.html">Format</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Inclusion.html">Inclusion</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Length.html">Length</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Messages.html">Messages</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Number.html">Number</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Presence.html">Presence</a>
+                                    </li>
+                            </ol>
+                        </div>
+                    </div>
+                </li>
+            </ol>
+            <div class="content-container">
+                <div class="apidocs">
+                    <div id="docs-main">
+                        <div class="content">
+<div class="page-header">
+    <h1><i class="fa fa-file-code-o" aria-hidden="true"></i>  File</h1>
+</div>
+
+<div class="file">
+    <pre class="prettyprint linenums">
+
+/**
+ * Copyright 2016, Yahoo! Inc.
+ * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
+ */
+
+import Ember from &#x27;ember&#x27;;
+import validationError from &#x27;ember-validators/utils/validation-error&#x27;;
+
+const {
+  set,
+  isNone,
+  isEmpty,
+  assert,
+  canInvoke,
+  getProperties
+} = Ember;
+
+/**
+ *  @class Format
+ *  @module Validators
+ */
+
+/**
+ * @method validate
+ * @param {Any} value
+ * @param {Object} options
+ * @param {Boolean} options.allowBlank If true, skips validation if the value is empty
+ * @param {String} options.type Can be the one of the following options [&#x60;email&#x60;, &#x60;phone&#x60;, &#x60;url&#x60;]
+ * @param {String} options.inverse If true, pass if the value doesn&#x27;t match the given regex / type
+ * @param {Regex} options.regex The regular expression to test against
+ * @param {Boolean} options.allowNonTld If true, the predefined regular expression &#x60;email&#x60; allows non top-level domains
+ * @param {Number} options.minTldLength The min length of the top-level domain on the predefined &#x60;email&#x60; regular expression
+ * @param {Object} model
+ * @param {String} attribute
+ */
+export const regularExpressions = {
+  email: /^[a-z0-9!#$%&amp;&#x27;*+\/=?^_&#x60;{|}~-]+(?:\.[a-z0-9!#$%&amp;&#x27;*+\/=?^_&#x60;{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i,
+  phone: /^([\+]?1\s*[-\/\.]?\s*)?(\((\d{3})\)|(\d{3}))\s*[-\/\.]?\s*(\d{3})\s*[-\/\.]?\s*(\d{4})\s*(([xX]|[eE][xX][tT]?[\.]?|extension)\s*([#*\d]+))*$/,
+  url: /(?:([A-Za-z]+):)?(\/{0,3})[a-zA-Z0-9][a-zA-Z-0-9]*(\.[\w-]+)+([\w.,@?^=%&amp;amp;:\/~+#-{}]*[\w@?^=%&amp;amp;\/~+#-{}])??/
+};
+
+export default function validateFormat(value, options, model, attribute) {
+  let { regex, type, inverse = false, allowBlank } = getProperties(options, [&#x27;regex&#x27;, &#x27;type&#x27;, &#x27;inverse&#x27;, &#x27;allowBlank&#x27;]);
+
+  assert(&#x60;[validator:format] [${attribute}] no options were passed in&#x60;, !isEmpty(Object.keys(options)));
+
+  if (allowBlank &amp;&amp; isEmpty(value)) {
+    return true;
+  }
+
+  if (type &amp;&amp; !regex &amp;&amp; regularExpressions[type]) {
+    regex = regularExpressions[type];
+  }
+
+  if (type === &#x27;email&#x27;) {
+    if (regex === regularExpressions.email) {
+      regex = formatEmailRegex(options);
+    }
+
+    set(options, &#x27;regex&#x27;, regex);
+  }
+
+  if (!canInvoke(value, &#x27;match&#x27;) || (regex &amp;&amp; isEmpty(value.match(regex)) !== inverse)) {
+    return validationError(type || &#x27;invalid&#x27;, value, options);
+  }
+
+  return true;
+}
+
+function formatEmailRegex(options) {
+  let { source } = regularExpressions.email;
+  let { allowNonTld, minTldLength } = getProperties(options, [&#x27;allowNonTld&#x27;, &#x27;minTldLength&#x27;]);
+
+  if (!isNone(minTldLength) &amp;&amp; typeof minTldLength === &#x27;number&#x27;) {
+    source = source.replace(&#x27;[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$&#x27;, &#x60;[a-z0-9]{${minTldLength},}(?:[a-z0-9-]*[a-z0-9])?$&#x60;);
+  }
+
+  if (allowNonTld) {
+    source = source.replace(&#x27;@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)&#x27;, &#x27;@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.?)&#x27;);
+  }
+
+  return new RegExp(source, &#x27;i&#x27;);
+}
+
+    </pre>
+</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../assets/vendor/prettify/prettify-min.js"></script>
+    <script>prettyPrint();</script>
+    <script src="../assets/vendor/jquery/jquery.min.js"></script>
+    <script src="../assets/vendor/jquery-ui/jquery-ui.min.js"></script>
+    <script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
+    <script src="../assets/vendor/github-slugger/slugger.js"></script>
+    <script src="../assets/js/yuidoc-bootstrap.js"></script>
+</body>
+</html>

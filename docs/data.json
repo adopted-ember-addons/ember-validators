@@ -1,0 +1,1121 @@
+{
+    "project": {
+        "name": "Ember Validators",
+        "description": "A collection of EmberJS validators",
+        "url": "https://github.com/offirgolan/ember-validators",
+        "indexModule": "Validators",
+        "version": "1.0.0.30f72aed"
+    },
+    "files": {
+        "addon/utils/is-promise.js": {
+            "name": "addon/utils/is-promise.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "addon/utils/unwrap-proxy.js": {
+            "name": "addon/utils/unwrap-proxy.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "addon/utils/validation-error.js": {
+            "name": "addon/utils/validation-error.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "addon/collection.js": {
+            "name": "addon/collection.js",
+            "modules": {
+                "Validators": 1
+            },
+            "classes": {
+                "Collection": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "addon/confirmation.js": {
+            "name": "addon/confirmation.js",
+            "modules": {},
+            "classes": {
+                "Confirmation": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "addon/date.js": {
+            "name": "addon/date.js",
+            "modules": {},
+            "classes": {
+                "Date": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "addon/ds-error.js": {
+            "name": "addon/ds-error.js",
+            "modules": {},
+            "classes": {
+                "DS Error": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "addon/exclusion.js": {
+            "name": "addon/exclusion.js",
+            "modules": {},
+            "classes": {
+                "Exclusion": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "addon/format.js": {
+            "name": "addon/format.js",
+            "modules": {},
+            "classes": {
+                "Format": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "addon/inclusion.js": {
+            "name": "addon/inclusion.js",
+            "modules": {},
+            "classes": {
+                "Inclusion": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "addon/index.js": {
+            "name": "addon/index.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "addon/length.js": {
+            "name": "addon/length.js",
+            "modules": {},
+            "classes": {
+                "Length": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "addon/messages.js": {
+            "name": "addon/messages.js",
+            "modules": {},
+            "classes": {
+                "Messages": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "addon/number.js": {
+            "name": "addon/number.js",
+            "modules": {},
+            "classes": {
+                "Number": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "addon/presence.js": {
+            "name": "addon/presence.js",
+            "modules": {},
+            "classes": {
+                "Presence": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        }
+    },
+    "modules": {
+        "Validators": {
+            "name": "Validators",
+            "submodules": {},
+            "elements": {},
+            "classes": {
+                "Collection": 1,
+                "Confirmation": 1,
+                "Date": 1,
+                "DS Error": 1,
+                "Exclusion": 1,
+                "Format": 1,
+                "Inclusion": 1,
+                "Length": 1,
+                "Messages": 1,
+                "Number": 1,
+                "Presence": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "addon/presence.js",
+            "line": 17
+        }
+    },
+    "classes": {
+        "Collection": {
+            "name": "Collection",
+            "shortname": "Collection",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Validators",
+            "file": "addon/collection.js",
+            "line": 16
+        },
+        "Confirmation": {
+            "name": "Confirmation",
+            "shortname": "Confirmation",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Validators",
+            "namespace": "",
+            "file": "addon/confirmation.js",
+            "line": 17
+        },
+        "Date": {
+            "name": "Date",
+            "shortname": "Date",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Validators",
+            "namespace": "",
+            "file": "addon/date.js",
+            "line": 24
+        },
+        "DS Error": {
+            "name": "DS Error",
+            "shortname": "DS Error",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Validators",
+            "namespace": "",
+            "file": "addon/ds-error.js",
+            "line": 21
+        },
+        "Exclusion": {
+            "name": "Exclusion",
+            "shortname": "Exclusion",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Validators",
+            "namespace": "",
+            "file": "addon/exclusion.js",
+            "line": 17
+        },
+        "Format": {
+            "name": "Format",
+            "shortname": "Format",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Validators",
+            "namespace": "",
+            "file": "addon/format.js",
+            "line": 19
+        },
+        "Inclusion": {
+            "name": "Inclusion",
+            "shortname": "Inclusion",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Validators",
+            "namespace": "",
+            "file": "addon/inclusion.js",
+            "line": 17
+        },
+        "Length": {
+            "name": "Length",
+            "shortname": "Length",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Validators",
+            "namespace": "",
+            "file": "addon/length.js",
+            "line": 17
+        },
+        "Messages": {
+            "name": "Messages",
+            "shortname": "Messages",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Validators",
+            "namespace": "",
+            "file": "addon/messages.js",
+            "line": 13
+        },
+        "Number": {
+            "name": "Number",
+            "shortname": "Number",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Validators",
+            "namespace": "",
+            "file": "addon/number.js",
+            "line": 16
+        },
+        "Presence": {
+            "name": "Presence",
+            "shortname": "Presence",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Validators",
+            "namespace": "",
+            "file": "addon/presence.js",
+            "line": 17
+        }
+    },
+    "elements": {},
+    "classitems": [
+        {
+            "file": "addon/utils/is-promise.js",
+            "line": 1,
+            "description": "Copyright 2016, Yahoo! Inc.\nCopyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.",
+            "class": "Collection"
+        },
+        {
+            "file": "addon/utils/unwrap-proxy.js",
+            "line": 1,
+            "description": "Copyright 2016, Yahoo! Inc.\nCopyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.",
+            "class": "Collection"
+        },
+        {
+            "file": "addon/utils/validation-error.js",
+            "line": 1,
+            "description": "Copyright 2016, Yahoo! Inc.\nCopyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.",
+            "class": "Collection"
+        },
+        {
+            "file": "addon/collection.js",
+            "line": 1,
+            "description": "Copyright 2016, Yahoo! Inc.\nCopyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.",
+            "class": "Collection"
+        },
+        {
+            "file": "addon/collection.js",
+            "line": 21,
+            "itemtype": "method",
+            "name": "validate",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "",
+                    "type": "Any"
+                },
+                {
+                    "name": "options",
+                    "description": "",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "collection",
+                            "description": "",
+                            "type": "Boolean"
+                        }
+                    ]
+                },
+                {
+                    "name": "model",
+                    "description": "",
+                    "type": "Object"
+                },
+                {
+                    "name": "attribute",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "class": "Collection",
+            "module": "Validators"
+        },
+        {
+            "file": "addon/confirmation.js",
+            "line": 1,
+            "description": "Copyright 2016, Yahoo! Inc.\nCopyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.",
+            "class": "Confirmation",
+            "module": "Validators"
+        },
+        {
+            "file": "addon/confirmation.js",
+            "line": 22,
+            "itemtype": "method",
+            "name": "validate",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "",
+                    "type": "Any"
+                },
+                {
+                    "name": "options",
+                    "description": "",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "on",
+                            "description": "The attribute to confirm against",
+                            "type": "String"
+                        },
+                        {
+                            "name": "allowBlank",
+                            "description": "If true, skips validation if the value is empty",
+                            "type": "String"
+                        }
+                    ]
+                },
+                {
+                    "name": "model",
+                    "description": "",
+                    "type": "Object"
+                },
+                {
+                    "name": "attribute",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "class": "Confirmation",
+            "module": "Validators"
+        },
+        {
+            "file": "addon/date.js",
+            "line": 1,
+            "description": "Copyright 2016, Yahoo! Inc.\nCopyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.",
+            "class": "Date",
+            "module": "Validators"
+        },
+        {
+            "file": "addon/date.js",
+            "line": 29,
+            "itemtype": "method",
+            "name": "validate",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "",
+                    "type": "Any"
+                },
+                {
+                    "name": "options",
+                    "description": "",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "allowBlank",
+                            "description": "If true, skips validation if the value is empty",
+                            "type": "Boolean"
+                        },
+                        {
+                            "name": "before",
+                            "description": "The specified date must be before this date",
+                            "type": "String"
+                        },
+                        {
+                            "name": "onOrBefore",
+                            "description": "The specified date must be on or before this date",
+                            "type": "String"
+                        },
+                        {
+                            "name": "after",
+                            "description": "The specified date must be after this date",
+                            "type": "String"
+                        },
+                        {
+                            "name": "onOrAfter",
+                            "description": "The specified date must be on or after this date",
+                            "type": "String"
+                        },
+                        {
+                            "name": "precision",
+                            "description": "Limit the comparison check to a specific granularity.\n                                  Possible Options: [`year`, `month`, `week`, `day`, `hour`, `minute`, `second`].",
+                            "type": "String"
+                        },
+                        {
+                            "name": "format",
+                            "description": "Input value date format",
+                            "type": "String"
+                        },
+                        {
+                            "name": "errorFormat",
+                            "description": "Error output date format. Defaults to `MMM Do, YYYY`",
+                            "type": "String"
+                        }
+                    ]
+                },
+                {
+                    "name": "model",
+                    "description": "",
+                    "type": "Object"
+                },
+                {
+                    "name": "attribute",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "class": "Date",
+            "module": "Validators"
+        },
+        {
+            "file": "addon/ds-error.js",
+            "line": 1,
+            "description": "Copyright 2016, Yahoo! Inc.\nCopyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.",
+            "class": "DS Error",
+            "module": "Validators"
+        },
+        {
+            "file": "addon/ds-error.js",
+            "line": 26,
+            "itemtype": "method",
+            "name": "validate",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "",
+                    "type": "Any"
+                },
+                {
+                    "name": "options",
+                    "description": "",
+                    "type": "Object"
+                },
+                {
+                    "name": "model",
+                    "description": "",
+                    "type": "Object"
+                },
+                {
+                    "name": "attribute",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "class": "DS Error",
+            "module": "Validators"
+        },
+        {
+            "file": "addon/exclusion.js",
+            "line": 1,
+            "description": "Copyright 2016, Yahoo! Inc.\nCopyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.",
+            "class": "Exclusion",
+            "module": "Validators"
+        },
+        {
+            "file": "addon/exclusion.js",
+            "line": 22,
+            "itemtype": "method",
+            "name": "validate",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "",
+                    "type": "Any"
+                },
+                {
+                    "name": "options",
+                    "description": "",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "allowBlank",
+                            "description": "If true, skips validation if the value is empty",
+                            "type": "Boolean"
+                        },
+                        {
+                            "name": "in",
+                            "description": "The list of values this attribute should not be",
+                            "type": "Array"
+                        },
+                        {
+                            "name": "range",
+                            "description": "The range in which the attribute's value should not reside in",
+                            "type": "Array"
+                        }
+                    ]
+                },
+                {
+                    "name": "model",
+                    "description": "",
+                    "type": "Object"
+                },
+                {
+                    "name": "attribute",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "class": "Exclusion",
+            "module": "Validators"
+        },
+        {
+            "file": "addon/format.js",
+            "line": 2,
+            "description": "Copyright 2016, Yahoo! Inc.\nCopyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.",
+            "class": "Format",
+            "module": "Validators"
+        },
+        {
+            "file": "addon/format.js",
+            "line": 24,
+            "itemtype": "method",
+            "name": "validate",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "",
+                    "type": "Any"
+                },
+                {
+                    "name": "options",
+                    "description": "",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "allowBlank",
+                            "description": "If true, skips validation if the value is empty",
+                            "type": "Boolean"
+                        },
+                        {
+                            "name": "type",
+                            "description": "Can be the one of the following options [`email`, `phone`, `url`]",
+                            "type": "String"
+                        },
+                        {
+                            "name": "inverse",
+                            "description": "If true, pass if the value doesn't match the given regex / type",
+                            "type": "String"
+                        },
+                        {
+                            "name": "regex",
+                            "description": "The regular expression to test against",
+                            "type": "Regex"
+                        },
+                        {
+                            "name": "allowNonTld",
+                            "description": "If true, the predefined regular expression `email` allows non top-level domains",
+                            "type": "Boolean"
+                        },
+                        {
+                            "name": "minTldLength",
+                            "description": "The min length of the top-level domain on the predefined `email` regular expression",
+                            "type": "Number"
+                        }
+                    ]
+                },
+                {
+                    "name": "model",
+                    "description": "",
+                    "type": "Object"
+                },
+                {
+                    "name": "attribute",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "class": "Format",
+            "module": "Validators"
+        },
+        {
+            "file": "addon/inclusion.js",
+            "line": 1,
+            "description": "Copyright 2016, Yahoo! Inc.\nCopyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.",
+            "class": "Inclusion",
+            "module": "Validators"
+        },
+        {
+            "file": "addon/inclusion.js",
+            "line": 22,
+            "itemtype": "method",
+            "name": "validate",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "",
+                    "type": "Any"
+                },
+                {
+                    "name": "options",
+                    "description": "",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "allowBlank",
+                            "description": "If true, skips validation if the value is empty",
+                            "type": "Boolean"
+                        },
+                        {
+                            "name": "in",
+                            "description": "The list of values this attribute could be",
+                            "type": "Array"
+                        },
+                        {
+                            "name": "range",
+                            "description": "The range in which the attribute's value should reside in",
+                            "type": "Array"
+                        }
+                    ]
+                },
+                {
+                    "name": "model",
+                    "description": "",
+                    "type": "Object"
+                },
+                {
+                    "name": "attribute",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "class": "Inclusion",
+            "module": "Validators"
+        },
+        {
+            "file": "addon/index.js",
+            "line": 1,
+            "description": "Copyright 2016, Yahoo! Inc.\nCopyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.",
+            "class": "Length",
+            "module": "Validators"
+        },
+        {
+            "file": "addon/length.js",
+            "line": 1,
+            "description": "Copyright 2016, Yahoo! Inc.\nCopyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.",
+            "class": "Length",
+            "module": "Validators"
+        },
+        {
+            "file": "addon/length.js",
+            "line": 22,
+            "itemtype": "method",
+            "name": "validate",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "",
+                    "type": "Any"
+                },
+                {
+                    "name": "options",
+                    "description": "",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "allowNone",
+                            "description": "If true, skips validation if the value is null or undefined. __Default: true__",
+                            "type": "Boolean"
+                        },
+                        {
+                            "name": "allowBlank",
+                            "description": "If true, skips validation if the value is empty",
+                            "type": "Boolean"
+                        },
+                        {
+                            "name": "useBetweenMessage",
+                            "description": "If true, uses the between error message when `max` and `min` are both set",
+                            "type": "Boolean"
+                        },
+                        {
+                            "name": "is",
+                            "description": "The exact length the value can be",
+                            "type": "Number"
+                        },
+                        {
+                            "name": "min",
+                            "description": "The minimum length the value can be",
+                            "type": "Number"
+                        },
+                        {
+                            "name": "max",
+                            "description": "The maximum length the value can be",
+                            "type": "Number"
+                        }
+                    ]
+                },
+                {
+                    "name": "model",
+                    "description": "",
+                    "type": "Object"
+                },
+                {
+                    "name": "attribute",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "class": "Length",
+            "module": "Validators"
+        },
+        {
+            "file": "addon/messages.js",
+            "line": 1,
+            "description": "Copyright 2016, Yahoo! Inc.\nCopyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.",
+            "class": "Messages",
+            "module": "Validators"
+        },
+        {
+            "file": "addon/messages.js",
+            "line": 18,
+            "description": "Regex for matching error message placeholders",
+            "access": "private",
+            "tagname": "",
+            "itemtype": "property",
+            "name": "_regex",
+            "type": "{RegExp}",
+            "class": "Messages",
+            "module": "Validators"
+        },
+        {
+            "file": "addon/messages.js",
+            "line": 26,
+            "description": "Default attribute description if one isnt passed into a validator's options",
+            "itemtype": "property",
+            "name": "defaultDescription",
+            "type": "{String}",
+            "class": "Messages",
+            "module": "Validators"
+        },
+        {
+            "file": "addon/messages.js",
+            "line": 33,
+            "description": "Get a description for a specific attribute. This is a hook\nfor i18n solutions to retrieve attribute descriptions from a translation",
+            "itemtype": "method",
+            "name": "getDescriptionFor",
+            "params": [
+                {
+                    "name": "attribute",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "options",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "String"
+            },
+            "class": "Messages",
+            "module": "Validators"
+        },
+        {
+            "file": "addon/messages.js",
+            "line": 45,
+            "description": "Get a message with a given type",
+            "itemtype": "method",
+            "name": "getMessageFor",
+            "params": [
+                {
+                    "name": "type",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "context",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "String"
+            },
+            "class": "Messages",
+            "module": "Validators"
+        },
+        {
+            "file": "addon/messages.js",
+            "line": 56,
+            "description": "Regex replace all placeholders with their given context",
+            "itemtype": "method",
+            "name": "formatMessage",
+            "params": [
+                {
+                    "name": "message",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "context",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "String"
+            },
+            "class": "Messages",
+            "module": "Validators"
+        },
+        {
+            "file": "addon/messages.js",
+            "line": 72,
+            "description": "Default validation error message strings",
+            "class": "Messages",
+            "module": "Validators"
+        },
+        {
+            "file": "addon/number.js",
+            "line": 1,
+            "description": "Copyright 2016, Yahoo! Inc.\nCopyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.",
+            "class": "Number",
+            "module": "Validators"
+        },
+        {
+            "file": "addon/number.js",
+            "line": 21,
+            "itemtype": "method",
+            "name": "validate",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "",
+                    "type": "Any"
+                },
+                {
+                    "name": "options",
+                    "description": "",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "allowBlank",
+                            "description": "If true, skips validation if the value is empty",
+                            "type": "Boolean"
+                        },
+                        {
+                            "name": "allowNone",
+                            "description": "If true, skips validation if the value is null or undefined. __Default: true__",
+                            "type": "Boolean"
+                        },
+                        {
+                            "name": "allowString",
+                            "description": "If true, validator will accept string representation of a number",
+                            "type": "Boolean"
+                        },
+                        {
+                            "name": "integer",
+                            "description": "Number must be an integer",
+                            "type": "Boolean"
+                        },
+                        {
+                            "name": "positive",
+                            "description": "Number must be greater than 0",
+                            "type": "Boolean"
+                        },
+                        {
+                            "name": "odd",
+                            "description": "Number must be odd",
+                            "type": "Boolean"
+                        },
+                        {
+                            "name": "even",
+                            "description": "Number must be even",
+                            "type": "Boolean"
+                        },
+                        {
+                            "name": "is",
+                            "description": "Number must be equal to this value",
+                            "type": "Number"
+                        },
+                        {
+                            "name": "lt",
+                            "description": "Number must be less than this value",
+                            "type": "Number"
+                        },
+                        {
+                            "name": "lte",
+                            "description": "Number must be less than or equal to this value",
+                            "type": "Number"
+                        },
+                        {
+                            "name": "gt",
+                            "description": "Number must be greater than this value",
+                            "type": "Number"
+                        },
+                        {
+                            "name": "gte",
+                            "description": "Number must be greater than or equal to this value",
+                            "type": "Number"
+                        },
+                        {
+                            "name": "multipleOf",
+                            "description": "Number must be a multiple of this value",
+                            "type": "Number"
+                        }
+                    ]
+                },
+                {
+                    "name": "model",
+                    "description": "",
+                    "type": "Object"
+                },
+                {
+                    "name": "attribute",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "class": "Number",
+            "module": "Validators"
+        },
+        {
+            "file": "addon/presence.js",
+            "line": 1,
+            "description": "Copyright 2016, Yahoo! Inc.\nCopyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.",
+            "class": "Presence",
+            "module": "Validators"
+        },
+        {
+            "file": "addon/presence.js",
+            "line": 22,
+            "itemtype": "method",
+            "name": "validate",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "",
+                    "type": "Any"
+                },
+                {
+                    "name": "options",
+                    "description": "",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "presence",
+                            "description": "If true validates that the given value is not empty,\n                                  if false, validates that the given value is empty.",
+                            "type": "Boolean"
+                        },
+                        {
+                            "name": "ignoreBlank",
+                            "description": "If true, treats an empty or whitespace string as not present",
+                            "type": "Boolean"
+                        }
+                    ]
+                },
+                {
+                    "name": "model",
+                    "description": "",
+                    "type": "Object"
+                },
+                {
+                    "name": "attribute",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "class": "Presence",
+            "module": "Validators"
+        }
+    ],
+    "warnings": [
+        {
+            "message": "Missing item type\nCopyright 2016, Yahoo! Inc.\nCopyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.",
+            "line": " addon/utils/is-promise.js:1"
+        },
+        {
+            "message": "Missing item type\nCopyright 2016, Yahoo! Inc.\nCopyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.",
+            "line": " addon/utils/unwrap-proxy.js:1"
+        },
+        {
+            "message": "Missing item type\nCopyright 2016, Yahoo! Inc.\nCopyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.",
+            "line": " addon/utils/validation-error.js:1"
+        },
+        {
+            "message": "Missing item type\nCopyright 2016, Yahoo! Inc.\nCopyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.",
+            "line": " addon/collection.js:1"
+        },
+        {
+            "message": "Missing item type\nCopyright 2016, Yahoo! Inc.\nCopyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.",
+            "line": " addon/confirmation.js:1"
+        },
+        {
+            "message": "Missing item type\nCopyright 2016, Yahoo! Inc.\nCopyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.",
+            "line": " addon/date.js:1"
+        },
+        {
+            "message": "Missing item type\nCopyright 2016, Yahoo! Inc.\nCopyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.",
+            "line": " addon/ds-error.js:1"
+        },
+        {
+            "message": "Missing item type\nCopyright 2016, Yahoo! Inc.\nCopyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.",
+            "line": " addon/exclusion.js:1"
+        },
+        {
+            "message": "Missing item type\nCopyright 2016, Yahoo! Inc.\nCopyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.",
+            "line": " addon/format.js:2"
+        },
+        {
+            "message": "Missing item type\nCopyright 2016, Yahoo! Inc.\nCopyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.",
+            "line": " addon/inclusion.js:1"
+        },
+        {
+            "message": "Missing item type\nCopyright 2016, Yahoo! Inc.\nCopyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.",
+            "line": " addon/index.js:1"
+        },
+        {
+            "message": "Missing item type\nCopyright 2016, Yahoo! Inc.\nCopyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.",
+            "line": " addon/length.js:1"
+        },
+        {
+            "message": "Missing item type\nCopyright 2016, Yahoo! Inc.\nCopyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.",
+            "line": " addon/messages.js:1"
+        },
+        {
+            "message": "Missing item type\nDefault validation error message strings",
+            "line": " addon/messages.js:72"
+        },
+        {
+            "message": "Missing item type\nCopyright 2016, Yahoo! Inc.\nCopyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.",
+            "line": " addon/number.js:1"
+        },
+        {
+            "message": "Missing item type\nCopyright 2016, Yahoo! Inc.\nCopyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.",
+            "line": " addon/presence.js:1"
+        }
+    ]
+}
