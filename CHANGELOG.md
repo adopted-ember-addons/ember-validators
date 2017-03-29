@@ -1,6 +1,12 @@
 Changelog
 =========
 
+## v1.0.1
+
+### Pull Requests
+
+- [#48](https://github.com/offirgolan/ember-validators/pull/48)  [BUGFIX] Remove assert in length validator  *by [Offir Golan](https://github.com/offirgolan)*
+
 ## v1.0.0
 
 ### Pull Requests
