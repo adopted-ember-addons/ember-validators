@@ -8,7 +8,6 @@ import validationError from 'ember-validators/utils/validation-error';
 
 const {
   get,
-  assert,
   isNone,
   isEmpty,
   getProperties
@@ -32,10 +31,8 @@ const {
  * @param {Object} model
  * @param {String} attribute
  */
-export default function validateLength(value, options, model, attribute) {
+export default function validateLength(value, options) {
   let { allowNone = true, allowBlank, useBetweenMessage, is, min, max } = getProperties(options, [ 'allowNone', 'allowBlank', 'useBetweenMessage', 'is', 'min', 'max' ]);
-
-  assert(`[validator:length] [${attribute}] no options were passed in`, !isEmpty(Object.keys(options)));
 
   if (isNone(value)) {
     return allowNone ? true : validationError('invalid', value, options);
