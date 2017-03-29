@@ -15,11 +15,8 @@ module('Unit | Validator | length');
 test('no options', function(assert) {
   assert.expect(1);
 
-  try {
-    result = validate(undefined, {});
-  } catch (e) {
-    assert.ok(true);
-  }
+  result = validate(undefined, {});
+  assert.ok(true);
 });
 
 test('allow blank', function(assert) {
