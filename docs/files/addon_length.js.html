@@ -53,8 +53,8 @@
                     <li class="panel panel-default">
                         <div class="panel-heading" role="tab" id="sidebar-version-heading">
                             <h4 class="panel-title">
-                                <a role="button" href="https://github.com/offirgolan/ember-validators/commits/e537ebc1" target="_blank">
-                                  Tag: 1.0.0.e537ebc1
+                                <a role="button" href="https://github.com/offirgolan/ember-validators/commits/v1.0.1" target="_blank">
+                                  Tag: v1.0.1
                                 </a>
                             </h4>
                         </div>
@@ -147,7 +147,6 @@ import validationError from &#x27;ember-validators/utils/validation-error&#x27;;
 
 const {
   get,
-  assert,
   isNone,
   isEmpty,
   getProperties
@@ -171,10 +170,8 @@ const {
  * @param {Object} model
  * @param {String} attribute
  */
-export default function validateLength(value, options, model, attribute) {
+export default function validateLength(value, options) {
   let { allowNone = true, allowBlank, useBetweenMessage, is, min, max } = getProperties(options, [ &#x27;allowNone&#x27;, &#x27;allowBlank&#x27;, &#x27;useBetweenMessage&#x27;, &#x27;is&#x27;, &#x27;min&#x27;, &#x27;max&#x27; ]);
-
-  assert(&#x60;[validator:length] [${attribute}] no options were passed in&#x60;, !isEmpty(Object.keys(options)));
 
   if (isNone(value)) {
     return allowNone ? true : validationError(&#x27;invalid&#x27;, value, options);

@@ -4,7 +4,7 @@
         "description": "A collection of EmberJS validators",
         "url": "https://github.com/offirgolan/ember-validators",
         "indexModule": "Validators",
-        "version": "1.0.0.e537ebc1"
+        "version": "v1.0.1"
     },
     "files": {
         "addon/utils/is-promise.js": {
@@ -264,7 +264,7 @@
             "module": "Validators",
             "namespace": "",
             "file": "addon/length.js",
-            "line": 17
+            "line": 16
         },
         "Messages": {
             "name": "Messages",
@@ -727,7 +727,7 @@
         },
         {
             "file": "addon/length.js",
-            "line": 22,
+            "line": 21,
             "itemtype": "method",
             "name": "validate",
             "params": [
