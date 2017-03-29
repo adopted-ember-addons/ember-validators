@@ -31,6 +31,8 @@ const {
  * @param {Any} value
  * @param {Object} options
  * @param {Boolean} options.allowBlank If true, skips validation if the value is empty
+ * @param {String} options.is The specified date must be this date
+ * @param {String} options.not The specified date mustn't be this date
  * @param {String} options.before The specified date must be before this date
  * @param {String} options.onOrBefore The specified date must be on or before this date
  * @param {String} options.after The specified date must be after this date
@@ -45,7 +47,7 @@ const {
 export default function validateDate(value, options) {
   let errorFormat = getWithDefault(options, 'errorFormat', 'MMM Do, YYYY');
   let { format, precision, allowBlank } = getProperties(options, ['format', 'precision', 'allowBlank']);
-  let { before, onOrBefore, after, onOrAfter } = getProperties(options, ['before', 'onOrBefore', 'after', 'onOrAfter']);
+  let { is, not, before, onOrBefore, after, onOrAfter } = getProperties(options, ['before', 'onOrBefore', 'after', 'onOrAfter']);
   let date;
 
   if (allowBlank && isEmpty(value)) {
@@ -61,6 +63,22 @@ export default function validateDate(value, options) {
     date = parseDate(value);
     if (!date.isValid()) {
       return validationError('date', value, options);
+    }
+  }
+
+  if (is) {
+    is = _parseDate(is, format);
+    if (!date.isSame(is, precision)) {
+      set(options, 'is', is.format(errorFormat));
+      return validationError('equalTo', value, options);
+    }
+  }
+
+  if (not) {
+    not = _parseDate(not, format);
+    if (date.isSame(not, precision)) {
+      set(options, 'not', not.format(errorFormat));
+      return validationError('notEqualTo', value, options);
     }
   }
 
