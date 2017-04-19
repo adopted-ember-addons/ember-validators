@@ -31,6 +31,7 @@ const {
  * @param {Any} value
  * @param {Object} options
  * @param {Boolean} options.allowBlank If true, skips validation if the value is empty
+ * @param {Boolean} options.displayUTC If true, displays date in UTC mode in error message
  * @param {String} options.before The specified date must be before this date
  * @param {String} options.onOrBefore The specified date must be on or before this date
  * @param {String} options.after The specified date must be after this date
@@ -44,7 +45,7 @@ const {
  */
 export default function validateDate(value, options) {
   let errorFormat = getWithDefault(options, 'errorFormat', 'MMM Do, YYYY');
-  let { format, precision, allowBlank } = getProperties(options, ['format', 'precision', 'allowBlank']);
+  let { format, precision, allowBlank, displayUTC } = getProperties(options, ['format', 'precision', 'allowBlank', 'displayUTC']);
   let { before, onOrBefore, after, onOrAfter } = getProperties(options, ['before', 'onOrBefore', 'after', 'onOrAfter']);
   let date;
 
@@ -53,19 +54,19 @@ export default function validateDate(value, options) {
   }
 
   if (format) {
-    date = parseDate(value, format, true);
+    date = parseDate(value, format, true, displayUTC);
     if (!date.isValid()) {
       return validationError('wrongDateFormat', value, options);
     }
   } else {
-    date = parseDate(value);
+    date = parseDate(value, undefined, false, displayUTC);
     if (!date.isValid()) {
       return validationError('date', value, options);
     }
   }
 
   if (before) {
-    before = parseDate(before, format);
+    before = parseDate(before, format, false, displayUTC);
     if (!date.isBefore(before, precision)) {
       set(options, 'before', before.format(errorFormat));
       return validationError('before', value, options);
@@ -73,7 +74,7 @@ export default function validateDate(value, options) {
   }
 
   if (onOrBefore) {
-    onOrBefore = parseDate(onOrBefore, format);
+    onOrBefore = parseDate(onOrBefore, format, false, displayUTC);
     if (!date.isSameOrBefore(onOrBefore, precision))  {
       set(options, 'onOrBefore', onOrBefore.format(errorFormat));
       return validationError('onOrBefore', value, options);
@@ -81,7 +82,7 @@ export default function validateDate(value, options) {
   }
 
   if (after) {
-    after = parseDate(after, format);
+    after = parseDate(after, format, false, displayUTC);
     if (!date.isAfter(after, precision)) {
       set(options, 'after', after.format(errorFormat));
       return validationError('after', value, options);
@@ -89,7 +90,7 @@ export default function validateDate(value, options) {
   }
 
   if (onOrAfter) {
-    onOrAfter = parseDate(onOrAfter, format);
+    onOrAfter = parseDate(onOrAfter, format, false, displayUTC);
     if (!date.isSameOrAfter(onOrAfter, precision)) {
       set(options, 'onOrAfter', onOrAfter.format(errorFormat));
       return validationError('onOrAfter', value, options);
@@ -99,10 +100,14 @@ export default function validateDate(value, options) {
   return true;
 }
 
-export function parseDate(date, format, useStrict = false) {
+export function parseDate(date, format, useStrict = false, displayUTC = false) {
   if (date === 'now' || isEmpty(date)) {
-    return moment();
+    return displayUTC ? moment.parseZone() : moment();
   }
 
-  return isNone(format) ? moment(new Date(date)) : moment(date, format, useStrict);
+  if (isNone(format)) {
+    return displayUTC ? moment.parseZone(date) : moment(date);
+  }
+
+  return displayUTC ? moment.parseZone(date, format, useStrict) : moment(date, format, useStrict);
 }
