@@ -37,11 +37,11 @@ export default function validatePresence(value, options, model, attribute) {
   assert(`[validator:presence] [${attribute}] option 'presence' is required`, isPresent(presence));
 
   if (presence === true && !_isPresent) {
-    return validationError('blank', value, options);
+    return validationError('present', value, options);
   }
 
   if (presence === false && _isPresent) {
-    return validationError('present', value, options);
+    return validationError('blank', value, options);
   }
 
   return true;
