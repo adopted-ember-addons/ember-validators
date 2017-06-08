@@ -1,6 +1,12 @@
 Changelog
 =========
 
+## v1.0.2
+
+### Pull Requests
+
+- [#52](https://github.com/offirgolan/ember-validators/pull/52)  Use consistent semver of ember-require-module  *by [Lei Zhao](https://github.com/leizhao4)*
+
 ## v1.0.1
 
 ### Pull Requests
