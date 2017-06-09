@@ -99,7 +99,7 @@ export default {
   phone: '{description} must be a valid phone number',
   positive: '{description} must be positive',
   multipleOf: '{description} must be a multiple of {multipleOf}',
-  present: '{description} must be blank',
+  present: '{description} must be present',
   singular: '{description} can\'t be a collection',
   tooLong: '{description} is too long (maximum is {max} characters)',
   tooShort: '{description} is too short (minimum is {min} characters)',
