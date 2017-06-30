@@ -17,6 +17,7 @@ ember install ember-validators
 
 ## Helpful Links
 
+- ### [Documentation](https://offirgolan.github.io/ember-validators)
 - ### [Changelog](CHANGELOG.md)
 
 ## Looking for help?
@@ -76,10 +77,6 @@ function (value, options, model, attribute) {}
 
   `true` will be returned if the validation passed
 
-- **String**
-
-  Validation failed with the given error message
-
 - **Object**
 
   Validation failed and a message should be built with the given attributes
@@ -95,3 +92,7 @@ function (value, options, model, attribute) {}
   - context (**Object**):
 
     The error message context
+
+  - message (**String**):
+
+    The error message. If this is specified, use this string as the error message instead of building one.

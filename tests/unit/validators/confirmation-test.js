@@ -29,3 +29,12 @@ test('attribute', function(assert) {
   result = validate('foo@yahoo.com', cloneOptions(options), model);
   assert.equal(processResult(result), true);
 });
+
+test('allowBlank', function(assert) {
+  assert.expect(1);
+
+  options = { on: 'email', allowBlank: true };
+
+  result = validate('', cloneOptions(options), model);
+  assert.equal(processResult(result), true);
+});

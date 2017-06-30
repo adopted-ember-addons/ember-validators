@@ -7,7 +7,12 @@ const {
 
 export default function processResult(result) {
   if (result && typeof result === 'object') {
-    let { type, context } = result;
+    let { type, context, message } = result;
+
+    if (message) {
+      return message;
+    }
+
     set(context, 'description', Messages.getDescriptionFor(undefined, context));
     return Messages.getMessageFor(type, context);
   }

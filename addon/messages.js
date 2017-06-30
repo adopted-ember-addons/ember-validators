@@ -98,10 +98,12 @@ export default {
   otherThan: '{description} must be other than {value}',
   phone: '{description} must be a valid phone number',
   positive: '{description} must be positive',
+  multipleOf: '{description} must be a multiple of {multipleOf}',
   present: '{description} must be blank',
   singular: '{description} can\'t be a collection',
   tooLong: '{description} is too long (maximum is {max} characters)',
   tooShort: '{description} is too short (minimum is {min} characters)',
+  between: '{description} must be between {min} and {max} characters',
   url: '{description} must be a valid url',
   wrongDateFormat: '{description} must be in the format of {format}',
   wrongLength: '{description} is the wrong length (should be {is} characters)'

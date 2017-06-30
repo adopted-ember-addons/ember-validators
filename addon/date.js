@@ -53,19 +53,19 @@ export default function validateDate(value, options) {
   }
 
   if (format) {
-    date = _parseDate(value, format, true);
+    date = parseDate(value, format, true);
     if (!date.isValid()) {
       return validationError('wrongDateFormat', value, options);
     }
   } else {
-    date = _parseDate(value);
+    date = parseDate(value);
     if (!date.isValid()) {
       return validationError('date', value, options);
     }
   }
 
   if (before) {
-    before = _parseDate(before, format);
+    before = parseDate(before, format);
     if (!date.isBefore(before, precision)) {
       set(options, 'before', before.format(errorFormat));
       return validationError('before', value, options);
@@ -73,7 +73,7 @@ export default function validateDate(value, options) {
   }
 
   if (onOrBefore) {
-    onOrBefore = _parseDate(onOrBefore, format);
+    onOrBefore = parseDate(onOrBefore, format);
     if (!date.isSameOrBefore(onOrBefore, precision))  {
       set(options, 'onOrBefore', onOrBefore.format(errorFormat));
       return validationError('onOrBefore', value, options);
@@ -81,7 +81,7 @@ export default function validateDate(value, options) {
   }
 
   if (after) {
-    after = _parseDate(after, format);
+    after = parseDate(after, format);
     if (!date.isAfter(after, precision)) {
       set(options, 'after', after.format(errorFormat));
       return validationError('after', value, options);
@@ -89,7 +89,7 @@ export default function validateDate(value, options) {
   }
 
   if (onOrAfter) {
-    onOrAfter = _parseDate(onOrAfter, format);
+    onOrAfter = parseDate(onOrAfter, format);
     if (!date.isSameOrAfter(onOrAfter, precision)) {
       set(options, 'onOrAfter', onOrAfter.format(errorFormat));
       return validationError('onOrAfter', value, options);
@@ -99,7 +99,7 @@ export default function validateDate(value, options) {
   return true;
 }
 
-function _parseDate(date, format, useStrict = false) {
+export function parseDate(date, format, useStrict = false) {
   if (date === 'now' || isEmpty(date)) {
     return moment();
   }

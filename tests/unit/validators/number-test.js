@@ -135,6 +135,23 @@ test('gt', function(assert) {
   assert.equal(processResult(result), true);
 });
 
+test('multipleOf', function(assert) {
+  assert.expect(3);
+
+  options = {
+    multipleOf: 2
+  };
+
+  result = validate(5, cloneOptions(options));
+  assert.equal(processResult(result), 'This field must be a multiple of 2');
+
+  result = validate(17, cloneOptions(options));
+  assert.equal(processResult(result), 'This field must be a multiple of 2');
+
+  result = validate(22, cloneOptions(options));
+  assert.equal(processResult(result), true);
+});
+
 test('gte', function(assert) {
   assert.expect(3);
 

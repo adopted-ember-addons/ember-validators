@@ -4,11 +4,17 @@
  */
 
 import { module, test } from 'qunit';
-import { default as validate, regularExpressions } from 'ember-validators/format';
+import validate from 'ember-validators/format';
 import processResult from '../../helpers/process-result';
 import cloneOptions from '../../helpers/clone-options';
 
 let options, result;
+
+function testEmailAddresses(assert, options, valid = [], invalid = []) {
+  options = cloneOptions(options);
+  valid.forEach((email) => assert.equal(processResult(validate(email, options)), true, `validation of ${email} must succeed`));
+  invalid.forEach((email) => assert.equal(processResult(validate(email, options)), 'This field must be a valid email address', `validation of ${email} must fail`));
+}
 
 module('Unit | Validator | format');
 
@@ -27,8 +33,7 @@ test('allow blank', function(assert) {
 
   options = {
     allowBlank: true,
-    type: 'email',
-    regex: regularExpressions.email
+    type: 'email'
   };
   options = cloneOptions(options);
 
@@ -54,6 +59,9 @@ test('email', function(assert) {
     'EMAIL@DOMAIN.COM'
   ];
   let invalidAddresses = [
+    null,
+    undefined,
+    404,
     'plainaddress',
     '#@%^%#$@#$@#.com',
     '@domain.com',
@@ -81,74 +89,56 @@ test('email', function(assert) {
   assert.expect(validAddresses.length + invalidAddresses.length);
 
   options = {
-    type: 'email',
-    regex: regularExpressions.email
+    type: 'email'
   };
 
-  options = cloneOptions(options);
-
-  validAddresses.forEach((email) => assert.equal(processResult(validate(email, options)), true, `validation of ${email} must succeed`));
-  invalidAddresses.forEach((email) => assert.equal(processResult(validate(email, options)), 'This field must be a valid email address', `validation of ${email} must fail`));
+  testEmailAddresses(assert, options, validAddresses, invalidAddresses);
 });
 
 test('email + allowNonTld', function(assert) {
   let validAddresses = [
     'email@domain.com',
-    'firstname.lastname@domain.com',
-    'email@subdomain.domain.com',
-    'firstname+lastname@domain.com',
-    '1234567890@domain.com',
-    'email@domain-one.com',
-    '_______@domain.com',
-    'email@domain.name',
-    'email@domain.co.jp',
-    'firstname-lastname@domain.com',
-    'EMAIL@DOMAIN.COM',
     'email@domain'
   ];
+
+  assert.expect(validAddresses.length);
+
+  options = {
+    type: 'email',
+    allowNonTld: true
+  };
+
+  testEmailAddresses(assert, options, validAddresses);
+});
+
+test('email + minTldLength', function(assert) {
+  let validAddresses = [
+    'email@domain.com',
+    'email@domain.co',
+    'email@domain.co.nz',
+    'email@domain.c.nz'
+  ];
+
   let invalidAddresses = [
-    'plainaddress',
-    '#@%^%#$@#$@#.com',
-    '@domain.com',
-    'Joe Smith <email@domain.com>',
-    'email.domain.com',
-    'email@domain@domain.com',
-    '.email@domain.com',
-    'email.@domain.com',
-    'email..email@domain.com',
-    'あいうえお@domain.com',
-    'email@domain.com (Joe Smith)',
-    'email@domain.',
-    'email@domain.-',
-    'email@domain-',
-    'email@domain-.',
-    'email@domain.com.',
-    'email@domain.com.-',
-    'email@domain.com-',
-    'email@domain.com-.',
-    'email@-domain.com',
-    'email@domain..com'
+    'email@domain.c',
+    'email@domain.c.i'
   ];
 
   assert.expect(validAddresses.length + invalidAddresses.length);
 
   options = {
     type: 'email',
-    regex: regularExpressions.emailOptionalTld
+    minTldLength: 2
   };
 
-  options = cloneOptions(options);
-
-  validAddresses.forEach((email) => assert.equal(processResult(validate(email, options)), true, `validation of ${email} must succeed`));
-  invalidAddresses.forEach((email) => assert.equal(processResult(validate(email, options)), 'This field must be a valid email address', `validation of ${email} must fail`));
+  testEmailAddresses(assert, options, validAddresses, invalidAddresses);
 });
 
 test('phone', function(assert) {
   assert.expect(2);
 
   options = {
-    type: 'phone',
-    regex: regularExpressions.phone
+    type: 'phone'
   };
 
   options = cloneOptions(options);
@@ -164,8 +154,7 @@ test('url', function(assert) {
   assert.expect(2);
 
   options = {
-    type: 'url',
-    regex: regularExpressions.url
+    type: 'url'
   };
 
   options = cloneOptions(options);
@@ -177,8 +166,42 @@ test('url', function(assert) {
   assert.equal(processResult(result), true);
 });
 
-test('custom', function(assert) {
+test('inverse - with type', function(assert) {
   assert.expect(2);
+
+  options = {
+    type: 'email',
+    inverse: true
+  };
+
+  options = cloneOptions(options);
+
+  result = validate('email@domain.com', options);
+  assert.equal(processResult(result), 'This field must be a valid email address');
+
+  result = validate('foobar123', options);
+  assert.equal(processResult(result), true);
+});
+
+test('inverse - custom', function(assert) {
+  assert.expect(2);
+
+  options = {
+    inverse: true,
+    regex: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,8}$/
+  };
+
+  options = cloneOptions(options);
+
+  result = validate('Pass123', options);
+  assert.equal(processResult(result), 'This field is invalid');
+
+  result = validate('foobar', options);
+  assert.equal(processResult(result), true);
+});
+
+test('custom', function(assert) {
+  assert.expect(3);
 
   options = {
     regex: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,8}$/
@@ -186,9 +209,31 @@ test('custom', function(assert) {
 
   options = cloneOptions(options);
 
+  result = validate(null, options);
+  assert.equal(processResult(result), 'This field is invalid');
+
   result = validate('password', options);
   assert.equal(processResult(result), 'This field is invalid');
 
   result = validate('Pass123', options);
   assert.equal(processResult(result), true);
+});
+
+test('custom with g flag', function(assert) {
+  assert.expect(3);
+
+  options = {
+    regex: /foo/g
+  };
+
+  options = cloneOptions(options);
+
+  result = validate('foo', options);
+  assert.equal(processResult(result), true);
+
+  result = validate('foo', options);
+  assert.equal(processResult(result), true);
+
+  result = validate('bar', options);
+  assert.equal(processResult(result), 'This field is invalid');
 });
