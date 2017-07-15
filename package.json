@@ -1,6 +1,6 @@
 {
   "name": "ember-validators",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A collection of EmberJS validators",
   "directories": {
     "doc": "doc",
@@ -58,7 +58,7 @@
   ],
   "dependencies": {
     "ember-cli-babel": "^5.1.6",
-    "ember-require-module": "^0.1.1"
+    "ember-require-module": "^0.1.2"
   },
   "ember-addon": {
     "configPath": "tests/dummy/config",

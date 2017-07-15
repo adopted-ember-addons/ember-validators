@@ -1,6 +1,12 @@
 Changelog
 =========
 
+## v1.0.3
+
+### Pull Requests
+
+- [#54](https://github.com/offirgolan/ember-validators/pull/54)  Update minimum version of ember-require-module  *by [Jonathan Johnson](https://github.com/jrjohnson)*
+
 ## v1.0.2
 
 ### Pull Requests
