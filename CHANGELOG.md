@@ -1,6 +1,12 @@
 Changelog
 =========
 
+## v1.0.4
+
+### Pull Requests
+
+- [#57](https://github.com/offirgolan/ember-validators/pull/57)  Update `ember-cli-babel` to v6.9.2  *by [Tobias Bieniek](https://github.com/Turbo87)*
+
 ## v1.0.3
 
 ### Pull Requests
