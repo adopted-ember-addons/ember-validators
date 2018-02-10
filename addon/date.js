@@ -1,10 +1,4 @@
-/**
- * Copyright 2016, Yahoo! Inc.
- * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
- */
-
 import { isEmpty, isNone } from '@ember/utils';
-
 import { set, getProperties, getWithDefault } from '@ember/object';
 import validationError from 'ember-validators/utils/validation-error';
 import requireModule from 'ember-require-module';

@@ -1,10 +1,4 @@
-/**
- * Copyright 2016, Yahoo! Inc.
- * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
- */
-
 import { assert } from '@ember/debug';
-
 import { isPresent, isEmpty } from '@ember/utils';
 import { getProperties } from '@ember/object';
 import validationError from 'ember-validators/utils/validation-error';

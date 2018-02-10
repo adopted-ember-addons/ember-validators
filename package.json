@@ -7,7 +7,7 @@
     "validations",
     "validators"
   ],
-  "license": "BSD-3-Clause",
+  "license": "MIT",
   "author": "Offir Golan <offirgolan@gmail.com>",
   "directories": {
     "doc": "doc",
