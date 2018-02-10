@@ -1,9 +1,5 @@
-/**
- * Copyright 2016, Yahoo! Inc.
- * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
- */
-
-import Ember from 'ember';
+import { isEmpty, isNone } from '@ember/utils';
+import { set, getProperties, getWithDefault } from '@ember/object';
 import validationError from 'ember-validators/utils/validation-error';
 import requireModule from 'ember-require-module';
 
@@ -12,14 +8,6 @@ const moment = requireModule('moment');
 if (!moment) {
   throw new Error('MomentJS is required to use the Date validator.');
 }
-
-const {
-  getWithDefault,
-  getProperties,
-  isNone,
-  isEmpty,
-  set
-} = Ember;
 
 /**
  * @class Date

@@ -1,9 +1,5 @@
-import Ember from 'ember';
+import { set } from '@ember/object';
 import Messages from 'ember-validators/messages';
-
-const {
-  set
-} = Ember;
 
 export default function processResult(result) {
   if (result && typeof result === 'object') {

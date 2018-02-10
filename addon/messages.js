@@ -1,14 +1,5 @@
-/**
- * Copyright 2016, Yahoo! Inc.
- * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
- */
-
-import Ember from 'ember';
-
-const {
-  get,
-  isNone
-} = Ember;
+import { get } from '@ember/object';
+import { isNone } from '@ember/utils';
 
 /**
  *  @class Messages

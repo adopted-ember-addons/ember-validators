@@ -1,8 +1,3 @@
-/**
- * Copyright 2016, Yahoo! Inc.
- * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
- */
-
 import { module, test } from 'qunit';
 import validate from 'ember-validators/exclusion';
 import processResult from '../../helpers/process-result';

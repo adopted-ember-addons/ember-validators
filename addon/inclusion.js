@@ -1,18 +1,7 @@
-/**
- * Copyright 2016, Yahoo! Inc.
- * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
- */
-
-import Ember from 'ember';
+import { assert } from '@ember/debug';
+import { isEmpty, typeOf } from '@ember/utils';
+import { getProperties, get } from '@ember/object';
 import validationError from 'ember-validators/utils/validation-error';
-
-const {
-  get,
-  typeOf,
-  assert,
-  isEmpty,
-  getProperties
-} = Ember;
 
 /**
  *  @class Inclusion

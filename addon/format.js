@@ -1,19 +1,12 @@
-
-/**
- * Copyright 2016, Yahoo! Inc.
- * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
- */
+import { isEmpty, isNone } from '@ember/utils';
+import { assert } from '@ember/debug';
+import { getProperties, set } from '@ember/object';
 
 import Ember from 'ember';
 import validationError from 'ember-validators/utils/validation-error';
 
 const {
-  set,
-  isNone,
-  isEmpty,
-  assert,
-  canInvoke,
-  getProperties
+  canInvoke
 } = Ember;
 
 /**
@@ -35,8 +28,11 @@ const {
  * @param {String} attribute
  */
 export const regularExpressions = {
+  // eslint-disable-next-line no-useless-escape
   email: /^[a-z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i,
+  // eslint-disable-next-line no-useless-escape
   phone: /^([\+]?1\s*[-\/\.]?\s*)?(\((\d{3})\)|(\d{3}))\s*[-\/\.]?\s*(\d{3})\s*[-\/\.]?\s*(\d{4})\s*(([xX]|[eE][xX][tT]?[\.]?|extension)\s*([#*\d]+))*$/,
+  // eslint-disable-next-line no-useless-escape
   url: /(?:([A-Za-z]+):)?(\/{0,3})[a-zA-Z0-9][a-zA-Z-0-9]*(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-{}]*[\w@?^=%&amp;\/~+#-{}])??/
 };
 

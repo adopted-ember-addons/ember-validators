@@ -1,21 +1,18 @@
-/**
- * Copyright 2016, Yahoo! Inc.
- * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
- */
-
-import Ember from 'ember';
+import { A } from '@ember/array';
+import ArrayProxy from '@ember/array/proxy';
+import ObjectProxy from '@ember/object/proxy';
 import { module, test } from 'qunit';
 import { default as unwrapProxy, isProxy } from 'ember-validators/utils/unwrap-proxy';
 
 module('Unit | Util | unwrapProxy');
 
 test('unwraps proxy content', function(assert) {
-  let objProxy = Ember.ObjectProxy.create({
+  let objProxy = ObjectProxy.create({
     content: { foo: 'bar' }
   });
 
-  let arrProxy = Ember.ArrayProxy.create({
-    content: Ember.A(['foo', 'bar'])
+  let arrProxy = ArrayProxy.create({
+    content: A(['foo', 'bar'])
   });
 
   let unwrappedObj = unwrapProxy(objProxy);
@@ -29,8 +26,8 @@ test('unwraps proxy content', function(assert) {
 });
 
 test('unwraps nested proxy content', function(assert) {
-  let objProxy = Ember.ObjectProxy.create({
-    content: Ember.ObjectProxy.create({
+  let objProxy = ObjectProxy.create({
+    content: ObjectProxy.create({
       content: { foo: 'bar' }
     })
   });

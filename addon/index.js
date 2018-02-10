@@ -1,15 +1,6 @@
-/**
- * Copyright 2016, Yahoo! Inc.
- * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
- */
-
-import Ember from 'ember';
+import { assert } from '@ember/debug';
+import { isPresent } from '@ember/utils';
 import requireModule from 'ember-require-module';
-
-const {
-  assert,
-  isPresent
-} = Ember;
 
 export function validate(type, ...args) {
   let validator = requireModule(`ember-validators/${type}`);
