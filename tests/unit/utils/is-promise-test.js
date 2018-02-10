@@ -3,13 +3,10 @@
  * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
  */
 
-import Ember from 'ember';
+import { Promise } from 'rsvp';
+
 import { module, test } from 'qunit';
 import isPromise from 'ember-validators/utils/is-promise';
-
-const {
-  RSVP: { Promise }
-} = Ember;
 
 module('Unit | Util | isPromise');
 

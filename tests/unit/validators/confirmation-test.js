@@ -2,7 +2,7 @@
  * Copyright 2016, Yahoo! Inc.
  * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
  */
-import Ember from 'ember';
+import EmberObject from '@ember/object';
 import { module, test } from 'qunit';
 import validate from 'ember-validators/confirmation';
 import processResult from '../../helpers/process-result';
@@ -17,7 +17,7 @@ test('attribute', function(assert) {
 
   options = { on: 'email' };
 
-  model = Ember.Object.create({
+  model = EmberObject.create({
     'email': 'foo@yahoo.com'
   });
 

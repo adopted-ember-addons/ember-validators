@@ -3,13 +3,10 @@
  * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
  */
 
-import Ember from 'ember';
-import requireModule from 'ember-require-module';
+import { assert } from '@ember/debug';
 
-const {
-  assert,
-  isPresent
-} = Ember;
+import { isPresent } from '@ember/utils';
+import requireModule from 'ember-require-module';
 
 export function validate(type, ...args) {
   let validator = requireModule(`ember-validators/${type}`);

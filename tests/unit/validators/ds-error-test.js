@@ -3,7 +3,7 @@
  * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
  */
 
-import Ember from 'ember';
+import EmberObject from '@ember/object';
 import DS from 'ember-data';
 import { module, test } from 'qunit';
 import validate from 'ember-validators/ds-error';
@@ -16,7 +16,7 @@ module('Unit | Validator | ds-error');
 test('works with empty object', function(assert) {
   assert.expect(1);
 
-  model = Ember.Object.create();
+  model = EmberObject.create();
 
   result = validate(undefined, undefined, model, 'username');
   assert.equal(processResult(result), true);
@@ -25,7 +25,7 @@ test('works with empty object', function(assert) {
 test('it works', function(assert) {
   assert.expect(2);
 
-  model = Ember.Object.create({
+  model = EmberObject.create({
     errors: DS.Errors.create(),
     username: null
   });
@@ -42,7 +42,7 @@ test('it works', function(assert) {
 test('gets last message', function(assert) {
   assert.expect(2);
 
-  model = Ember.Object.create({
+  model = EmberObject.create({
     errors: DS.Errors.create(),
     username: null
   });

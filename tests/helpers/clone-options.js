@@ -1,6 +1,6 @@
-import Ember from 'ember';
+import { assign, merge } from '@ember/polyfills';
 
-const assign = Ember.assign || Ember.merge;
+const assign = assign || merge;
 
 export default function cloneOptions(o) {
   return assign({}, o);

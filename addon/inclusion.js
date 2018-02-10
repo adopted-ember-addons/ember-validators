@@ -3,16 +3,11 @@
  * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
  */
 
-import Ember from 'ember';
-import validationError from 'ember-validators/utils/validation-error';
+import { assert } from '@ember/debug';
 
-const {
-  get,
-  typeOf,
-  assert,
-  isEmpty,
-  getProperties
-} = Ember;
+import { isEmpty, typeOf } from '@ember/utils';
+import { getProperties, get } from '@ember/object';
+import validationError from 'ember-validators/utils/validation-error';
 
 /**
  *  @class Inclusion

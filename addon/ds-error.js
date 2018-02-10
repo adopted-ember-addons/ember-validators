@@ -3,7 +3,9 @@
  * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
  */
 
-import Ember from 'ember';
+import { get } from '@ember/object';
+
+import { isNone } from '@ember/utils';
 import requireModule from 'ember-require-module';
 import validationError from 'ember-validators/utils/validation-error';
 
@@ -12,11 +14,6 @@ const DS = requireModule('ember-data');
 if (!DS) {
   throw new Error('Ember-Data is required to use the DS Error validator.');
 }
-
-const {
-  get,
-  isNone
-} = Ember;
 
 /**
  *  @class DS Error

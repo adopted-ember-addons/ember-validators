@@ -3,16 +3,12 @@
  * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
  */
 
-import Ember from 'ember';
+import { assert } from '@ember/debug';
+
+import { isPresent, isEmpty } from '@ember/utils';
+import { getProperties } from '@ember/object';
 import validationError from 'ember-validators/utils/validation-error';
 import unwrapProxy from 'ember-validators/utils/unwrap-proxy';
-
-const {
-  assert,
-  isEmpty,
-  isPresent,
-  getProperties
-} = Ember;
 
 /**
  *  @class Presence
