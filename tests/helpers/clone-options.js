@@ -1,6 +1,4 @@
-import { assign, merge } from '@ember/polyfills';
-
-const assign = assign || merge;
+import { assign } from '@ember/polyfills';
 
 export default function cloneOptions(o) {
   return assign({}, o);

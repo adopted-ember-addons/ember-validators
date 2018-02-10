@@ -5,10 +5,6 @@ import validationError from 'ember-validators/utils/validation-error';
 
 const DS = requireModule('ember-data');
 
-if (!DS) {
-  throw new Error('Ember-Data is required to use the DS Error validator.');
-}
-
 /**
  *  @class DS Error
  *  @module Validators
@@ -22,6 +18,10 @@ if (!DS) {
  * @param {String} attribute
  */
 export default function validateDsError(value, options, model, attribute) {
+  if (!DS) {
+    throw new Error('Ember-Data is required to use the DS Error validator.');
+  }
+
   let { path, key } = getPathAndKey(attribute);
 
   let errors = get(model, path);
