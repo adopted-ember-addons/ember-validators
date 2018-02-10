@@ -1,6 +1,12 @@
 Changelog
 =========
 
+## v1.1.0
+
+### Pull Requests
+
+- [#60](https://github.com/offirgolan/ember-validators/pull/60)  Update all the things  *by [Offir Golan](https://github.com/offirgolan)*
+
 ## v1.0.4
 
 ### Pull Requests
