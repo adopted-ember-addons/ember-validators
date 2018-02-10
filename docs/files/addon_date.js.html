@@ -53,8 +53,8 @@
                     <li class="panel panel-default">
                         <div class="panel-heading" role="tab" id="sidebar-version-heading">
                             <h4 class="panel-title">
-                                <a role="button" href="https://github.com/offirgolan/ember-validators/commits/v1.0.4" target="_blank">
-                                  Tag: v1.0.4
+                                <a role="button" href="https://github.com/offirgolan/ember-validators/commits/v1.1.0" target="_blank">
+                                  Tag: v1.1.0
                                 </a>
                             </h4>
                         </div>
@@ -137,12 +137,8 @@
 
 <div class="file">
     <pre class="prettyprint linenums">
-/**
- * Copyright 2016, Yahoo! Inc.
- * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
- */
-
-import Ember from &#x27;ember&#x27;;
+import { isEmpty, isNone } from &#x27;@ember/utils&#x27;;
+import { set, getProperties, getWithDefault } from &#x27;@ember/object&#x27;;
 import validationError from &#x27;ember-validators/utils/validation-error&#x27;;
 import requireModule from &#x27;ember-require-module&#x27;;
 
@@ -151,14 +147,6 @@ const moment = requireModule(&#x27;moment&#x27;);
 if (!moment) {
   throw new Error(&#x27;MomentJS is required to use the Date validator.&#x27;);
 }
-
-const {
-  getWithDefault,
-  getProperties,
-  isNone,
-  isEmpty,
-  set
-} = Ember;
 
 /**
  * @class Date

@@ -4,30 +4,9 @@
         "description": "A collection of EmberJS validators",
         "url": "https://github.com/offirgolan/ember-validators",
         "indexModule": "Validators",
-        "version": "v1.0.4"
+        "version": "v1.1.0"
     },
     "files": {
-        "addon/utils/is-promise.js": {
-            "name": "addon/utils/is-promise.js",
-            "modules": {},
-            "classes": {},
-            "fors": {},
-            "namespaces": {}
-        },
-        "addon/utils/unwrap-proxy.js": {
-            "name": "addon/utils/unwrap-proxy.js",
-            "modules": {},
-            "classes": {},
-            "fors": {},
-            "namespaces": {}
-        },
-        "addon/utils/validation-error.js": {
-            "name": "addon/utils/validation-error.js",
-            "modules": {},
-            "classes": {},
-            "fors": {},
-            "namespaces": {}
-        },
         "addon/collection.js": {
             "name": "addon/collection.js",
             "modules": {
@@ -93,13 +72,6 @@
             "fors": {},
             "namespaces": {}
         },
-        "addon/index.js": {
-            "name": "addon/index.js",
-            "modules": {},
-            "classes": {},
-            "fors": {},
-            "namespaces": {}
-        },
         "addon/length.js": {
             "name": "addon/length.js",
             "modules": {},
@@ -159,7 +131,7 @@
             "namespaces": {},
             "tag": "module",
             "file": "addon/presence.js",
-            "line": 17
+            "line": 7
         }
     },
     "classes": {
@@ -173,7 +145,7 @@
             "extension_for": [],
             "module": "Validators",
             "file": "addon/collection.js",
-            "line": 16
+            "line": 8
         },
         "Confirmation": {
             "name": "Confirmation",
@@ -186,7 +158,7 @@
             "module": "Validators",
             "namespace": "",
             "file": "addon/confirmation.js",
-            "line": 17
+            "line": 6
         },
         "Date": {
             "name": "Date",
@@ -199,7 +171,7 @@
             "module": "Validators",
             "namespace": "",
             "file": "addon/date.js",
-            "line": 24
+            "line": 12
         },
         "DS Error": {
             "name": "DS Error",
@@ -212,7 +184,7 @@
             "module": "Validators",
             "namespace": "",
             "file": "addon/ds-error.js",
-            "line": 21
+            "line": 8
         },
         "Exclusion": {
             "name": "Exclusion",
@@ -225,7 +197,7 @@
             "module": "Validators",
             "namespace": "",
             "file": "addon/exclusion.js",
-            "line": 17
+            "line": 6
         },
         "Format": {
             "name": "Format",
@@ -238,7 +210,7 @@
             "module": "Validators",
             "namespace": "",
             "file": "addon/format.js",
-            "line": 19
+            "line": 12
         },
         "Inclusion": {
             "name": "Inclusion",
@@ -251,7 +223,7 @@
             "module": "Validators",
             "namespace": "",
             "file": "addon/inclusion.js",
-            "line": 17
+            "line": 6
         },
         "Length": {
             "name": "Length",
@@ -264,7 +236,7 @@
             "module": "Validators",
             "namespace": "",
             "file": "addon/length.js",
-            "line": 16
+            "line": 5
         },
         "Messages": {
             "name": "Messages",
@@ -277,7 +249,7 @@
             "module": "Validators",
             "namespace": "",
             "file": "addon/messages.js",
-            "line": 13
+            "line": 4
         },
         "Number": {
             "name": "Number",
@@ -290,7 +262,7 @@
             "module": "Validators",
             "namespace": "",
             "file": "addon/number.js",
-            "line": 16
+            "line": 5
         },
         "Presence": {
             "name": "Presence",
@@ -303,38 +275,14 @@
             "module": "Validators",
             "namespace": "",
             "file": "addon/presence.js",
-            "line": 17
+            "line": 7
         }
     },
     "elements": {},
     "classitems": [
         {
-            "file": "addon/utils/is-promise.js",
-            "line": 1,
-            "description": "Copyright 2016, Yahoo! Inc.\nCopyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.",
-            "class": "Collection"
-        },
-        {
-            "file": "addon/utils/unwrap-proxy.js",
-            "line": 1,
-            "description": "Copyright 2016, Yahoo! Inc.\nCopyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.",
-            "class": "Collection"
-        },
-        {
-            "file": "addon/utils/validation-error.js",
-            "line": 1,
-            "description": "Copyright 2016, Yahoo! Inc.\nCopyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.",
-            "class": "Collection"
-        },
-        {
             "file": "addon/collection.js",
-            "line": 1,
-            "description": "Copyright 2016, Yahoo! Inc.\nCopyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.",
-            "class": "Collection"
-        },
-        {
-            "file": "addon/collection.js",
-            "line": 21,
+            "line": 13,
             "itemtype": "method",
             "name": "validate",
             "params": [
@@ -371,14 +319,7 @@
         },
         {
             "file": "addon/confirmation.js",
-            "line": 1,
-            "description": "Copyright 2016, Yahoo! Inc.\nCopyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.",
-            "class": "Confirmation",
-            "module": "Validators"
-        },
-        {
-            "file": "addon/confirmation.js",
-            "line": 22,
+            "line": 11,
             "itemtype": "method",
             "name": "validate",
             "params": [
@@ -420,14 +361,7 @@
         },
         {
             "file": "addon/date.js",
-            "line": 1,
-            "description": "Copyright 2016, Yahoo! Inc.\nCopyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.",
-            "class": "Date",
-            "module": "Validators"
-        },
-        {
-            "file": "addon/date.js",
-            "line": 29,
+            "line": 17,
             "itemtype": "method",
             "name": "validate",
             "params": [
@@ -499,14 +433,7 @@
         },
         {
             "file": "addon/ds-error.js",
-            "line": 1,
-            "description": "Copyright 2016, Yahoo! Inc.\nCopyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.",
-            "class": "DS Error",
-            "module": "Validators"
-        },
-        {
-            "file": "addon/ds-error.js",
-            "line": 26,
+            "line": 13,
             "itemtype": "method",
             "name": "validate",
             "params": [
@@ -536,14 +463,7 @@
         },
         {
             "file": "addon/exclusion.js",
-            "line": 1,
-            "description": "Copyright 2016, Yahoo! Inc.\nCopyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.",
-            "class": "Exclusion",
-            "module": "Validators"
-        },
-        {
-            "file": "addon/exclusion.js",
-            "line": 22,
+            "line": 11,
             "itemtype": "method",
             "name": "validate",
             "params": [
@@ -590,14 +510,7 @@
         },
         {
             "file": "addon/format.js",
-            "line": 2,
-            "description": "Copyright 2016, Yahoo! Inc.\nCopyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.",
-            "class": "Format",
-            "module": "Validators"
-        },
-        {
-            "file": "addon/format.js",
-            "line": 24,
+            "line": 17,
             "itemtype": "method",
             "name": "validate",
             "params": [
@@ -659,14 +572,7 @@
         },
         {
             "file": "addon/inclusion.js",
-            "line": 1,
-            "description": "Copyright 2016, Yahoo! Inc.\nCopyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.",
-            "class": "Inclusion",
-            "module": "Validators"
-        },
-        {
-            "file": "addon/inclusion.js",
-            "line": 22,
+            "line": 11,
             "itemtype": "method",
             "name": "validate",
             "params": [
@@ -712,22 +618,8 @@
             "module": "Validators"
         },
         {
-            "file": "addon/index.js",
-            "line": 1,
-            "description": "Copyright 2016, Yahoo! Inc.\nCopyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.",
-            "class": "Length",
-            "module": "Validators"
-        },
-        {
             "file": "addon/length.js",
-            "line": 1,
-            "description": "Copyright 2016, Yahoo! Inc.\nCopyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.",
-            "class": "Length",
-            "module": "Validators"
-        },
-        {
-            "file": "addon/length.js",
-            "line": 21,
+            "line": 10,
             "itemtype": "method",
             "name": "validate",
             "params": [
@@ -789,14 +681,7 @@
         },
         {
             "file": "addon/messages.js",
-            "line": 1,
-            "description": "Copyright 2016, Yahoo! Inc.\nCopyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.",
-            "class": "Messages",
-            "module": "Validators"
-        },
-        {
-            "file": "addon/messages.js",
-            "line": 18,
+            "line": 9,
             "description": "Regex for matching error message placeholders",
             "access": "private",
             "tagname": "",
@@ -808,7 +693,7 @@
         },
         {
             "file": "addon/messages.js",
-            "line": 26,
+            "line": 17,
             "description": "Default attribute description if one isnt passed into a validator's options",
             "itemtype": "property",
             "name": "defaultDescription",
@@ -818,7 +703,7 @@
         },
         {
             "file": "addon/messages.js",
-            "line": 33,
+            "line": 24,
             "description": "Get a description for a specific attribute. This is a hook\nfor i18n solutions to retrieve attribute descriptions from a translation",
             "itemtype": "method",
             "name": "getDescriptionFor",
@@ -843,7 +728,7 @@
         },
         {
             "file": "addon/messages.js",
-            "line": 45,
+            "line": 36,
             "description": "Get a message with a given type",
             "itemtype": "method",
             "name": "getMessageFor",
@@ -868,7 +753,7 @@
         },
         {
             "file": "addon/messages.js",
-            "line": 56,
+            "line": 47,
             "description": "Regex replace all placeholders with their given context",
             "itemtype": "method",
             "name": "formatMessage",
@@ -893,21 +778,14 @@
         },
         {
             "file": "addon/messages.js",
-            "line": 72,
+            "line": 63,
             "description": "Default validation error message strings",
             "class": "Messages",
             "module": "Validators"
         },
         {
             "file": "addon/number.js",
-            "line": 1,
-            "description": "Copyright 2016, Yahoo! Inc.\nCopyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.",
-            "class": "Number",
-            "module": "Validators"
-        },
-        {
-            "file": "addon/number.js",
-            "line": 21,
+            "line": 10,
             "itemtype": "method",
             "name": "validate",
             "params": [
@@ -1004,14 +882,7 @@
         },
         {
             "file": "addon/presence.js",
-            "line": 1,
-            "description": "Copyright 2016, Yahoo! Inc.\nCopyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.",
-            "class": "Presence",
-            "module": "Validators"
-        },
-        {
-            "file": "addon/presence.js",
-            "line": 22,
+            "line": 12,
             "itemtype": "method",
             "name": "validate",
             "params": [
@@ -1054,68 +925,8 @@
     ],
     "warnings": [
         {
-            "message": "Missing item type\nCopyright 2016, Yahoo! Inc.\nCopyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.",
-            "line": " addon/utils/is-promise.js:1"
-        },
-        {
-            "message": "Missing item type\nCopyright 2016, Yahoo! Inc.\nCopyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.",
-            "line": " addon/utils/unwrap-proxy.js:1"
-        },
-        {
-            "message": "Missing item type\nCopyright 2016, Yahoo! Inc.\nCopyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.",
-            "line": " addon/utils/validation-error.js:1"
-        },
-        {
-            "message": "Missing item type\nCopyright 2016, Yahoo! Inc.\nCopyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.",
-            "line": " addon/collection.js:1"
-        },
-        {
-            "message": "Missing item type\nCopyright 2016, Yahoo! Inc.\nCopyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.",
-            "line": " addon/confirmation.js:1"
-        },
-        {
-            "message": "Missing item type\nCopyright 2016, Yahoo! Inc.\nCopyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.",
-            "line": " addon/date.js:1"
-        },
-        {
-            "message": "Missing item type\nCopyright 2016, Yahoo! Inc.\nCopyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.",
-            "line": " addon/ds-error.js:1"
-        },
-        {
-            "message": "Missing item type\nCopyright 2016, Yahoo! Inc.\nCopyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.",
-            "line": " addon/exclusion.js:1"
-        },
-        {
-            "message": "Missing item type\nCopyright 2016, Yahoo! Inc.\nCopyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.",
-            "line": " addon/format.js:2"
-        },
-        {
-            "message": "Missing item type\nCopyright 2016, Yahoo! Inc.\nCopyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.",
-            "line": " addon/inclusion.js:1"
-        },
-        {
-            "message": "Missing item type\nCopyright 2016, Yahoo! Inc.\nCopyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.",
-            "line": " addon/index.js:1"
-        },
-        {
-            "message": "Missing item type\nCopyright 2016, Yahoo! Inc.\nCopyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.",
-            "line": " addon/length.js:1"
-        },
-        {
-            "message": "Missing item type\nCopyright 2016, Yahoo! Inc.\nCopyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.",
-            "line": " addon/messages.js:1"
-        },
-        {
             "message": "Missing item type\nDefault validation error message strings",
-            "line": " addon/messages.js:72"
-        },
-        {
-            "message": "Missing item type\nCopyright 2016, Yahoo! Inc.\nCopyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.",
-            "line": " addon/number.js:1"
-        },
-        {
-            "message": "Missing item type\nCopyright 2016, Yahoo! Inc.\nCopyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.",
-            "line": " addon/presence.js:1"
+            "line": " addon/messages.js:63"
         }
     ]
 }
