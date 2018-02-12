@@ -5,10 +5,6 @@ import requireModule from 'ember-require-module';
 
 const moment = requireModule('moment');
 
-if (!moment) {
-  throw new Error('MomentJS is required to use the Date validator.');
-}
-
 /**
  * @class Date
  * @module Validators
@@ -31,6 +27,10 @@ if (!moment) {
  * @param {String} attribute
  */
 export default function validateDate(value, options) {
+  if (!moment) {
+    throw new Error('MomentJS is required to use the Date validator.');
+  }
+
   let errorFormat = getWithDefault(options, 'errorFormat', 'MMM Do, YYYY');
   let { format, precision, allowBlank } = getProperties(options, ['format', 'precision', 'allowBlank']);
   let { before, onOrBefore, after, onOrAfter } = getProperties(options, ['before', 'onOrBefore', 'after', 'onOrAfter']);
