@@ -1,6 +1,13 @@
 Changelog
 =========
 
+## v1.1.1
+
+### Pull Requests
+
+- [#61](https://github.com/offirgolan/ember-validators/pull/61)  Revert license back to yahoo BSD-3  *by [Offir Golan](https://github.com/offirgolan)*
+- [#62](https://github.com/offirgolan/ember-validators/pull/62)  Move moment assertion to inside validate method  *by [Offir Golan](https://github.com/offirgolan)*
+
 ## v1.1.0
 
 ### Pull Requests
