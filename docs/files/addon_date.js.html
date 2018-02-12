@@ -53,8 +53,8 @@
                     <li class="panel panel-default">
                         <div class="panel-heading" role="tab" id="sidebar-version-heading">
                             <h4 class="panel-title">
-                                <a role="button" href="https://github.com/offirgolan/ember-validators/commits/v1.1.0" target="_blank">
-                                  Tag: v1.1.0
+                                <a role="button" href="https://github.com/offirgolan/ember-validators/commits/v1.1.1" target="_blank">
+                                  Tag: v1.1.1
                                 </a>
                             </h4>
                         </div>
@@ -144,10 +144,6 @@ import requireModule from &#x27;ember-require-module&#x27;;
 
 const moment = requireModule(&#x27;moment&#x27;);
 
-if (!moment) {
-  throw new Error(&#x27;MomentJS is required to use the Date validator.&#x27;);
-}
-
 /**
  * @class Date
  * @module Validators
@@ -170,6 +166,10 @@ if (!moment) {
  * @param {String} attribute
  */
 export default function validateDate(value, options) {
+  if (!moment) {
+    throw new Error(&#x27;MomentJS is required to use the Date validator.&#x27;);
+  }
+
   let errorFormat = getWithDefault(options, &#x27;errorFormat&#x27;, &#x27;MMM Do, YYYY&#x27;);
   let { format, precision, allowBlank } = getProperties(options, [&#x27;format&#x27;, &#x27;precision&#x27;, &#x27;allowBlank&#x27;]);
   let { before, onOrBefore, after, onOrAfter } = getProperties(options, [&#x27;before&#x27;, &#x27;onOrBefore&#x27;, &#x27;after&#x27;, &#x27;onOrAfter&#x27;]);

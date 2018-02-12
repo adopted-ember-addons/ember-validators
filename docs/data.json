@@ -4,7 +4,7 @@
         "description": "A collection of EmberJS validators",
         "url": "https://github.com/offirgolan/ember-validators",
         "indexModule": "Validators",
-        "version": "v1.1.0"
+        "version": "v1.1.1"
     },
     "files": {
         "addon/collection.js": {
@@ -171,7 +171,7 @@
             "module": "Validators",
             "namespace": "",
             "file": "addon/date.js",
-            "line": 12
+            "line": 8
         },
         "DS Error": {
             "name": "DS Error",
@@ -361,7 +361,7 @@
         },
         {
             "file": "addon/date.js",
-            "line": 17,
+            "line": 13,
             "itemtype": "method",
             "name": "validate",
             "params": [
