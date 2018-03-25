@@ -8,9 +8,12 @@ let options, result;
 module('Unit | Validator | number');
 
 test('no options', function(assert) {
-  assert.expect(2);
+  assert.expect(3);
 
   result = validate(undefined, {});
+  assert.equal(processResult(result), true);
+
+  result = validate("", {});
   assert.equal(processResult(result), 'This field must be a number');
 
   result = validate(22, cloneOptions(options));
@@ -239,4 +242,26 @@ test('allowBlank', function(assert) {
 
   result = validate('', cloneOptions(options));
   assert.equal(processResult(result), true);
+});
+
+test('allowNone', function(assert) {
+  assert.expect(4);
+
+  options = {
+    allowNone: true
+  };
+
+  result = validate(null, cloneOptions(options));
+  assert.equal(processResult(result), true);
+
+  result = validate(undefined, cloneOptions(options));
+  assert.equal(processResult(result), true);
+
+  options.allowNone = false;
+
+  result = validate(null, cloneOptions(options));
+  assert.equal(processResult(result), "This field must be a number");
+
+  result = validate(undefined, cloneOptions(options));
+  assert.equal(processResult(result), "This field must be a number");
 });

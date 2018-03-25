@@ -32,15 +32,19 @@ export default function validateNumber(value, options) {
   let optionKeys = Object.keys(options);
   let { allowBlank, allowNone = true, allowString, integer } = getProperties(options, ['allowBlank', 'allowNone', 'allowString', 'integer']);
 
-  if (!allowNone && isNone(value)) {
-    return validationError('notANumber', value, options);
+  if (allowNone && isNone(value)) {
+    return true;
   }
 
   if (allowBlank && isEmpty(value)) {
     return true;
   }
 
-  if (typeof value === 'string' && (isEmpty(value) || !allowString)) {
+  if (isEmpty(value)) {
+    return validationError('notANumber', value, options);
+  }
+
+  if (typeof value === 'string' && !allowString) {
     return validationError('notANumber', value, options);
   }
 
