@@ -249,3 +249,24 @@ test('after or on precision', function(assert) {
     }
   }
 });
+
+test('display message with date in UTC mode', function(assert) {
+  assert.expect(3);
+
+  result = validate('1/1/2015', {
+    before: '2014-01-01T00:00+08:00'
+  });
+  assert.equal(processResult(result), 'This field must be before Dec 31st, 2013', 'By default, format the date considering the timezone');
+
+  result = validate('1/1/2016', {
+    displayUTC: false,
+    before: '2014-01-01T00:00+08:00'
+  });
+  assert.equal(processResult(result), 'This field must be before Dec 31st, 2013', 'Format the date considering the timezone');
+
+  result = validate('1/1/2017', {
+    displayUTC: true,
+    before: '2014-01-01T00:00+08:00'
+  });
+  assert.equal(processResult(result), 'This field must be before Jan 1st, 2014', 'Format the date in UTC mode');
+});
