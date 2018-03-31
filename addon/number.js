@@ -15,7 +15,7 @@ import validationError from 'ember-validators/utils/validation-error';
  * @param {Boolean} options.allowNone If true, skips validation if the value is null or undefined. __Default: true__
  * @param {Boolean} options.allowString If true, validator will accept string representation of a number
  * @param {Boolean} options.integer Number must be an integer
- * @param {Boolean} options.positive Number must be greater than 0
+ * @param {Boolean} options.positive Number must be greater than or equal to 0
  * @param {Boolean} options.odd Number must be odd
  * @param {Boolean} options.even Number must be even
  * @param {Number} options.is Number must be equal to this value
