@@ -1,6 +1,13 @@
 Changelog
 =========
 
+## v1.2.0
+
+### Pull Requests
+
+- [#64](https://github.com/offirgolan/ember-validators/pull/64) **number**: docfix for positive option  *by [Blake Gentry](https://github.com/bgentry)*
+- [#63](https://github.com/offirgolan/ember-validators/pull/63) **number**: fix behavior of allowNone  *by [Blake Gentry](https://github.com/bgentry)*
+
 ## v1.1.1
 
 ### Pull Requests
