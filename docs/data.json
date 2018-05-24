@@ -4,7 +4,7 @@
         "description": "A collection of EmberJS validators",
         "url": "https://github.com/offirgolan/ember-validators",
         "indexModule": "Validators",
-        "version": "v1.1.1"
+        "version": "v1.2.0"
     },
     "files": {
         "addon/collection.js": {
@@ -821,7 +821,7 @@
                         },
                         {
                             "name": "positive",
-                            "description": "Number must be greater than 0",
+                            "description": "Number must be greater than or equal to 0",
                             "type": "Boolean"
                         },
                         {
