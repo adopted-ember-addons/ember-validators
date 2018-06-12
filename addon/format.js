@@ -1,6 +1,6 @@
 import { isEmpty, isNone } from '@ember/utils';
 import { assert } from '@ember/debug';
-import { getProperties, set } from '@ember/object';
+import { getProperties, get, set } from '@ember/object';
 
 import Ember from 'ember';
 import validationError from 'ember-validators/utils/validation-error';
@@ -27,13 +27,13 @@ const {
  * @param {Object} model
  * @param {String} attribute
  */
-export const regularExpressions = {
+export let regularExpressions = {
   // eslint-disable-next-line no-useless-escape
   email: /^[a-z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i,
   // eslint-disable-next-line no-useless-escape
   phone: /^([\+]?1\s*[-\/\.]?\s*)?(\((\d{3})\)|(\d{3}))\s*[-\/\.]?\s*(\d{3})\s*[-\/\.]?\s*(\d{4})\s*(([xX]|[eE][xX][tT]?[\.]?|extension)\s*([#*\d]+))*$/,
   // eslint-disable-next-line no-useless-escape
-  url: /(?:([A-Za-z]+):)?(\/{0,3})[a-zA-Z0-9][a-zA-Z-0-9]*(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-{}]*[\w@?^=%&amp;\/~+#-{}])??/
+  url: /^(?:([A-Za-z]+):)?(\/{0,3})[a-zA-Z0-9][a-zA-Z-0-9]*(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-{}]*[\w@?^=%&amp;\/~+#-{}])??$/
 };
 
 export default function validateFormat(value, options, model, attribute) {
@@ -50,10 +50,12 @@ export default function validateFormat(value, options, model, attribute) {
   }
 
   if (type === 'email') {
-    if (regex === regularExpressions.email) {
-      regex = formatEmailRegex(options);
-    }
+    regex = formatEmailRegex(options);
+    set(options, 'regex', regex);
+  }
 
+  if (type === 'url') {
+    regex = formatUrlRegex(options);
     set(options, 'regex', regex);
   }
 
@@ -64,10 +66,36 @@ export default function validateFormat(value, options, model, attribute) {
   return true;
 }
 
-function formatEmailRegex(options) {
-  let { source } = regularExpressions.email;
-  let { allowNonTld, minTldLength } = getProperties(options, ['allowNonTld', 'minTldLength']);
+function formatUrlRegex(options) {
+  const allowNonTld = get(options, 'allowNonTld');
+  const cacheKey = `url:${allowNonTld}`;
+  const cachedRegex = regularExpressions[cacheKey];
 
+  if (cachedRegex) {
+    return cachedRegex;
+  }
+
+  let { source } = regularExpressions.url;
+
+  if (allowNonTld) {
+    source = source.replace('(\\.[\\w-]+)+', '(\\.[\\w-]+)*');
+  }
+
+  return regularExpressions[cacheKey] = new RegExp(source, 'i');  
+}
+
+function formatEmailRegex(options) {
+  const { allowNonTld, minTldLength } = getProperties(options, ['allowNonTld', 'minTldLength']);
+  const cacheKey = `email:${allowNonTld}:${minTldLength}`;
+  const cachedRegex = regularExpressions[cacheKey];
+
+  if (cachedRegex) {
+    return cachedRegex;
+  }
+
+  let { source } = regularExpressions.email;
+  
+  
   if (!isNone(minTldLength) && typeof minTldLength === 'number') {
     source = source.replace('[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$', `[a-z0-9]{${minTldLength},}(?:[a-z0-9-]*[a-z0-9])?$`);
   }
@@ -76,5 +104,5 @@ function formatEmailRegex(options) {
     source = source.replace('@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)', '@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.?)');
   }
 
-  return new RegExp(source, 'i');
+  return regularExpressions[cacheKey] = new RegExp(source, 'i');
 }

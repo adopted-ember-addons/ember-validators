@@ -5,10 +5,15 @@ import cloneOptions from '../../helpers/clone-options';
 
 let options, result;
 
-function testEmailAddresses(assert, options, valid = [], invalid = []) {
+function testMultipleScenarios(assert, options, valid = [], invalid = []) {
+  const typeLabelMap = {
+    email: 'email address',
+    url: 'url'
+  }
+  const label = typeLabelMap[options.type];
   options = cloneOptions(options);
-  valid.forEach((email) => assert.equal(processResult(validate(email, options)), true, `validation of ${email} must succeed`));
-  invalid.forEach((email) => assert.equal(processResult(validate(email, options)), 'This field must be a valid email address', `validation of ${email} must fail`));
+  valid.forEach((testItem) => assert.equal(processResult(validate(testItem, options)), true, `validation of ${testItem} must succeed`));
+  invalid.forEach((testItem) => assert.equal(processResult(validate(testItem, options)), `This field must be a valid ${label}`, `validation of ${testItem} must fail`));
 }
 
 module('Unit | Validator | format');
@@ -87,7 +92,7 @@ test('email', function(assert) {
     type: 'email'
   };
 
-  testEmailAddresses(assert, options, validAddresses, invalidAddresses);
+  testMultipleScenarios(assert, options, validAddresses, invalidAddresses);
 });
 
 test('email + allowNonTld', function(assert) {
@@ -103,7 +108,7 @@ test('email + allowNonTld', function(assert) {
     allowNonTld: true
   };
 
-  testEmailAddresses(assert, options, validAddresses);
+  testMultipleScenarios(assert, options, validAddresses);
 });
 
 test('email + minTldLength', function(assert) {
@@ -126,7 +131,27 @@ test('email + minTldLength', function(assert) {
     minTldLength: 2
   };
 
-  testEmailAddresses(assert, options, validAddresses, invalidAddresses);
+  testMultipleScenarios(assert, options, validAddresses, invalidAddresses);
+});
+
+test('url + allowNonTld', function(assert) {
+  let validUrls = [
+    'http://google.com',
+    'http://bburl',
+    'http://bburl/jello',
+    'http://bburl.com/really-good-jello'
+  ];
+
+  let invalidUrls = ['i am a bad url']
+
+  assert.expect(validUrls.length + invalidUrls.length);
+
+  options = {
+    type: 'url',
+    allowNonTld: true
+  };
+
+  testMultipleScenarios(assert, options, validUrls, invalidUrls);
 });
 
 test('phone', function(assert) {
@@ -146,19 +171,13 @@ test('phone', function(assert) {
 });
 
 test('url', function(assert) {
-  assert.expect(2);
+  assert.expect(3);
 
   options = {
     type: 'url'
   };
 
-  options = cloneOptions(options);
-
-  result = validate('offirgolan', options);
-  assert.equal(processResult(result), 'This field must be a valid url');
-
-  result = validate('http://www.offirgolan.com', options);
-  assert.equal(processResult(result), true);
+  testMultipleScenarios(assert, options, ['http://www.offirgolan.com'], ['offirgolan', 'http://bburl']);
 });
 
 test('inverse - with type', function(assert) {
