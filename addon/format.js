@@ -27,7 +27,7 @@ const {
  * @param {Object} model
  * @param {String} attribute
  */
-export let regularExpressions = {
+export const regularExpressions = {
   // eslint-disable-next-line no-useless-escape
   email: /^[a-z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i,
   // eslint-disable-next-line no-useless-escape
@@ -49,13 +49,8 @@ export default function validateFormat(value, options, model, attribute) {
     regex = regularExpressions[type];
   }
 
-  if (type === 'email') {
+  if (type === 'email' || type === 'url') {
     regex = formatEmailRegex(options);
-    set(options, 'regex', regex);
-  }
-
-  if (type === 'url') {
-    regex = formatUrlRegex(options);
     set(options, 'regex', regex);
   }
 
