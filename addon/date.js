@@ -42,11 +42,19 @@ export default function validateDate(value, options) {
 
   if (format) {
     date = parseDate(value, format, true);
-    if (!date.isValid()) {
+
+    // Check to see if the passed date is actually a valid date.
+    // This can be done by disabling the strict parsing
+    const isActualDate = parseDate(value, format).isValid();
+
+    if (!isActualDate) {
+      return validationError('date', value, options);
+    } else if (!date.isValid()) {
       return validationError('wrongDateFormat', value, options);
     }
   } else {
     date = parseDate(value);
+
     if (!date.isValid()) {
       return validationError('date', value, options);
     }
@@ -54,6 +62,7 @@ export default function validateDate(value, options) {
 
   if (before) {
     before = parseDate(before, format);
+
     if (!date.isBefore(before, precision)) {
       set(options, 'before', before.format(errorFormat));
       return validationError('before', value, options);
@@ -62,6 +71,7 @@ export default function validateDate(value, options) {
 
   if (onOrBefore) {
     onOrBefore = parseDate(onOrBefore, format);
+
     if (!date.isSameOrBefore(onOrBefore, precision))  {
       set(options, 'onOrBefore', onOrBefore.format(errorFormat));
       return validationError('onOrBefore', value, options);
@@ -70,6 +80,7 @@ export default function validateDate(value, options) {
 
   if (after) {
     after = parseDate(after, format);
+
     if (!date.isAfter(after, precision)) {
       set(options, 'after', after.format(errorFormat));
       return validationError('after', value, options);
@@ -78,6 +89,7 @@ export default function validateDate(value, options) {
 
   if (onOrAfter) {
     onOrAfter = parseDate(onOrAfter, format);
+
     if (!date.isSameOrAfter(onOrAfter, precision)) {
       set(options, 'onOrAfter', onOrAfter.format(errorFormat));
       return validationError('onOrAfter', value, options);

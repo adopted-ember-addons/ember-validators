@@ -44,7 +44,7 @@ test('valid date', function(assert) {
 });
 
 test('valid input date format', function(assert) {
-  assert.expect(2);
+  assert.expect(3);
 
   options = {
     format: 'DD/M/YYYY'
@@ -52,6 +52,9 @@ test('valid input date format', function(assert) {
 
   result = validate('27/3/15', cloneOptions(options));
   assert.equal(processResult(result), 'This field must be in the format of DD/M/YYYY');
+
+  result = validate('30/2/2015', cloneOptions(options));
+  assert.equal(processResult(result), 'This field must be a valid date');
 
   result = validate('27/3/2015', cloneOptions(options));
   assert.equal(processResult(result), true);
