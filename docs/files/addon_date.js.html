@@ -53,8 +53,8 @@
                     <li class="panel panel-default">
                         <div class="panel-heading" role="tab" id="sidebar-version-heading">
                             <h4 class="panel-title">
-                                <a role="button" href="https://github.com/offirgolan/ember-validators/commits/v1.2.0" target="_blank">
-                                  Tag: v1.2.0
+                                <a role="button" href="https://github.com/offirgolan/ember-validators/commits/v1.2.1" target="_blank">
+                                  Tag: v1.2.1
                                 </a>
                             </h4>
                         </div>
@@ -181,11 +181,19 @@ export default function validateDate(value, options) {
 
   if (format) {
     date = parseDate(value, format, true);
-    if (!date.isValid()) {
+
+    // Check to see if the passed date is actually a valid date.
+    // This can be done by disabling the strict parsing
+    const isActualDate = parseDate(value, format).isValid();
+
+    if (!isActualDate) {
+      return validationError(&#x27;date&#x27;, value, options);
+    } else if (!date.isValid()) {
       return validationError(&#x27;wrongDateFormat&#x27;, value, options);
     }
   } else {
     date = parseDate(value);
+
     if (!date.isValid()) {
       return validationError(&#x27;date&#x27;, value, options);
     }
@@ -193,6 +201,7 @@ export default function validateDate(value, options) {
 
   if (before) {
     before = parseDate(before, format);
+
     if (!date.isBefore(before, precision)) {
       set(options, &#x27;before&#x27;, before.format(errorFormat));
       return validationError(&#x27;before&#x27;, value, options);
@@ -201,6 +210,7 @@ export default function validateDate(value, options) {
 
   if (onOrBefore) {
     onOrBefore = parseDate(onOrBefore, format);
+
     if (!date.isSameOrBefore(onOrBefore, precision))  {
       set(options, &#x27;onOrBefore&#x27;, onOrBefore.format(errorFormat));
       return validationError(&#x27;onOrBefore&#x27;, value, options);
@@ -209,6 +219,7 @@ export default function validateDate(value, options) {
 
   if (after) {
     after = parseDate(after, format);
+
     if (!date.isAfter(after, precision)) {
       set(options, &#x27;after&#x27;, after.format(errorFormat));
       return validationError(&#x27;after&#x27;, value, options);
@@ -217,6 +228,7 @@ export default function validateDate(value, options) {
 
   if (onOrAfter) {
     onOrAfter = parseDate(onOrAfter, format);
+
     if (!date.isSameOrAfter(onOrAfter, precision)) {
       set(options, &#x27;onOrAfter&#x27;, onOrAfter.format(errorFormat));
       return validationError(&#x27;onOrAfter&#x27;, value, options);
