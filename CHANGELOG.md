@@ -1,6 +1,12 @@
 Changelog
 =========
 
+## v1.2.1
+
+### Commits
+
+- [ef5e5cc](https://github.com/offirgolan/ember-validators/commit/ef5e5cc4cebdbed58cf48073d2c12557716bbaa5) **date**: fix(date): Show correct error message when a date is invalid with a custom format  *by [Offir Golan](https://github.com/offirgolan)*
+
 ## v1.2.0
 
 ### Pull Requests
