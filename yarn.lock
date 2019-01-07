@@ -2990,9 +2990,10 @@ ember-qunit@^3.3.0:
     ember-cli-test-loader "^2.2.0"
     qunit "^2.5.0"
 
-ember-require-module@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/ember-require-module/-/ember-require-module-0.2.0.tgz#eafe436737ead4762220a9166b78364abf754274"
+ember-require-module@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/ember-require-module/-/ember-require-module-0.3.0.tgz#65aff7908b5b846467e4526594d33cfe0c23456b"
+  integrity sha512-rYN4YoWbR9VlJISSmx0ZcYZOgMcXZLGR7kdvp3zDerjIvYmHm/3p+K56fEAYmJILA6W4F+cBe41Tq2HuQAZizA==
   dependencies:
     ember-cli-babel "^6.9.2"
 
