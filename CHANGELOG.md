@@ -1,6 +1,12 @@
 Changelog
 =========
 
+## v1.2.2
+
+### Pull Requests
+
+- [#67](https://github.com/offirgolan/ember-validators/pull/67)  Bump ember-require-module dependency  *by [Andrey Fel](https://github.com/andreyfel)*
+
 ## v1.2.1
 
 ### Commits
