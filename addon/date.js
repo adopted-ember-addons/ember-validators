@@ -31,7 +31,7 @@ export default function validateDate(value, options) {
     throw new Error('MomentJS is required to use the Date validator.');
   }
 
-  let errorFormat = get(options, 'errorFormat') ?? 'MMM Do, YYYY';
+  let errorFormat = get(options, 'errorFormat') || 'MMM Do, YYYY';
   let { format, precision, allowBlank } = getProperties(options, ['format', 'precision', 'allowBlank']);
   let { before, onOrBefore, after, onOrAfter } = getProperties(options, ['before', 'onOrBefore', 'after', 'onOrAfter']);
   let date;
