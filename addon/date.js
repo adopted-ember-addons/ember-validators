@@ -1,7 +1,8 @@
 import { isEmpty, isNone } from '@ember/utils';
-import { set, getProperties, get } from '@ember/object';
+import { getProperties, get } from '@ember/object';
 import validationError from 'ember-validators/utils/validation-error';
 import requireModule from 'ember-require-module';
+import { assign } from "@ember/polyfills";
 
 const moment = requireModule('moment');
 
@@ -61,38 +62,34 @@ export default function validateDate(value, options) {
   }
 
   if (before) {
-    before = parseDate(before, format);
+    let beforeCompareTest = parseDate(before, format);
 
-    if (!date.isBefore(before, precision)) {
-      set(options, 'before', before.format(errorFormat));
-      return validationError('before', value, options);
+    if (!date.isBefore(beforeCompareTest, precision)) {
+      return validationError('before', value, assign(options, { before: beforeCompareTest.format(errorFormat) }));
     }
   }
 
   if (onOrBefore) {
-    onOrBefore = parseDate(onOrBefore, format);
+    let onOrBeforeCompareTest = parseDate(onOrBefore, format);
 
-    if (!date.isSameOrBefore(onOrBefore, precision))  {
-      set(options, 'onOrBefore', onOrBefore.format(errorFormat));
-      return validationError('onOrBefore', value, options);
+    if (!date.isSameOrBefore(onOrBeforeCompareTest, precision))  {
+      return validationError('onOrBefore', value, assign(options, { onOrBefore: onOrBeforeCompareTest.format(errorFormat) }));
     }
   }
 
   if (after) {
-    after = parseDate(after, format);
+    let afterCompareTest = parseDate(after, format);
 
-    if (!date.isAfter(after, precision)) {
-      set(options, 'after', after.format(errorFormat));
-      return validationError('after', value, options);
+    if (!date.isAfter(afterCompareTest, precision)) {
+      return validationError('after', value, assign(options, { after: afterCompareTest.format(errorFormat) }));
     }
   }
 
   if (onOrAfter) {
-    onOrAfter = parseDate(onOrAfter, format);
+    let onOrAfterCompareTest = parseDate(onOrAfter, format);
 
-    if (!date.isSameOrAfter(onOrAfter, precision)) {
-      set(options, 'onOrAfter', onOrAfter.format(errorFormat));
-      return validationError('onOrAfter', value, options);
+    if (!date.isSameOrAfter(onOrAfterCompareTest, precision)) {
+      return validationError('onOrAfter', value, assign(options, { onOrAfter: onOrAfterCompareTest.format(errorFormat) }));
     }
   }
 

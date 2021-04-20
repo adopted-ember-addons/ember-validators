@@ -1,6 +1,7 @@
 import { isEmpty, isNone } from '@ember/utils';
 import { assert } from '@ember/debug';
-import { getProperties, set } from '@ember/object';
+import { getProperties } from '@ember/object';
+import { assign } from "@ember/polyfills";
 
 import Ember from 'ember';
 import validationError from 'ember-validators/utils/validation-error';
@@ -45,20 +46,20 @@ export default function validateFormat(value, options, model, attribute) {
     return true;
   }
 
-  if (type && !regex && regularExpressions[type]) {
-    regex = regularExpressions[type];
+  let regexTest = regex;
+
+  if (type && !regexTest && regularExpressions[type]) {
+    regexTest = regularExpressions[type];
   }
 
   if (type === 'email') {
-    if (regex === regularExpressions.email) {
-      regex = formatEmailRegex(options);
+    if (regexTest === regularExpressions.email) {
+      regexTest = formatEmailRegex(options);
     }
-
-    set(options, 'regex', regex);
   }
 
-  if (!canInvoke(value, 'match') || (regex && isEmpty(value.match(regex)) !== inverse)) {
-    return validationError(type || 'invalid', value, options);
+  if (!canInvoke(value, 'match') || (regexTest && isEmpty(value.match(regexTest)) !== inverse)) {
+    return validationError(type || 'invalid', value, assign(options, { regex: regexTest }));
   }
 
   return true;
