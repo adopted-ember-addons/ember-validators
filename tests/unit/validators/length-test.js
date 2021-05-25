@@ -15,7 +15,7 @@ test('no options', function(assert) {
 });
 
 test('allow blank', function(assert) {
-  assert.expect(2);
+  assert.expect(4);
 
   options = {
     allowBlank: true,
@@ -25,12 +25,18 @@ test('allow blank', function(assert) {
   result = validate('', cloneOptions(options));
   assert.equal(processResult(result), true);
 
+  result = validate(' ', cloneOptions(options));
+  assert.equal(processResult(result), 'This field is too short (minimum is 5 characters)');
+
+  result = validate(undefined, cloneOptions(options));
+  assert.equal(processResult(result), true);
+
   result = validate('test', cloneOptions(options));
   assert.equal(processResult(result), 'This field is too short (minimum is 5 characters)');
 });
 
 test('allow none', function(assert) {
-  assert.expect(2);
+  assert.expect(3);
 
   options = {
     allowNone: true
@@ -40,8 +46,12 @@ test('allow none', function(assert) {
   assert.equal(processResult(result), true);
 
   options.allowNone = false;
+
   result = validate(null, cloneOptions(options));
   assert.equal(processResult(result), 'This field is invalid');
+
+  result = validate('', cloneOptions(options));
+  assert.equal(processResult(result), true);
 });
 
 test('is', function(assert) {
