@@ -25,11 +25,11 @@ test('allow blank', function(assert) {
   result = validate('', cloneOptions(options));
   assert.equal(processResult(result), true);
 
-  result = validate(' ', cloneOptions(options));
-  assert.equal(processResult(result), 'This field is too short (minimum is 5 characters)');
-
   result = validate(undefined, cloneOptions(options));
   assert.equal(processResult(result), true);
+
+  result = validate(' ', cloneOptions(options));
+  assert.equal(processResult(result), 'This field is too short (minimum is 5 characters)');
 
   result = validate('test', cloneOptions(options));
   assert.equal(processResult(result), 'This field is too short (minimum is 5 characters)');
