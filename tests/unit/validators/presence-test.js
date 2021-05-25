@@ -25,12 +25,24 @@ test('presence - value blank', function(assert) {
   assert.equal(processResult(result), true);
 });
 
-test('presence with ignoreBlank - value blank', function(assert) {
+test('presence - null value', function(assert) {
   assert.expect(1);
+
+  options = { presence: true };
+
+  result = validate(null, cloneOptions(options));
+  assert.equal(processResult(result), 'This field can\'t be blank');
+});
+
+test('presence with ignoreBlank - value blank', function(assert) {
+  assert.expect(2);
 
   options = { presence: true, ignoreBlank: true };
 
   result = validate(' ', cloneOptions(options));
+  assert.equal(processResult(result), 'This field can\'t be blank');
+
+  result = validate(null, cloneOptions(options));
   assert.equal(processResult(result), 'This field can\'t be blank');
 });
 
