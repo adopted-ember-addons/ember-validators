@@ -84,9 +84,9 @@ function _validateType(type, options, value) {
     return validationError('greaterThanOrEqualTo', value, options);
   } else if (type === 'positive' && actual < 0) {
     return validationError('positive', value, options);
-  } else if (type === 'odd' && actual % 2 === 0) {
+  } else if (type === 'odd' && (!isInteger(actual) || actual % 2 === 0)) {
     return validationError('odd', value, options);
-  } else if (type === 'even' && actual % 2 !== 0) {
+  } else if (type === 'even' && (!isInteger(actual) || actual % 2 !== 0)) {
     return validationError('even', value, options);
   } else if (type === 'multipleOf' && !isInteger(actual / expected)) {
     return validationError('multipleOf', value, options);
