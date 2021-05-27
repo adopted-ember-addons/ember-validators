@@ -1,9 +1,7 @@
 import { isEmpty, isNone } from '@ember/utils';
 import { set, getProperties, get } from '@ember/object';
 import validationError from 'ember-validators/utils/validation-error';
-import requireModule from 'ember-require-module';
-
-const moment = requireModule('moment');
+import moment from 'moment';
 
 /**
  * @class Date
