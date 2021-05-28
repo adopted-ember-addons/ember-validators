@@ -131,7 +131,7 @@ test('gt', function(assert) {
 });
 
 test('multipleOf', function(assert) {
-  assert.expect(3);
+  assert.expect(4);
 
   options = {
     multipleOf: 2
@@ -144,6 +144,9 @@ test('multipleOf', function(assert) {
   assert.equal(processResult(result), 'This field must be a multiple of 2');
 
   result = validate(22, cloneOptions(options));
+  assert.equal(processResult(result), true);
+
+  result = validate(0, cloneOptions(options));
   assert.equal(processResult(result), true);
 });
 
