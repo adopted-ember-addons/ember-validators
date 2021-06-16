@@ -131,7 +131,7 @@ test('gt', function(assert) {
 });
 
 test('multipleOf', function(assert) {
-  assert.expect(3);
+  assert.expect(4);
 
   options = {
     multipleOf: 2
@@ -144,6 +144,9 @@ test('multipleOf', function(assert) {
   assert.equal(processResult(result), 'This field must be a multiple of 2');
 
   result = validate(22, cloneOptions(options));
+  assert.equal(processResult(result), true);
+
+  result = validate(0, cloneOptions(options));
   assert.equal(processResult(result), true);
 });
 
@@ -185,7 +188,7 @@ test('positive', function(assert) {
 });
 
 test('odd', function(assert) {
-  assert.expect(4);
+  assert.expect(6);
 
   options = {
     odd: true
@@ -197,6 +200,12 @@ test('odd', function(assert) {
   result = validate(-144, cloneOptions(options));
   assert.equal(processResult(result), 'This field must be odd');
 
+  result = validate(21.21, cloneOptions(options));
+  assert.equal(processResult(result), 'This field must be odd');
+
+  result = validate(0, cloneOptions(options));
+  assert.equal(processResult(result), 'This field must be odd');
+
   result = validate(21, cloneOptions(options));
   assert.equal(processResult(result), true);
 
@@ -205,7 +214,7 @@ test('odd', function(assert) {
 });
 
 test('even', function(assert) {
-  assert.expect(5);
+  assert.expect(6);
 
   options = {
     even: true
@@ -215,6 +224,9 @@ test('even', function(assert) {
   assert.equal(processResult(result), true);
 
   result = validate(-22, cloneOptions(options));
+  assert.equal(processResult(result), true);
+
+  result = validate(0, cloneOptions(options));
   assert.equal(processResult(result), true);
 
   result = validate(22.22, cloneOptions(options));
