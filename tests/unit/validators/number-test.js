@@ -21,7 +21,7 @@ test('no options', function(assert) {
 });
 
 test('allow string', function(assert) {
-  assert.expect(6);
+  assert.expect(7);
 
   options = {
     allowString: true
@@ -31,6 +31,9 @@ test('allow string', function(assert) {
   assert.equal(processResult(result), true);
 
   result = validate('22.22', cloneOptions(options));
+  assert.equal(processResult(result), true);
+
+  result = validate('22,22', cloneOptions(options));
   assert.equal(processResult(result), true);
 
   result = validate('test', cloneOptions(options));

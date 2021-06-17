@@ -28,6 +28,10 @@ import validationError from 'ember-validators/utils/validation-error';
  * @param {String} attribute
  */
 export default function validateNumber(value, options) {
+  if (typeof value === 'string') {
+    value = value.replace(/,/g, '.');
+  }
+
   let numValue = Number(value);
   let optionKeys = Object.keys(options);
   let { allowBlank, allowNone = true, allowString, integer } = getProperties(options, ['allowBlank', 'allowNone', 'allowString', 'integer']);
