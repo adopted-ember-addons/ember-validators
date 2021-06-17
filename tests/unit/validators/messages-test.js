@@ -19,6 +19,16 @@ test('formatMessage', function(assert) {
   assert.equal(messages.formatMessage('{foo} {foo} {bar} {baz}', { foo: 'a', bar: 1, baz: 'abc' }), 'a a 1 abc');
 });
 
+test('formatPartialMessage', function(assert) {
+  assert.expect(3);
+  let context = {
+    description: 'This field'
+  };
+  assert.equal(messages.formatPartialMessage(undefined, context), 'This field is invalid');
+  assert.equal(messages.formatPartialMessage('{foo} is undefined'), '{foo} is undefined');
+  assert.equal(messages.formatPartialMessage('{foo} {foo} {bar} {baz}', { foo: 'a', bar: 1 }), 'a a 1 {baz}');
+});
+
 test('getMessageFor', function(assert) {
   assert.expect(2);
   let context = {

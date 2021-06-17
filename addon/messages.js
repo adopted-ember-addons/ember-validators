@@ -45,6 +45,31 @@ export default {
   },
 
   /**
+   * Finds the placeholders and replace them with values
+   * from context depending on the availability requirements.
+   * @method formatMessage
+   * @param  {String} message
+   * @param  {Object} context
+   * @param  {Boolean} applyAll
+   * @return {String}
+   * @private
+   */
+  _formatMessage(message, context = {}, applyAll = true) {
+    let m = message;
+
+    if (isNone(m) || typeof m !== 'string') {
+      m = get(this, 'invalid');
+    }
+    return m.replace(get(this, '_regex'), (s, attr) => {
+      let hasActualValue = typeof context === 'object' && context.hasOwnProperty(attr);
+      if (hasActualValue || applyAll) {
+        return get(context, attr);
+      }
+      return s;
+    });
+  },
+
+  /**
    * Regex replace all placeholders with their given context
    * @method formatMessage
    * @param  {String} message
@@ -52,12 +77,20 @@ export default {
    * @return {String}
    */
   formatMessage(message, context = {}) {
-    let m = message;
+    return this._formatMessage(message, context, true);
+  },
 
-    if (isNone(m) || typeof m !== 'string') {
-      m = get(this, 'invalid');
-    }
-    return m.replace(get(this, '_regex'), (s, attr) => get(context, attr));
+  /**
+   * Regex replace placeholders with their given context
+   * for the keys provided by the the context. Leaves the
+   * unavailable keys untouched.
+   * @method formatMessage
+   * @param  {String} message
+   * @param  {Object} context
+   * @return {String}
+   */
+  formatPartialMessage(message, context = {}) {
+    return this._formatMessage(message, context, false);
   },
 
   /**
