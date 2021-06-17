@@ -3,7 +3,7 @@ import { set, getProperties, get } from '@ember/object';
 import validationError from 'ember-validators/utils/validation-error';
 import requireModule from 'ember-require-module';
 
-const moment = requireModule('moment');
+const moment = requireModule('moment') || requireModule('ember-cli-moment-shim');
 
 /**
  * @class Date
