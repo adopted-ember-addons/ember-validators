@@ -50,6 +50,8 @@ jobs:
           ember-lts-3.20,
           ember-release,
           ember-beta,
+          embroider-safe,
+	  embroider-optimized,
         ]
     steps:
     - uses: actions/checkout@v2
