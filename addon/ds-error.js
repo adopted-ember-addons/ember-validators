@@ -1,9 +1,7 @@
 import { get } from '@ember/object';
 import { isNone } from '@ember/utils';
-import requireModule from 'ember-require-module';
 import validationError from 'ember-validators/utils/validation-error';
-
-const DS = requireModule('ember-data');
+import DS from 'ember-data';
 
 /**
  *  @class DS Error

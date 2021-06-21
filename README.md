@@ -5,7 +5,6 @@
 
 A collection of EmberJS validators
 
-## Installation
 
 ```shell
 ember install ember-validators
