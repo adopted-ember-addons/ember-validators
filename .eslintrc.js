@@ -21,6 +21,7 @@ module.exports = {
   },
   rules: {
     'ember/no-get': 0,
+    'ember/use-ember-data-rfc-395-imports': 0,
     'no-useless-escape': 0,
   },
   overrides: [

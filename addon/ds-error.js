@@ -1,7 +1,7 @@
 import { get } from '@ember/object';
 import { isNone } from '@ember/utils';
 import validationError from 'ember-validators/utils/validation-error';
-import DS from '@ember-data';
+import DS from 'ember-data';
 
 /**
  *  @class DS Error
