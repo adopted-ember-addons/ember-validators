@@ -30,7 +30,7 @@ export default {
    * @return {String}
    */
   getDescriptionFor(attribute, context = {}) {
-    return get(context, 'description') || get(this, 'defaultDescription');
+    return context.description || this.defaultDescription;
   },
 
   /**
@@ -55,9 +55,9 @@ export default {
     let m = message;
 
     if (isNone(m) || typeof m !== 'string') {
-      m = get(this, 'invalid');
+      m = this.invalid;
     }
-    return m.replace(get(this, '_regex'), (s, attr) => get(context, attr));
+    return m.replace(this._regex, (s, attr) => get(context, attr));
   },
 
   /**
@@ -66,12 +66,12 @@ export default {
   accepted: '{description} must be accepted',
   after: '{description} must be after {after}',
   before: '{description} must be before {before}',
-  blank: '{description} can\'t be blank',
+  blank: "{description} can't be blank",
   collection: '{description} must be a collection',
-  confirmation: '{description} doesn\'t match {on}',
+  confirmation: "{description} doesn't match {on}",
   date: '{description} must be a valid date',
   email: '{description} must be a valid email address',
-  empty: '{description} can\'t be empty',
+  empty: "{description} can't be empty",
   equalTo: '{description} must be equal to {is}',
   even: '{description} must be even',
   exclusion: '{description} is reserved',
@@ -91,11 +91,11 @@ export default {
   positive: '{description} must be positive',
   multipleOf: '{description} must be a multiple of {multipleOf}',
   present: '{description} must be blank',
-  singular: '{description} can\'t be a collection',
+  singular: "{description} can't be a collection",
   tooLong: '{description} is too long (maximum is {max} characters)',
   tooShort: '{description} is too short (minimum is {min} characters)',
   between: '{description} must be between {min} and {max} characters',
   url: '{description} must be a valid url',
   wrongDateFormat: '{description} must be in the format of {format}',
-  wrongLength: '{description} is the wrong length (should be {is} characters)'
+  wrongLength: '{description} is the wrong length (should be {is} characters)',
 };

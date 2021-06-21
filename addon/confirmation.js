@@ -18,10 +18,13 @@ import validationError from 'ember-validators/utils/validation-error';
  * @param {String} attribute
  */
 export default function validateConfirmation(value, options, model, attribute) {
-  let on = get(options, 'on');
-  let allowBlank = get(options, 'allowBlank');
+  let on = options.on;
+  let allowBlank = options.allowBlank;
 
-  assert(`[validator:confirmation] [${attribute}] option 'on' is required`, isPresent(on));
+  assert(
+    `[validator:confirmation] [${attribute}] option 'on' is required`,
+    isPresent(on)
+  );
 
   if (allowBlank && isEmpty(value)) {
     return true;

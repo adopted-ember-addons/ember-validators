@@ -1,7 +1,7 @@
 import { get } from '@ember/object';
 import { isNone } from '@ember/utils';
 import validationError from 'ember-validators/utils/validation-error';
-import DS from 'ember-data';
+import DS from '@ember-data';
 
 /**
  *  @class DS Error
@@ -22,10 +22,15 @@ export default function validateDsError(value, options, model, attribute) {
 
   let { path, key } = getPathAndKey(attribute);
 
-  let errors = get(model, path);
+  let errors = model[path];
 
   if (!isNone(errors) && errors instanceof DS.Errors && errors.has(key)) {
-    return validationError('ds', null, options, get(errors.errorsFor(key), 'lastObject.message'));
+    return validationError(
+      'ds',
+      null,
+      options,
+      get(errors.errorsFor(key), 'lastObject.message')
+    );
   }
 
   return true;

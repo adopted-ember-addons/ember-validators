@@ -1,5 +1,4 @@
 import { isEmpty, isNone } from '@ember/utils';
-import { getProperties, get } from '@ember/object';
 import validationError from 'ember-validators/utils/validation-error';
 
 /**
@@ -30,7 +29,7 @@ import validationError from 'ember-validators/utils/validation-error';
 export default function validateNumber(value, options) {
   let numValue = Number(value);
   let optionKeys = Object.keys(options);
-  let { allowBlank, allowNone = true, allowString, integer } = getProperties(options, ['allowBlank', 'allowNone', 'allowString', 'integer']);
+  let { allowBlank, allowNone = true, allowString, integer } = options;
 
   if (allowNone && isNone(value)) {
     return true;
@@ -69,7 +68,7 @@ export default function validateNumber(value, options) {
 }
 
 function _validateType(type, options, value) {
-  let expected = get(options, type);
+  let expected = options[type];
   let actual = value;
 
   if (type === 'is' && actual !== expected) {
@@ -104,5 +103,7 @@ function isNumber(value) {
 }
 
 function isInteger(value) {
-  return typeof value === 'number' && isFinite(value) && Math.floor(value) === value;
+  return (
+    typeof value === 'number' && isFinite(value) && Math.floor(value) === value
+  );
 }

@@ -7,13 +7,25 @@ let options, result;
 
 function testEmailAddresses(assert, options, valid = [], invalid = []) {
   options = cloneOptions(options);
-  valid.forEach((email) => assert.equal(processResult(validate(email, options)), true, `validation of ${email} must succeed`));
-  invalid.forEach((email) => assert.equal(processResult(validate(email, options)), 'This field must be a valid email address', `validation of ${email} must fail`));
+  valid.forEach((email) =>
+    assert.equal(
+      processResult(validate(email, options)),
+      true,
+      `validation of ${email} must succeed`
+    )
+  );
+  invalid.forEach((email) =>
+    assert.equal(
+      processResult(validate(email, options)),
+      'This field must be a valid email address',
+      `validation of ${email} must fail`
+    )
+  );
 }
 
 module('Unit | Validator | format');
 
-test('no options', function(assert) {
+test('no options', function (assert) {
   assert.expect(1);
 
   try {
@@ -23,12 +35,12 @@ test('no options', function(assert) {
   }
 });
 
-test('allow blank', function(assert) {
+test('allow blank', function (assert) {
   assert.expect(2);
 
   options = {
     allowBlank: true,
-    type: 'email'
+    type: 'email',
   };
   options = cloneOptions(options);
 
@@ -36,10 +48,13 @@ test('allow blank', function(assert) {
   assert.equal(processResult(result), true);
 
   result = validate('email', options);
-  assert.equal(processResult(result), 'This field must be a valid email address');
+  assert.equal(
+    processResult(result),
+    'This field must be a valid email address'
+  );
 });
 
-test('email', function(assert) {
+test('email', function (assert) {
   let validAddresses = [
     'email@domain.com',
     'firstname.lastname@domain.com',
@@ -51,7 +66,7 @@ test('email', function(assert) {
     'email@domain.name',
     'email@domain.co.jp',
     'firstname-lastname@domain.com',
-    'EMAIL@DOMAIN.COM'
+    'EMAIL@DOMAIN.COM',
   ];
   let invalidAddresses = [
     null,
@@ -78,78 +93,75 @@ test('email', function(assert) {
     'email@domain.com-',
     'email@domain.com-.',
     'email@-domain.com',
-    'email@domain..com'
+    'email@domain..com',
   ];
 
   assert.expect(validAddresses.length + invalidAddresses.length);
 
   options = {
-    type: 'email'
+    type: 'email',
   };
 
   testEmailAddresses(assert, options, validAddresses, invalidAddresses);
 });
 
-test('email + allowNonTld', function(assert) {
-  let validAddresses = [
-    'email@domain.com',
-    'email@domain'
-  ];
+test('email + allowNonTld', function (assert) {
+  let validAddresses = ['email@domain.com', 'email@domain'];
 
   assert.expect(validAddresses.length);
 
   options = {
     type: 'email',
-    allowNonTld: true
+    allowNonTld: true,
   };
 
   testEmailAddresses(assert, options, validAddresses);
 });
 
-test('email + minTldLength', function(assert) {
+test('email + minTldLength', function (assert) {
   let validAddresses = [
     'email@domain.com',
     'email@domain.co',
     'email@domain.co.nz',
-    'email@domain.c.nz'
+    'email@domain.c.nz',
   ];
 
-  let invalidAddresses = [
-    'email@domain.c',
-    'email@domain.c.i'
-  ];
+  let invalidAddresses = ['email@domain.c', 'email@domain.c.i'];
 
   assert.expect(validAddresses.length + invalidAddresses.length);
 
   options = {
     type: 'email',
-    minTldLength: 2
+    minTldLength: 2,
   };
 
   testEmailAddresses(assert, options, validAddresses, invalidAddresses);
 });
 
-test('phone', function(assert) {
+test('phone', function (assert) {
   assert.expect(2);
 
   options = {
-    type: 'phone'
+    type: 'phone',
   };
 
   options = cloneOptions(options);
 
   result = validate('123', options);
-  assert.equal(processResult(result), 'This field must be a valid phone number');
+  assert.equal(
+    processResult(result),
+    'This field must be a valid phone number'
+  );
 
   result = validate('(408) 555-1234', options);
   assert.equal(processResult(result), true);
 });
 
-test('url', function(assert) {
+test('url', function (assert) {
   assert.expect(2);
 
   options = {
-    type: 'url'
+    type: 'url',
   };
 
   options = cloneOptions(options);
@@ -161,29 +173,32 @@ test('url', function(assert) {
   assert.equal(processResult(result), true);
 });
 
-test('inverse - with type', function(assert) {
+test('inverse - with type', function (assert) {
   assert.expect(2);
 
   options = {
     type: 'email',
-    inverse: true
+    inverse: true,
   };
 
   options = cloneOptions(options);
 
   result = validate('email@domain.com', options);
-  assert.equal(processResult(result), 'This field must be a valid email address');
+  assert.equal(
+    processResult(result),
+    'This field must be a valid email address'
+  );
 
   result = validate('foobar123', options);
   assert.equal(processResult(result), true);
 });
 
-test('inverse - custom', function(assert) {
+test('inverse - custom', function (assert) {
   assert.expect(2);
 
   options = {
     inverse: true,
-    regex: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,8}$/
+    regex: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,8}$/,
   };
 
   options = cloneOptions(options);
@@ -195,11 +210,11 @@ test('inverse - custom', function(assert) {
   assert.equal(processResult(result), true);
 });
 
-test('custom', function(assert) {
+test('custom', function (assert) {
   assert.expect(3);
 
   options = {
-    regex: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,8}$/
+    regex: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,8}$/,
   };
 
   options = cloneOptions(options);
@@ -214,11 +229,11 @@ test('custom', function(assert) {
   assert.equal(processResult(result), true);
 });
 
-test('custom with g flag', function(assert) {
+test('custom with g flag', function (assert) {
   assert.expect(3);
 
   options = {
-    regex: /foo/g
+    regex: /foo/g,
   };
 
   options = cloneOptions(options);

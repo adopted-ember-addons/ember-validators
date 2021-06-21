@@ -8,17 +8,17 @@ let model, options, result;
 
 module('Unit | Validator | confirmation');
 
-test('attribute', function(assert) {
+test('attribute', function (assert) {
   assert.expect(2);
 
   options = { on: 'email' };
 
   model = EmberObject.create({
-    'email': 'foo@gmail.com'
+    email: 'foo@gmail.com',
   });
 
   result = validate('bar@gmail.com', cloneOptions(options), model);
-  assert.equal(processResult(result), 'This field doesn\'t match email');
+  assert.equal(processResult(result), "This field doesn't match email");
 
   model.set('emailConfirmation', 'foo@gmail.com');
 
@@ -26,7 +26,7 @@ test('attribute', function(assert) {
   assert.equal(processResult(result), true);
 });
 
-test('allowBlank', function(assert) {
+test('allowBlank', function (assert) {
   assert.expect(1);
 
   options = { on: 'email', allowBlank: true };

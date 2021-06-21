@@ -1,5 +1,4 @@
 import { isEmpty, isNone } from '@ember/utils';
-import { getProperties, get } from '@ember/object';
 import validationError from 'ember-validators/utils/validation-error';
 
 /**
@@ -21,7 +20,14 @@ import validationError from 'ember-validators/utils/validation-error';
  * @param {String} attribute
  */
 export default function validateLength(value, options) {
-  let { allowNone = true, allowBlank, useBetweenMessage, is, min, max } = getProperties(options, [ 'allowNone', 'allowBlank', 'useBetweenMessage', 'is', 'min', 'max' ]);
+  let {
+    allowNone = true,
+    allowBlank,
+    useBetweenMessage,
+    is,
+    min,
+    max,
+  } = options;
 
   if (isNone(value)) {
     return allowNone ? true : validationError('invalid', value, options);
@@ -31,13 +37,18 @@ export default function validateLength(value, options) {
     return true;
   }
 
-  let length = get(value, 'length');
+  let length = value.length;
 
   if (!isNone(is) && is !== length) {
     return validationError('wrongLength', value, options);
   }
 
-  if (useBetweenMessage && !isNone(min) && !isNone(max) && (length < min || length > max)) {
+  if (
+    useBetweenMessage &&
+    !isNone(min) &&
+    !isNone(max) &&
+    (length < min || length > max)
+  ) {
     return validationError('between', value, options);
   }
 

@@ -7,7 +7,7 @@ let options, result;
 
 module('Unit | Validator | exclusion');
 
-test('no options', function(assert) {
+test('no options', function (assert) {
   assert.expect(1);
 
   try {
@@ -17,12 +17,12 @@ test('no options', function(assert) {
   }
 });
 
-test('allow blank', function(assert) {
+test('allow blank', function (assert) {
   assert.expect(2);
 
   options = {
     allowBlank: true,
-    'in': ['foo', 'bar', 'baz']
+    in: ['foo', 'bar', 'baz'],
   };
 
   result = validate('', cloneOptions(options));
@@ -32,11 +32,11 @@ test('allow blank', function(assert) {
   assert.equal(processResult(result), 'This field is reserved');
 });
 
-test('not in array', function(assert) {
+test('not in array', function (assert) {
   assert.expect(4);
 
   options = {
-    'in': ['foo', 'bar', 'baz']
+    in: ['foo', 'bar', 'baz'],
   };
 
   result = validate('foo', cloneOptions(options));
@@ -52,11 +52,11 @@ test('not in array', function(assert) {
   assert.equal(processResult(result), true);
 });
 
-test('not in range', function(assert) {
+test('not in range', function (assert) {
   assert.expect(5);
 
   options = {
-    range: [1, 10]
+    range: [1, 10],
   };
 
   result = validate(1, cloneOptions(options));
@@ -75,11 +75,11 @@ test('not in range', function(assert) {
   assert.equal(processResult(result), true);
 });
 
-test('range type check - number', function(assert) {
+test('range type check - number', function (assert) {
   assert.expect(4);
 
   options = {
-    range: [1, 10]
+    range: [1, 10],
   };
 
   result = validate(1, cloneOptions(options));
@@ -95,11 +95,11 @@ test('range type check - number', function(assert) {
   assert.equal(processResult(result), true);
 });
 
-test('range type check - string', function(assert) {
+test('range type check - string', function (assert) {
   assert.expect(4);
 
   options = {
-    range: ['a', 'z']
+    range: ['a', 'z'],
   };
 
   result = validate('a', cloneOptions(options));

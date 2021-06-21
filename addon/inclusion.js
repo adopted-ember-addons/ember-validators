@@ -1,6 +1,5 @@
 import { assert } from '@ember/debug';
 import { isEmpty, typeOf } from '@ember/utils';
-import { getProperties, get } from '@ember/object';
 import validationError from 'ember-validators/utils/validation-error';
 
 /**
@@ -19,10 +18,13 @@ import validationError from 'ember-validators/utils/validation-error';
  * @param {String} attribute
  */
 export default function validateInclusion(value, options, model, attribute) {
-  let array = get(options, 'in');
-  let { range, allowBlank } = getProperties(options, ['range', 'allowBlank']);
+  let array = options.in;
+  let { range, allowBlank } = options;
 
-  assert(`[validator:inclusion] [${attribute}] no options were passed in`, !isEmpty(Object.keys(options)));
+  assert(
+    `[validator:inclusion] [${attribute}] no options were passed in`,
+    !isEmpty(Object.keys(options))
+  );
 
   if (allowBlank && isEmpty(value)) {
     return true;
@@ -33,8 +35,9 @@ export default function validateInclusion(value, options, model, attribute) {
   }
 
   if (range && range.length === 2) {
-    let [ min, max ] = range;
-    let equalType = typeOf(value) === typeOf(min) && typeOf(value) === typeOf(max);
+    let [min, max] = range;
+    let equalType =
+      typeOf(value) === typeOf(min) && typeOf(value) === typeOf(max);
 
     if (!equalType || min > value || value > max) {
       return validationError('inclusion', value, options);

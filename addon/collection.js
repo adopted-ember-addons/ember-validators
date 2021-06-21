@@ -1,5 +1,3 @@
-import { get } from '@ember/object';
-
 import { assert } from '@ember/debug';
 import { isArray } from '@ember/array';
 import { isPresent } from '@ember/utils';
@@ -11,17 +9,20 @@ import validationError from 'ember-validators/utils/validation-error';
  */
 
 /**
-  * @method validate
-  * @param {Any} value
-  * @param {Object} options
-  * @param {Boolean} options.collection
-  * @param {Object} model
-  * @param {String} attribute
-  */
+ * @method validate
+ * @param {Any} value
+ * @param {Object} options
+ * @param {Boolean} options.collection
+ * @param {Object} model
+ * @param {String} attribute
+ */
 export default function validateCollection(value, options, model, attribute) {
-  let collection = get(options, 'collection');
+  let collection = options.collection;
 
-  assert(`[validator:collection] [${attribute}] option 'collection' is required`, isPresent(collection));
+  assert(
+    `[validator:collection] [${attribute}] option 'collection' is required`,
+    isPresent(collection)
+  );
 
   if (collection === true && !isArray(value)) {
     return validationError('collection', value, options);
