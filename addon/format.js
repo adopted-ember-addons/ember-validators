@@ -1,13 +1,11 @@
 import { isEmpty, isNone } from '@ember/utils';
 import { assert } from '@ember/debug';
-import { getProperties, set } from '@ember/object';
+import { set } from '@ember/object';
 
 import Ember from 'ember';
 import validationError from 'ember-validators/utils/validation-error';
 
-const {
-  canInvoke
-} = Ember;
+const { canInvoke } = Ember;
 
 /**
  *  @class Format
@@ -29,17 +27,22 @@ const {
  */
 export const regularExpressions = {
   // eslint-disable-next-line no-useless-escape
-  email: /^[a-z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i,
+  email:
+    /^[a-z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i,
   // eslint-disable-next-line no-useless-escape
-  phone: /^([\+]?1\s*[-\/\.]?\s*)?(\((\d{3})\)|(\d{3}))\s*[-\/\.]?\s*(\d{3})\s*[-\/\.]?\s*(\d{4})\s*(([xX]|[eE][xX][tT]?[\.]?|extension)\s*([#*\d]+))*$/,
+  phone:
+    /^([\+]?1\s*[-\/\.]?\s*)?(\((\d{3})\)|(\d{3}))\s*[-\/\.]?\s*(\d{3})\s*[-\/\.]?\s*(\d{4})\s*(([xX]|[eE][xX][tT]?[\.]?|extension)\s*([#*\d]+))*$/,
   // eslint-disable-next-line no-useless-escape
-  url: /(?:([A-Za-z]+):)?(\/{0,3})[a-zA-Z0-9][a-zA-Z-0-9]*(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-{}]*[\w@?^=%&amp;\/~+#-{}])??/
+  url: /(?:([A-Za-z]+):)?(\/{0,3})[a-zA-Z0-9][a-zA-Z-0-9]*(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-{}]*[\w@?^=%&amp;\/~+#-{}])??/,
 };
 
 export default function validateFormat(value, options, model, attribute) {
-  let { regex, type, inverse = false, allowBlank } = getProperties(options, ['regex', 'type', 'inverse', 'allowBlank']);
+  let { regex, type, inverse = false, allowBlank } = options;
 
-  assert(`[validator:format] [${attribute}] no options were passed in`, !isEmpty(Object.keys(options)));
+  assert(
+    `[validator:format] [${attribute}] no options were passed in`,
+    !isEmpty(Object.keys(options))
+  );
 
   if (allowBlank && isEmpty(value)) {
     return true;
@@ -57,7 +60,10 @@ export default function validateFormat(value, options, model, attribute) {
     set(options, 'regex', regex);
   }
 
-  if (!canInvoke(value, 'match') || (regex && isEmpty(value.match(regex)) !== inverse)) {
+  if (
+    !canInvoke(value, 'match') ||
+    (regex && isEmpty(value.match(regex)) !== inverse)
+  ) {
     return validationError(type || 'invalid', value, options);
   }
 
@@ -66,14 +72,20 @@ export default function validateFormat(value, options, model, attribute) {
 
 function formatEmailRegex(options) {
   let { source } = regularExpressions.email;
-  let { allowNonTld, minTldLength } = getProperties(options, ['allowNonTld', 'minTldLength']);
+  let { allowNonTld, minTldLength } = options;
 
   if (!isNone(minTldLength) && typeof minTldLength === 'number') {
-    source = source.replace('[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$', `[a-z0-9]{${minTldLength},}(?:[a-z0-9-]*[a-z0-9])?$`);
+    source = source.replace(
+      '[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$',
+      `[a-z0-9]{${minTldLength},}(?:[a-z0-9-]*[a-z0-9])?$`
+    );
   }
 
   if (allowNonTld) {
-    source = source.replace('@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)', '@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.?)');
+    source = source.replace(
+      '@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)',
+      '@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.?)'
+    );
   }
 
   return new RegExp(source, 'i');

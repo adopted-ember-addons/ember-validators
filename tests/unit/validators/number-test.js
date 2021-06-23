@@ -7,24 +7,24 @@ let options, result;
 
 module('Unit | Validator | number');
 
-test('no options', function(assert) {
+test('no options', function (assert) {
   assert.expect(3);
 
   result = validate(undefined, {});
   assert.equal(processResult(result), true);
 
-  result = validate("", {});
+  result = validate('', {});
   assert.equal(processResult(result), 'This field must be a number');
 
   result = validate(22, cloneOptions(options));
   assert.equal(processResult(result), true);
 });
 
-test('allow string', function(assert) {
+test('allow string', function (assert) {
   assert.expect(6);
 
   options = {
-    allowString: true
+    allowString: true,
   };
 
   result = validate('22', cloneOptions(options));
@@ -48,11 +48,11 @@ test('allow string', function(assert) {
   assert.equal(processResult(result), 'This field must be a number');
 });
 
-test('integer', function(assert) {
+test('integer', function (assert) {
   assert.expect(3);
 
   options = {
-    integer: true
+    integer: true,
   };
 
   result = validate(22, cloneOptions(options));
@@ -65,11 +65,11 @@ test('integer', function(assert) {
   assert.equal(processResult(result), 'This field must be an integer');
 });
 
-test('is', function(assert) {
+test('is', function (assert) {
   assert.expect(2);
 
   options = {
-    is: 22
+    is: 22,
   };
 
   result = validate(1, cloneOptions(options));
@@ -79,11 +79,11 @@ test('is', function(assert) {
   assert.equal(processResult(result), true);
 });
 
-test('lt', function(assert) {
+test('lt', function (assert) {
   assert.expect(3);
 
   options = {
-    lt: 22
+    lt: 22,
   };
 
   result = validate(21, cloneOptions(options));
@@ -96,11 +96,11 @@ test('lt', function(assert) {
   assert.equal(processResult(result), 'This field must be less than 22');
 });
 
-test('lte', function(assert) {
+test('lte', function (assert) {
   assert.expect(3);
 
   options = {
-    lte: 22
+    lte: 22,
   };
 
   result = validate(21, cloneOptions(options));
@@ -110,14 +110,17 @@ test('lte', function(assert) {
   assert.equal(processResult(result), true);
 
   result = validate(23, cloneOptions(options));
-  assert.equal(processResult(result), 'This field must be less than or equal to 22');
+  assert.equal(
+    processResult(result),
+    'This field must be less than or equal to 22'
+  );
 });
 
-test('gt', function(assert) {
+test('gt', function (assert) {
   assert.expect(3);
 
   options = {
-    gt: 22
+    gt: 22,
   };
 
   result = validate(21, cloneOptions(options));
@@ -130,11 +133,11 @@ test('gt', function(assert) {
   assert.equal(processResult(result), true);
 });
 
-test('multipleOf', function(assert) {
+test('multipleOf', function (assert) {
   assert.expect(4);
 
   options = {
-    multipleOf: 2
+    multipleOf: 2,
   };
 
   result = validate(5, cloneOptions(options));
@@ -150,15 +153,18 @@ test('multipleOf', function(assert) {
   assert.equal(processResult(result), true);
 });
 
-test('gte', function(assert) {
+test('gte', function (assert) {
   assert.expect(3);
 
   options = {
-    gte: 22
+    gte: 22,
   };
 
   result = validate(21, cloneOptions(options));
-  assert.equal(processResult(result), 'This field must be greater than or equal to 22');
+  assert.equal(
+    processResult(result),
+    'This field must be greater than or equal to 22'
+  );
 
   result = validate(22, cloneOptions(options));
   assert.equal(processResult(result), true);
@@ -167,11 +173,11 @@ test('gte', function(assert) {
   assert.equal(processResult(result), true);
 });
 
-test('positive', function(assert) {
+test('positive', function (assert) {
   assert.expect(4);
 
   options = {
-    positive: true
+    positive: true,
   };
 
   result = validate(-1, cloneOptions(options));
@@ -187,11 +193,11 @@ test('positive', function(assert) {
   assert.equal(processResult(result), true);
 });
 
-test('odd', function(assert) {
+test('odd', function (assert) {
   assert.expect(6);
 
   options = {
-    odd: true
+    odd: true,
   };
 
   result = validate(22, cloneOptions(options));
@@ -213,11 +219,11 @@ test('odd', function(assert) {
   assert.equal(processResult(result), true);
 });
 
-test('even', function(assert) {
+test('even', function (assert) {
   assert.expect(6);
 
   options = {
-    even: true
+    even: true,
   };
 
   result = validate(22, cloneOptions(options));
@@ -239,11 +245,11 @@ test('even', function(assert) {
   assert.equal(processResult(result), 'This field must be even');
 });
 
-test('allowBlank', function(assert) {
+test('allowBlank', function (assert) {
   assert.expect(3);
 
   options = {
-    allowBlank: true
+    allowBlank: true,
   };
 
   result = validate(null, cloneOptions(options));
@@ -256,11 +262,11 @@ test('allowBlank', function(assert) {
   assert.equal(processResult(result), true);
 });
 
-test('allowNone', function(assert) {
+test('allowNone', function (assert) {
   assert.expect(4);
 
   options = {
-    allowNone: true
+    allowNone: true,
   };
 
   result = validate(null, cloneOptions(options));
@@ -272,8 +278,8 @@ test('allowNone', function(assert) {
   options.allowNone = false;
 
   result = validate(null, cloneOptions(options));
-  assert.equal(processResult(result), "This field must be a number");
+  assert.equal(processResult(result), 'This field must be a number');
 
   result = validate(undefined, cloneOptions(options));
-  assert.equal(processResult(result), "This field must be a number");
+  assert.equal(processResult(result), 'This field must be a number');
 });

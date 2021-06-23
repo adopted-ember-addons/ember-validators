@@ -4,7 +4,7 @@ import isPromise from 'ember-validators/utils/is-promise';
 
 module('Unit | Util | isPromise');
 
-test('correctly detects promise', function(assert) {
+test('correctly detects promise', function (assert) {
   assert.ok(isPromise(new Promise((resolve) => resolve())));
   assert.ok(isPromise(Promise.resolve()));
   assert.notOk(isPromise({}));

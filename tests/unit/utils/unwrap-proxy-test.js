@@ -2,17 +2,20 @@ import { A } from '@ember/array';
 import ArrayProxy from '@ember/array/proxy';
 import ObjectProxy from '@ember/object/proxy';
 import { module, test } from 'qunit';
-import { default as unwrapProxy, isProxy } from 'ember-validators/utils/unwrap-proxy';
+import {
+  default as unwrapProxy,
+  isProxy,
+} from 'ember-validators/utils/unwrap-proxy';
 
 module('Unit | Util | unwrapProxy');
 
-test('unwraps proxy content', function(assert) {
+test('unwraps proxy content', function (assert) {
   let objProxy = ObjectProxy.create({
-    content: { foo: 'bar' }
+    content: { foo: 'bar' },
   });
 
   let arrProxy = ArrayProxy.create({
-    content: A(['foo', 'bar'])
+    content: A(['foo', 'bar']),
   });
 
   let unwrappedObj = unwrapProxy(objProxy);
@@ -25,11 +28,11 @@ test('unwraps proxy content', function(assert) {
   assert.deepEqual(unwrappedArr, ['foo', 'bar']);
 });
 
-test('unwraps nested proxy content', function(assert) {
+test('unwraps nested proxy content', function (assert) {
   let objProxy = ObjectProxy.create({
     content: ObjectProxy.create({
-      content: { foo: 'bar' }
-    })
+      content: { foo: 'bar' },
+    }),
   });
 
   let unwrappedObj = unwrapProxy(objProxy);

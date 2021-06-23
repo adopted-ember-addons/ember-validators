@@ -1,6 +1,5 @@
 import { assert } from '@ember/debug';
 import { isPresent, isEmpty } from '@ember/utils';
-import { getProperties } from '@ember/object';
 import validationError from 'ember-validators/utils/validation-error';
 import unwrapProxy from 'ember-validators/utils/unwrap-proxy';
 
@@ -20,11 +19,14 @@ import unwrapProxy from 'ember-validators/utils/unwrap-proxy';
  * @param {String} attribute
  */
 export default function validatePresence(value, options, model, attribute) {
-  let { presence, ignoreBlank } = getProperties(options, ['presence', 'ignoreBlank']);
+  let { presence, ignoreBlank } = options;
   let v = unwrapProxy(value);
   let _isPresent = ignoreBlank ? isPresent(v) : !isEmpty(v);
 
-  assert(`[validator:presence] [${attribute}] option 'presence' is required`, isPresent(presence));
+  assert(
+    `[validator:presence] [${attribute}] option 'presence' is required`,
+    isPresent(presence)
+  );
 
   if (presence === true && !_isPresent) {
     return validationError('blank', value, options);

@@ -7,7 +7,7 @@ let options, result;
 
 module('Unit | Validator | collection');
 
-test('value is collection', function(assert) {
+test('value is collection', function (assert) {
   assert.expect(1);
 
   options = { collection: true };
@@ -16,7 +16,7 @@ test('value is collection', function(assert) {
   assert.equal(processResult(result), true);
 });
 
-test('value not collection', function(assert) {
+test('value not collection', function (assert) {
   assert.expect(1);
 
   options = { collection: true };
@@ -25,7 +25,7 @@ test('value not collection', function(assert) {
   assert.equal(processResult(result), 'This field must be a collection');
 });
 
-test('singular - value is singular', function(assert) {
+test('singular - value is singular', function (assert) {
   assert.expect(1);
 
   options = { collection: false };
@@ -34,11 +34,11 @@ test('singular - value is singular', function(assert) {
   assert.equal(processResult(result), true);
 });
 
-test('singular - value not singular', function(assert) {
+test('singular - value not singular', function (assert) {
   assert.expect(1);
 
   options = { collection: false };
 
   result = validate(['foo', 'bar'], cloneOptions(options));
-  assert.equal(processResult(result), 'This field can\'t be a collection');
+  assert.equal(processResult(result), "This field can't be a collection");
 });

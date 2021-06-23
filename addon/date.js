@@ -1,9 +1,7 @@
 import { isEmpty, isNone } from '@ember/utils';
-import { set, getProperties, get } from '@ember/object';
+import { set } from '@ember/object';
 import validationError from 'ember-validators/utils/validation-error';
-import requireModule from 'ember-require-module';
-
-const moment = requireModule('moment');
+import moment from 'moment';
 
 /**
  * @class Date
@@ -31,9 +29,9 @@ export default function validateDate(value, options) {
     throw new Error('MomentJS is required to use the Date validator.');
   }
 
-  let errorFormat = get(options, 'errorFormat') || 'MMM Do, YYYY';
-  let { format, precision, allowBlank } = getProperties(options, ['format', 'precision', 'allowBlank']);
-  let { before, onOrBefore, after, onOrAfter } = getProperties(options, ['before', 'onOrBefore', 'after', 'onOrAfter']);
+  let errorFormat = options.errorFormat || 'MMM Do, YYYY';
+  let { format, precision, allowBlank } = options;
+  let { before, onOrBefore, after, onOrAfter } = options;
   let date;
 
   if (allowBlank && isEmpty(value)) {
@@ -72,7 +70,7 @@ export default function validateDate(value, options) {
   if (onOrBefore) {
     onOrBefore = parseDate(onOrBefore, format);
 
-    if (!date.isSameOrBefore(onOrBefore, precision))  {
+    if (!date.isSameOrBefore(onOrBefore, precision)) {
       set(options, 'onOrBefore', onOrBefore.format(errorFormat));
       return validationError('onOrBefore', value, options);
     }
@@ -104,5 +102,7 @@ export function parseDate(date, format, useStrict = false) {
     return moment();
   }
 
-  return isNone(format) ? moment(new Date(date)) : moment(date, format, useStrict);
+  return isNone(format)
+    ? moment(new Date(date))
+    : moment(date, format, useStrict);
 }

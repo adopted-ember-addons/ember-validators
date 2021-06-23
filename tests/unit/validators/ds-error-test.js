@@ -8,7 +8,7 @@ let model, result;
 
 module('Unit | Validator | ds-error');
 
-test('works with empty object', function(assert) {
+test('works with empty object', function (assert) {
   assert.expect(1);
 
   model = EmberObject.create();
@@ -17,12 +17,12 @@ test('works with empty object', function(assert) {
   assert.equal(processResult(result), true);
 });
 
-test('it works', function(assert) {
+test('it works', function (assert) {
   assert.expect(2);
 
   model = EmberObject.create({
     errors: DS.Errors.create(),
-    username: null
+    username: null,
   });
 
   result = validate(undefined, undefined, model, 'username');
@@ -34,12 +34,12 @@ test('it works', function(assert) {
   assert.equal(processResult(result), 'Username is not unique');
 });
 
-test('gets last message', function(assert) {
+test('gets last message', function (assert) {
   assert.expect(2);
 
   model = EmberObject.create({
     errors: DS.Errors.create(),
-    username: null
+    username: null,
   });
 
   result = validate(undefined, undefined, model, 'username');
