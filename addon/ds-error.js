@@ -19,11 +19,12 @@ export default function validateDsError(value, options, model, attribute) {
   let errors = model[path];
 
   if (errors && errors.has && errors.has(key)) {
+    let errorsFor = errors.errorsFor(key);
     return validationError(
       'ds',
       null,
       options,
-      get(errors.errorsFor(key), 'lastObject.message')
+      errorsFor.length ? errorsFor[errorsFor.length - 1].message : []
     );
   }
 

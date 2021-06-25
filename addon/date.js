@@ -2,6 +2,10 @@ import { isEmpty } from '@ember/utils';
 import { set } from '@ember/object';
 import validationError from 'ember-validators/utils/validation-error';
 
+function formatDate(date, format, locale) {
+  return new Intl.DateTimeFormat(locale, format).format(date);
+}
+
 /**
  * @class Date
  * @module Validators
@@ -18,14 +22,14 @@ import validationError from 'ember-validators/utils/validation-error';
  * @param {String} options.onOrAfter The specified date must be on or after this date
  * @param {String} options.precision Limit the comparison check to a specific granularity.
  *                                   Possible Options: [`year`, `month`, `week`, `day`, `hour`, `minute`, `second`].
- * @param {String} options.format Input value date format
+ * @param {String} options.format Input value date format - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat
  * @param {String} options.errorFormat Error output date format. Defaults to `MMM Do, YYYY`
  * @param {Object} model
  * @param {String} attribute
  */
 export default function validateDate(value, options) {
-  let errorFormat = options.errorFormat || 'MMM Do, YYYY';
-  let { locale, format, precision, allowBlank } = options;
+  let errorFormat = options.errorFormat || { dateStyle: 'long' };
+  let { locale = 'en-us', format/*, precision*/, allowBlank } = options;
   let { before, onOrBefore, after, onOrAfter } = options;
   let date;
 
@@ -57,8 +61,8 @@ export default function validateDate(value, options) {
   if (before) {
     before = parseDate(before, format, locale);
 
-    if (!isBefore(date, before, precision)) {
-      set(options, 'before', format(before, errorFormat));
+    if (!isBefore(date, before)) {
+      set(options, 'before', formatDate(before, errorFormat, locale));
       return validationError('before', value, options);
     }
   }
@@ -66,8 +70,8 @@ export default function validateDate(value, options) {
   if (onOrBefore) {
     onOrBefore = parseDate(onOrBefore, format, locale);
 
-    if (!isSameOrBefore(date, onOrBefore, precision)) {
-      set(options, 'onOrBefore', format(onOrBefore, errorFormat));
+    if (!isSameOrBefore(date, onOrBefore)) {
+      set(options, 'onOrBefore', formatDate(onOrBefore, errorFormat, locale));
       return validationError('onOrBefore', value, options);
     }
   }
@@ -75,8 +79,8 @@ export default function validateDate(value, options) {
   if (after) {
     after = parseDate(after, format, locale);
 
-    if (!isAfter(date, after, precision)) {
-      set(options, 'after', format(after, errorFormat));
+    if (!isAfter(date, after)) {
+      set(options, 'after', formatDate(after, errorFormat, locale));
       return validationError('after', value, options);
     }
   }
@@ -84,8 +88,8 @@ export default function validateDate(value, options) {
   if (onOrAfter) {
     onOrAfter = parseDate(onOrAfter, format, locale);
 
-    if (!isSameOrAfter(date, onOrAfter, precision)) {
-      set(options, 'onOrAfter', onOrAfter.format(errorFormat));
+    if (!isSameOrAfter(date, onOrAfter)) {
+      set(options, 'onOrAfter', formatDate(onOrAfter, errorFormat, locale));
       return validationError('onOrAfter', value, options);
     }
   }
@@ -98,7 +102,10 @@ export function parseDate(date, format, locale) {
     return new Date();
   }
 
-  return format ? new Date(date) : new Intl.DateTimeFormat(locale, format);
+  if (format === null || format === undefined) {
+    format = { dateStyle: 'long' };
+  }
+  return format ? new Date(date) : new Intl.DateTimeFormat(locale, format).format();
 }
 
 function isValidDate(d) {
@@ -107,22 +114,22 @@ function isValidDate(d) {
 
 // WIP naive implementation
 // TODO: timezone beware
-function isSame(date, comp/*, _precision*/) {
-  return date === comp;
+function isSame(date, comp) {
+  return date.getTime() === comp.getTime();
 }
 
-function isBefore(date, comp/*, _precision*/) {
+function isBefore(date, comp) {
   return date < comp;
 }
 
-function isAfter(date, comp/*, _precision*/) {
+function isAfter(date, comp) {
   return date > comp;
 }
 
-function isSameOrAfter(date, comp/*, _precision*/) {
+function isSameOrAfter(date, comp) {
   return isSame(date, comp) || isAfter(date, comp);
 }
 
-function isSameOrBefore(date, comp/*, _precision*/) {
+function isSameOrBefore(date, comp) {
   return isSame(date, comp) || isBefore(date, comp);
 }

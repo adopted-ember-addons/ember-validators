@@ -1,4 +1,3 @@
-import moment from 'moment';
 import { module, test } from 'qunit';
 import validate from 'ember-validators/date';
 import processResult from '../../helpers/process-result';
@@ -21,7 +20,7 @@ test('allow blank', function (assert) {
 
   options = {
     allowBlank: true,
-    before: '1/1/2015',
+    before: new Date('1/1/2015'),
   };
 
   result = validate('', cloneOptions(options));
@@ -30,7 +29,7 @@ test('allow blank', function (assert) {
   result = validate('1/1/2016', cloneOptions(options));
   assert.equal(
     processResult(result),
-    'This field must be before Jan 1st, 2015'
+    'This field must be before January 1, 2015'
   );
 });
 
@@ -50,7 +49,7 @@ test('valid input date format', function (assert) {
   assert.expect(3);
 
   options = {
-    format: 'DD/M/YYYY',
+    format: { year: 'numeric', month: 'numeric', day: '2-digit' }
   };
 
   result = validate('27/3/15', cloneOptions(options));
@@ -71,7 +70,7 @@ test('error date format', function (assert) {
 
   options = {
     errorFormat: 'M/D/YYYY',
-    before: '1/1/2015',
+    before: new Date('1/1/2015'),
   };
 
   result = validate('1/1/2016', cloneOptions(options));
@@ -82,13 +81,13 @@ test('before', function (assert) {
   assert.expect(2);
 
   options = {
-    before: '1/1/2015',
+    before: new Date('1/1/2015'),
   };
 
   result = validate('1/1/2016', cloneOptions(options));
   assert.equal(
     processResult(result),
-    'This field must be before Jan 1st, 2015'
+    'This field must be before January 1, 2015'
   );
 
   result = validate('1/1/2014', cloneOptions(options));
@@ -97,52 +96,56 @@ test('before', function (assert) {
 
 test('before now', function (assert) {
   assert.expect(2);
-  let now = moment().format('MMM Do, YYYY');
   options = {
-    before: 'now',
+    before: new Date(),
   };
 
-  result = validate('1/1/3015', cloneOptions(options));
+  let now = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).format(new Date('1/1/3015'));
+  result = validate(now, cloneOptions(options));
   assert.equal(processResult(result), `This field must be before ${now}`);
 
-  result = validate('1/1/2014', cloneOptions(options));
+  now = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).format(new Date('1/1/2014'));
+  result = validate(now, cloneOptions(options));
   assert.equal(processResult(result), true);
 });
 
 test('before or on', function (assert) {
   assert.expect(3);
 
+  let now = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).format(new Date('1/1/2016'));
   options = {
-    onOrBefore: '1/1/2015',
+    onOrBefore: new Date('1/1/2015'),
   };
 
-  result = validate('1/1/2016', cloneOptions(options));
+  result = validate(now, cloneOptions(options));
   assert.equal(
     processResult(result),
-    'This field must be on or before Jan 1st, 2015'
+    'This field must be on or before January 1, 2015'
   );
 
-  result = validate('1/1/2014', cloneOptions(options));
+  now = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).format(new Date('1/1/2014'));
+  result = validate(now, cloneOptions(options));
   assert.equal(processResult(result), true);
 
-  result = validate('1/1/2015', cloneOptions(options));
+  now = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).format(new Date('1/1/2015'));
+  result = validate(now, cloneOptions(options));
   assert.equal(processResult(result), true);
 });
 
 test('before now or on', function (assert) {
   assert.expect(3);
-  let now = moment().format('MMM Do, YYYY');
+  let now = new Date();
   options = {
-    onOrBefore: 'now',
+    onOrBefore: new Date(),
   };
 
-  result = validate('1/1/3015', cloneOptions(options));
+  result = validate(new Date('1/1/3015'), cloneOptions(options));
   assert.equal(processResult(result), `This field must be on or before ${now}`);
 
-  result = validate('1/1/2014', cloneOptions(options));
+  result = validate(new Date('1/1/2014'), cloneOptions(options));
   assert.equal(processResult(result), true);
 
-  result = validate('now', cloneOptions(options));
+  result = validate(new Date(), cloneOptions(options));
   assert.equal(processResult(result), true);
 });
 
@@ -150,9 +153,9 @@ test('before or on precision', function (assert) {
   let precisions = ['second', 'minute', 'hour', 'day', 'week', 'month', 'year'];
 
   assert.expect(precisions.length * 3 - 1);
-  let now = moment(new Date('2013-02-08T09:30:26'));
+  let now = new Date('2/8/2013');
   let dateString = now.toString();
-  let nowMessage = now.format('MMM Do, YYYY');
+  let nowMessage = now;
 
   for (let i = 0; i < precisions.length; i++) {
     let precision = precisions[i];
@@ -162,7 +165,8 @@ test('before or on precision', function (assert) {
     result = validate(now, cloneOptions(options));
     assert.equal(processResult(result), true);
 
-    result = validate(moment(now).add(1, precision), cloneOptions(options));
+    let date = addOne(now, precision);
+    result = validate(date, cloneOptions(options));
     assert.equal(
       processResult(result),
       `This field must be on or before ${nowMessage}`
@@ -171,7 +175,8 @@ test('before or on precision', function (assert) {
     if (i + 1 !== precisions.length) {
       options = { onOrBefore: dateString, precision: precisions[i + 1] };
 
-      result = validate(moment(now).add(1, precisions), cloneOptions(options));
+      let date = addOne(now, precision);
+      result = validate(date, cloneOptions(options));
       assert.equal(processResult(result), true);
     }
   }
@@ -181,11 +186,11 @@ test('after', function (assert) {
   assert.expect(2);
 
   options = {
-    after: '1/1/2015',
+    after: new Date('1/1/2015'),
   };
 
   result = validate('1/1/2014', cloneOptions(options));
-  assert.equal(processResult(result), 'This field must be after Jan 1st, 2015');
+  assert.equal(processResult(result), 'This field must be after January 1, 2015');
 
   result = validate('1/1/2016', cloneOptions(options));
   assert.equal(processResult(result), true);
@@ -193,9 +198,9 @@ test('after', function (assert) {
 
 test('after now', function (assert) {
   assert.expect(2);
-  let now = moment().format('MMM Do, YYYY');
+  let now = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).format();
   options = {
-    after: 'now',
+    after: new Date(),
   };
 
   result = validate('1/1/2014', cloneOptions(options));
@@ -209,13 +214,13 @@ test('after or on', function (assert) {
   assert.expect(3);
 
   options = {
-    onOrAfter: '1/1/2015',
+    onOrAfter: new Date('1/1/2015'),
   };
 
   result = validate('1/1/2014', cloneOptions(options));
   assert.equal(
     processResult(result),
-    'This field must be on or after Jan 1st, 2015'
+    'This field must be on or after January 1, 2015'
   );
 
   result = validate('1/1/2016', cloneOptions(options));
@@ -227,9 +232,9 @@ test('after or on', function (assert) {
 
 test('after now or on', function (assert) {
   assert.expect(3);
-  let now = moment().format('MMM Do, YYYY');
+  let now = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).format();
   options = {
-    onOrAfter: 'now',
+    onOrAfter: new Date(),
     precision: 'second',
   };
 
@@ -244,12 +249,12 @@ test('after now or on', function (assert) {
 });
 
 test('after or on precision', function (assert) {
-  let precisions = ['second', 'minute', 'hour', 'day', 'week', 'month', 'year'];
+  let precisions = ['second', 'minute', 'hour', 'day', 'month', 'year'];
 
   assert.expect(precisions.length * 3 - 1);
-  let now = moment(new Date('2013-02-08T09:30:26'));
+  let now = new Date('2013-02-08T09:30:26');
   let dateString = now.toString();
-  let nowMessage = now.format('MMM Do, YYYY');
+  let nowMessage = '';
 
   for (let i = 0; i < precisions.length; i++) {
     let precision = precisions[i];
@@ -259,8 +264,9 @@ test('after or on precision', function (assert) {
     result = validate(now, cloneOptions(options));
     assert.equal(processResult(result), true);
 
+    let date = subOne(now, precision);
     result = validate(
-      moment(now).subtract(1, precision),
+      date,
       cloneOptions(options)
     );
     assert.equal(
@@ -271,11 +277,58 @@ test('after or on precision', function (assert) {
     if (i + 1 !== precisions.length) {
       options = { onOrAfter: dateString, precision: precisions[i + 1] };
 
+      let date = subOne(now, precision);
       result = validate(
-        moment(now).subtract(1, precisions),
+        date,
         cloneOptions(options)
       );
       assert.equal(processResult(result), true);
     }
   }
 });
+
+function subOne(d, precision) {
+  switch (precision) {
+    case 'second':
+      d.setSeconds(d.getSeconds() - 1);
+      return d;
+    case 'minute':
+      d.setMinutes(d.setMinutes() - 1);
+      return d;
+    case 'hour':
+      d.setHours(d.setHours() - 1);
+      return d;
+    case 'day':
+      d.setDate(d.getDate() - 1);
+      return d;
+    case 'month':
+      d.setMonth(d.getMonth() - 1);
+      return d;
+    case 'year':
+      d.setFullYear(d.getFullYear() - 1);
+      return d;
+  }
+}
+
+function addOne(d, precision) {
+  switch (precision) {
+    case 'second':
+      d.setSeconds(d.getSeconds() - 1);
+      return d;
+    case 'minute':
+      d.setMinutes(d.setMinutes() - 1);
+      return d;
+    case 'hour':
+      d.setHours(d.setHours() - 1);
+      return d;
+    case 'day':
+      d.setDate(d.getDate() - 1);
+      return d;
+    case 'month':
+      d.setMonth(d.getMonth() - 1);
+      return d;
+    case 'year':
+      d.setFullYear(d.getFullYear() - 1);
+      return d;
+  }
+}
