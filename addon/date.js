@@ -46,9 +46,10 @@ export default function validateDate(value, options) {
       return validationError('wrongDateFormat', value, options);
     }
   } else {
+    // TODO: what are we doing here?
     date = parseDate(value, null, locale);
 
-    if (!isValidDate(date.isValid())) {
+    if (!isValidDate(date)) {
       return validationError('date', value, options);
     }
   }
@@ -56,7 +57,7 @@ export default function validateDate(value, options) {
   if (before) {
     before = parseDate(before, format, locale);
 
-    if (!date.isBefore(before, precision)) {
+    if (!isBefore(date, before, precision)) {
       set(options, 'before', format(before, errorFormat));
       return validationError('before', value, options);
     }
@@ -65,7 +66,7 @@ export default function validateDate(value, options) {
   if (onOrBefore) {
     onOrBefore = parseDate(onOrBefore, format, locale);
 
-    if (!date.isSameOrBefore(onOrBefore, precision)) {
+    if (!isSameOrBefore(date, onOrBefore, precision)) {
       set(options, 'onOrBefore', format(onOrBefore, errorFormat));
       return validationError('onOrBefore', value, options);
     }
@@ -74,7 +75,7 @@ export default function validateDate(value, options) {
   if (after) {
     after = parseDate(after, format, locale);
 
-    if (!date.isAfter(after, precision)) {
+    if (!isAfter(date, after, precision)) {
       set(options, 'after', format(after, errorFormat));
       return validationError('after', value, options);
     }
@@ -83,7 +84,7 @@ export default function validateDate(value, options) {
   if (onOrAfter) {
     onOrAfter = parseDate(onOrAfter, format, locale);
 
-    if (!date.isSameOrAfter(onOrAfter, precision)) {
+    if (!isSameOrAfter(date, onOrAfter, precision)) {
       set(options, 'onOrAfter', onOrAfter.format(errorFormat));
       return validationError('onOrAfter', value, options);
     }
@@ -104,18 +105,24 @@ function isValidDate(d) {
   return d instanceof Date && !isNaN(d);
 }
 
-function isBefore(date, precision) {
-
+// WIP naive implementation
+// TODO: timezone beware
+function isSame(date, comp/*, _precision*/) {
+  return date === comp;
 }
 
-function isSameOrBefore(date, precision) {
-
+function isBefore(date, comp/*, _precision*/) {
+  return date < comp;
 }
 
-function isAfter(date, precision) {
-
+function isAfter(date, comp/*, _precision*/) {
+  return date > comp;
 }
 
-function isSameOrAfter(date, precision) {
+function isSameOrAfter(date, comp/*, _precision*/) {
+  return isSame(date, comp) || isAfter(date, comp);
+}
 
+function isSameOrBefore(date, comp/*, _precision*/) {
+  return isSame(date, comp) || isBefore(date, comp);
 }
