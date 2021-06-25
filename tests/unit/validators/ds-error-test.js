@@ -1,5 +1,4 @@
 import EmberObject from '@ember/object';
-import DS from 'ember-data';
 import { module, test } from 'qunit';
 import validate from 'ember-validators/ds-error';
 import processResult from '../../helpers/process-result';
@@ -21,7 +20,7 @@ test('it works', function (assert) {
   assert.expect(2);
 
   model = EmberObject.create({
-    errors: DS.Errors.create(),
+    errors: new Map(),
     username: null,
   });
 
@@ -38,7 +37,7 @@ test('gets last message', function (assert) {
   assert.expect(2);
 
   model = EmberObject.create({
-    errors: DS.Errors.create(),
+    errors: new Map(),
     username: null,
   });
 
