@@ -29,7 +29,7 @@ function formatDate(date, format, locale) {
  */
 export default function validateDate(value, options) {
   let errorFormat = options.errorFormat || { dateStyle: 'long' };
-  let { locale = 'en-us', format/*, precision*/, allowBlank } = options;
+  let { locale = 'en-us', format /*, precision*/, allowBlank } = options;
   let { before, onOrBefore, after, onOrAfter } = options;
   let date;
 
@@ -105,7 +105,9 @@ export function parseDate(date, format, locale) {
   if (format === null || format === undefined) {
     format = { dateStyle: 'long' };
   }
-  return format ? new Date(date) : new Intl.DateTimeFormat(locale, format).format();
+  return format
+    ? new Date(date)
+    : new Intl.DateTimeFormat(locale, format).format();
 }
 
 function isValidDate(d) {
