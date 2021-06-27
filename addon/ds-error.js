@@ -1,4 +1,3 @@
-import { get } from '@ember/object';
 import validationError from 'ember-validators/utils/validation-error';
 
 /**

@@ -10,7 +10,7 @@ class DSErrors extends Map {
     let errors = [];
     for (let [k, val] of this.entries()) {
       if (k === key) {
-        errors.push({ message: val })
+        errors.push({ message: val });
       }
     }
 
