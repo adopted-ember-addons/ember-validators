@@ -105,6 +105,7 @@ export function parseDate(date, format, locale) {
   if (format === null || format === undefined) {
     format = { dateStyle: 'long' };
   }
+  // TODO: check other formats of invalid string date - "23/01/2014"
   return format
     ? new Date(date)
     : new Intl.DateTimeFormat(locale, format).format();
