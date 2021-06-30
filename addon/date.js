@@ -95,13 +95,19 @@ export default function validateDate(value, options) {
  */
 export function parseDate(date, format, locale) {
   if (format) {
+    // new Date("2015") will give the last day in 2014.  This is problematic
+    let yearOnly = Object.keys(format).length === 1 && format.year;
+
     if (!(date instanceof Date)) {
       // format date into string
       // we have already checked this a valid date
-      return new Intl.DateTimeFormat(locale, format).format(new Date(date));
+      let d = yearOnly ? new Date(date, 0) : new Date(date);
+      return new Intl.DateTimeFormat(locale, format).format(d);
     }
+
     // format date into string
-    return new Intl.DateTimeFormat(locale, format).format(date);
+    let d = yearOnly ? new Date(date.getFullYear(), 0) : new Date(date);
+    return new Intl.DateTimeFormat(locale, format).format(d);
   } else {
     // Date constructor accepts a variety of formats including properly represented strings and Date instances.
     // However, a variety of formats return an "Invalid Date" literal including DD/MM/YYYY
