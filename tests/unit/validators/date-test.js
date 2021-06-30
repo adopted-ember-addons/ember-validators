@@ -184,6 +184,17 @@ test('before or on', function (assert) {
     true,
     'same dates with onOrBefore string'
   );
+
+  options = {
+    onOrBefore: '2015',
+    format: null,
+  };
+  result = validate(new Date('2015'), cloneOptions(options));
+  assert.equal(
+    processResult(result),
+    true,
+    'same dates with onOrBefore string'
+  );
 });
 
 test('before now or on', function (assert) {
