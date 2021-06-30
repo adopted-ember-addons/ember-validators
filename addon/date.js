@@ -23,9 +23,10 @@ import validationError from 'ember-validators/utils/validation-error';
  * @param {String} attribute
  */
 export default function validateDate(value, options) {
-  let errorFormat = options.errorFormat || { dateStyle: 'long' };
   let { locale = 'en-us', format, allowBlank } = options;
   let { before, onOrBefore, after, onOrAfter } = options;
+
+  let errorFormat = options.errorFormat || format || { dateStyle: 'long' };
 
   if (allowBlank && !value) {
     return true;
@@ -113,6 +114,12 @@ function isValidDate(d) {
 }
 
 function isSame(date, comp) {
+  if (typeof date === 'string') {
+    if (typeof comp === 'string') {
+      return date === comp;
+    }
+  }
+
   return date.getTime() === comp.getTime();
 }
 

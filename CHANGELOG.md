@@ -5,6 +5,7 @@
     - removed String 'now' argument.  
     - remove moments
     - Remove `precision` argument.  If you need to compare based on precision, you can use the Intl.DateTimeFormat [APIs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat#using_options) to hone in on the comparison - `{ year: 'numeric' }` 
+    - Added `locale` option. Defaults to en-us when creating date times
 
 ## v3.0.0
     - Remove node v4

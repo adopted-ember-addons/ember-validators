@@ -93,6 +93,13 @@ test('before', function (assert) {
   };
   result = validate(new Date('1/1/2014'), cloneOptions(options));
   assert.equal(processResult(result), true);
+
+  options = {
+    before: '2015',
+    format: { year: 'numeric' },
+  };
+  result = validate(new Date('2014'), cloneOptions(options));
+  assert.equal(processResult(result), true);
 });
 
 test('before now', function (assert) {
@@ -145,6 +152,23 @@ test('before or on', function (assert) {
   );
   result = validate(now, cloneOptions(options));
   assert.equal(processResult(result), true);
+
+  options = {
+    onOrBefore: '2015',
+    format: { year: 'numeric' },
+  };
+  result = validate(new Date('2015'), cloneOptions(options));
+  assert.equal(processResult(result), true);
+
+  result = validate(new Date('2016'), cloneOptions(options));
+  assert.equal(processResult(result), 'This field must be on or before 2013');
+
+  options = {
+    onOrBefore: new Date('2015'),
+    format: { year: 'numeric' },
+  };
+  result = validate(new Date('2015'), cloneOptions(options));
+  assert.equal(processResult(result), true)
 });
 
 test('before now or on', function (assert) {
