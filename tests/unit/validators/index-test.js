@@ -9,6 +9,6 @@ test('validate presence via general validate method', function (assert) {
 });
 
 test('validate date via general validate method', function (assert) {
-  let result = validate('date', 'now', {});
+  let result = validate('date', new Date(), {});
   assert.equal(result, true);
 });

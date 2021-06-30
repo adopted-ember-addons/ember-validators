@@ -8,16 +8,12 @@ let options, result;
 module('Unit | Validator | date');
 
 test('no options', function (assert) {
-  assert.expect(1);
-
   options = {};
   result = validate(undefined, options);
   assert.equal(processResult(result), true);
 });
 
 test('allow blank', function (assert) {
-  assert.expect(2);
-
   options = {
     allowBlank: true,
     before: new Date('1/1/2015'),
@@ -34,8 +30,6 @@ test('allow blank', function (assert) {
 });
 
 test('valid date', function (assert) {
-  assert.expect(2);
-
   options = {};
 
   result = validate('abc', cloneOptions(options));
@@ -46,8 +40,6 @@ test('valid date', function (assert) {
 });
 
 test('valid input date format', function (assert) {
-  assert.expect(3);
-
   options = {
     format: { year: 'numeric', month: 'numeric', day: '2-digit' },
   };
@@ -64,11 +56,12 @@ test('valid input date format', function (assert) {
 
   result = validate('27/3/2015', cloneOptions(options));
   assert.equal(processResult(result), 'This field must be a valid date');
+
+  result = validate(new Date('3/27/2015'), cloneOptions(options));
+  assert.equal(processResult(result), true);
 });
 
 test('error date format', function (assert) {
-  assert.expect(1);
-
   options = {
     errorFormat: 'M/D/YYYY',
     before: new Date('1/1/2015'),
@@ -79,8 +72,6 @@ test('error date format', function (assert) {
 });
 
 test('before', function (assert) {
-  assert.expect(2);
-
   options = {
     before: new Date('1/1/2015'),
   };
@@ -93,10 +84,18 @@ test('before', function (assert) {
 
   result = validate('1/1/2014', cloneOptions(options));
   assert.equal(processResult(result), true);
+
+  result = validate(new Date('1/1/2014'), cloneOptions(options));
+  assert.equal(processResult(result), true);
+
+  options = {
+    before: '1/1/2015',
+  };
+  result = validate(new Date('1/1/2014'), cloneOptions(options));
+  assert.equal(processResult(result), true);
 });
 
 test('before now', function (assert) {
-  assert.expect(2);
   options = {
     before: new Intl.DateTimeFormat('en', { dateStyle: 'long' }).format(
       new Date()
@@ -120,8 +119,6 @@ test('before now', function (assert) {
 });
 
 test('before or on', function (assert) {
-  assert.expect(3);
-
   let now = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).format(
     new Date('1/1/2016')
   );
@@ -151,7 +148,6 @@ test('before or on', function (assert) {
 });
 
 test('before now or on', function (assert) {
-  assert.expect(3);
   let now = new Date();
   options = {
     onOrBefore: new Date(),
@@ -206,8 +202,6 @@ skip('before or on precision', function (assert) {
 });
 
 test('after', function (assert) {
-  assert.expect(2);
-
   options = {
     after: new Date('1/1/2015'),
   };
@@ -223,7 +217,6 @@ test('after', function (assert) {
 });
 
 test('after now', function (assert) {
-  assert.expect(2);
   let now = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).format();
   options = {
     after: new Date(),
@@ -237,8 +230,6 @@ test('after now', function (assert) {
 });
 
 test('after or on', function (assert) {
-  assert.expect(3);
-
   options = {
     onOrAfter: new Date('1/1/2015'),
   };
@@ -257,7 +248,6 @@ test('after or on', function (assert) {
 });
 
 test('after now or on', function (assert) {
-  assert.expect(3);
   let now = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).format();
   options = {
     onOrAfter: new Date(),
@@ -270,7 +260,7 @@ test('after now or on', function (assert) {
   result = validate('1/1/3015', cloneOptions(options));
   assert.equal(processResult(result), true);
 
-  result = validate('now', cloneOptions(options));
+  result = validate(new Date(), cloneOptions(options));
   assert.equal(processResult(result), true);
 });
 

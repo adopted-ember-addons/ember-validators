@@ -96,6 +96,5 @@ export default {
   tooShort: '{description} is too short (minimum is {min} characters)',
   between: '{description} must be between {min} and {max} characters',
   url: '{description} must be a valid url',
-  wrongDateFormat: '{description} must be in the format of {format}',
   wrongLength: '{description} is the wrong length (should be {is} characters)',
 };
