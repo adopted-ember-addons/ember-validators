@@ -86,11 +86,11 @@ export default function validateDate(value, options) {
 }
 
 /**
- * 
- * @param {Date|String} date 
+ *
+ * @param {Date|String} date
  * @param {Object} format - { dateStyle: 'long' } or { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
  * If you need to obtain precision (just compare years), use { year: 'numeric' }
- * @param {String} locale 
+ * @param {String} locale
  * @returns {Date|String}
  */
 export function parseDate(date, format, locale) {

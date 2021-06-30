@@ -168,7 +168,7 @@ test('before or on', function (assert) {
     format: { year: 'numeric' },
   };
   result = validate(new Date('2015'), cloneOptions(options));
-  assert.equal(processResult(result), true)
+  assert.equal(processResult(result), true);
 });
 
 test('before now or on', function (assert) {
