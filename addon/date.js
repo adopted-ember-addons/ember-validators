@@ -107,16 +107,14 @@ export function parseDate(date, format, locale) {
   }
   // TODO: check other formats of invalid string date - "23/01/2014"
   return format
-    ? new Date(date)
-    : new Intl.DateTimeFormat(locale, format).format();
+    ? new Intl.DateTimeFormat(locale, format).format(date)
+    : new Date(date);
 }
 
 function isValidDate(d) {
   return d instanceof Date && !isNaN(d);
 }
 
-// WIP naive implementation
-// TODO: timezone beware
 function isSame(date, comp) {
   return date.getTime() === comp.getTime();
 }
