@@ -26,7 +26,7 @@ export default function validateDate(value, options) {
 
   let errorFormat = options.errorFormat || format || { dateStyle: 'long' };
 
-  if (allowBlank && value === null || value === undefined || value === '') {
+  if ((allowBlank && value === null) || value === undefined || value === '') {
     return true;
   }
 
@@ -57,7 +57,11 @@ export default function validateDate(value, options) {
     onOrBefore = parseAsDate(onOrBefore, format, locale);
 
     if (!isSameOrBefore(date, onOrBefore)) {
-      set(options, 'onOrBefore', parseDateError(onOrBefore, errorFormat, locale));
+      set(
+        options,
+        'onOrBefore',
+        parseDateError(onOrBefore, errorFormat, locale)
+      );
       return validationError('onOrBefore', value, options);
     }
   }
@@ -89,7 +93,7 @@ export default function validateDate(value, options) {
  * @function parseDate
  * @param {Date|String} date
  * @param {Object} format - { dateStyle: 'long' } or { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
- * If you need to obtain precision (just compare years), use { year: 'numeric' }. 
+ * If you need to obtain precision (just compare years), use { year: 'numeric' }.
  * @param {String} locale
  * @returns {Date|String}
  */

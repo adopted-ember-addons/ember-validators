@@ -316,12 +316,10 @@ test('after or on', function (assert) {
     format: { year: 'numeric' },
   };
   result = validate(new Date('2015', 0), cloneOptions(options));
-  assert.equal(
-    processResult(result),
-    true,
-    'same dates with onOrAfter string'
-  );
+  assert.equal(processResult(result), true, 'same dates with onOrAfter string');
+});
 
+test('after or on dateStyle full', function (assert) {
   options = {
     onOrAfter: new Date('2015', 0),
     format: { dateStyle: 'full' },
