@@ -295,6 +295,17 @@ test('after or on', function (assert) {
 
   result = validate('1/1/2015', cloneOptions(options));
   assert.equal(processResult(result), true);
+
+  options = {
+    onOrAfter: '2015',
+    format: { year: 'numeric' },
+  };
+  result = validate(new Date('2015'), cloneOptions(options));
+  assert.equal(
+    processResult(result),
+    true,
+    'same dates with onOrBefore string'
+  );
 });
 
 test('after now or on', function (assert) {

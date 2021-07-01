@@ -19,8 +19,6 @@ import validationError from 'ember-validators/utils/validation-error';
  *  - { dateStyle: 'long' } or { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
  *  If you need to obtain precision (just compare years), use { year: 'numeric' }
  * @param {String} options.errorFormat Error output date format. Defaults to `MMM Do, YYYY`
- * @param {Object} model
- * @param {String} attribute
  */
 export default function validateDate(value, options) {
   let { locale = 'en-us', format, allowBlank } = options;
