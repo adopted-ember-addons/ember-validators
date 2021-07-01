@@ -22,6 +22,15 @@ test('allow blank', function (assert) {
   result = validate('', cloneOptions(options));
   assert.equal(processResult(result), true);
 
+  result = validate(null, cloneOptions(options));
+  assert.equal(processResult(result), true);
+
+  result = validate(0, cloneOptions(options));
+  assert.equal(
+    processResult(result),
+    'This field must be before January 1, 2015'
+  );
+
   result = validate('1/1/2016', cloneOptions(options));
   assert.equal(
     processResult(result),
@@ -99,6 +108,12 @@ test('before', function (assert) {
     format: { year: 'numeric' },
   };
   result = validate(new Date('2014'), cloneOptions(options));
+  assert.equal(processResult(result), true);
+
+  options = {
+    before: 1420070400000,
+  };
+  result = validate(1388534400000, cloneOptions(options));
   assert.equal(processResult(result), true);
 });
 
@@ -300,11 +315,44 @@ test('after or on', function (assert) {
     onOrAfter: '2015',
     format: { year: 'numeric' },
   };
-  result = validate(new Date('2015'), cloneOptions(options));
+  result = validate(new Date('2015', 0), cloneOptions(options));
   assert.equal(
     processResult(result),
     true,
-    'same dates with onOrBefore string'
+    'same dates with onOrAfter string'
+  );
+
+  options = {
+    onOrAfter: new Date('2015', 0),
+    format: { dateStyle: 'full' },
+  };
+  result = validate(new Date('2015', 0), cloneOptions(options));
+  assert.equal(
+    processResult(result),
+    true,
+    'same dates with onOrAfter string with dateStyle full'
+  );
+
+  options = {
+    onOrAfter: new Date('2015', 0),
+    format: { dateStyle: 'full' },
+  };
+  result = validate(new Date('2014', 0), cloneOptions(options));
+  assert.equal(
+    processResult(result),
+    'This field must be on or after Thursday, January 1, 2015',
+    'after date with onOrAfter string with dateStyle full'
+  );
+
+  options = {
+    onOrAfter: new Date('2015', 0),
+    format: { dateStyle: 'full' },
+  };
+  result = validate(new Date('2016', 0), cloneOptions(options));
+  assert.equal(
+    processResult(result),
+    true,
+    'after date with onOrAfter string with dateStyle full'
   );
 });
 
