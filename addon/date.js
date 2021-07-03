@@ -1,7 +1,5 @@
-import { isEmpty, isNone } from '@ember/utils';
 import { set } from '@ember/object';
 import validationError from 'ember-validators/utils/validation-error';
-import moment from 'moment';
 
 /**
  * @class Date
@@ -10,86 +8,78 @@ import moment from 'moment';
 
 /**
  * @method validate
- * @param {Any} value
+ * @param {String|Date} value
  * @param {Object} options
  * @param {Boolean} options.allowBlank If true, skips validation if the value is empty
- * @param {String} options.before The specified date must be before this date
- * @param {String} options.onOrBefore The specified date must be on or before this date
- * @param {String} options.after The specified date must be after this date
- * @param {String} options.onOrAfter The specified date must be on or after this date
- * @param {String} options.precision Limit the comparison check to a specific granularity.
- *                                   Possible Options: [`year`, `month`, `week`, `day`, `hour`, `minute`, `second`].
- * @param {String} options.format Input value date format
- * @param {String} options.errorFormat Error output date format. Defaults to `MMM Do, YYYY`
- * @param {Object} model
- * @param {String} attribute
+ * @param {String|Date} options.before The specified date must be before this date
+ * @param {String|Date} options.onOrBefore The specified date must be on or before this date
+ * @param {String|Date} options.after The specified date must be after this date
+ * @param {String|Date} options.onOrAfter The specified date must be on or after this date
+ * @param {String} options.format Input value date format - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat
+ *  - { dateStyle: 'long' } or { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
+ *  If you need to obtain precision (just compare years), use { year: 'numeric' }
+ * @param {String} options.errorFormat Error output date format. Defaults to options.format or { dateStyle: 'long' }
  */
 export default function validateDate(value, options) {
-  if (!moment) {
-    throw new Error('MomentJS is required to use the Date validator.');
-  }
-
-  let errorFormat = options.errorFormat || 'MMM Do, YYYY';
-  let { format, precision, allowBlank } = options;
+  let { locale = 'en-us', format, allowBlank } = options;
   let { before, onOrBefore, after, onOrAfter } = options;
-  let date;
 
-  if (allowBlank && isEmpty(value)) {
+  let errorFormat = options.errorFormat || format || { dateStyle: 'long' };
+
+  if ((allowBlank && value === null) || value === undefined || value === '') {
     return true;
   }
 
-  if (format) {
-    date = parseDate(value, format, true);
+  let date;
 
-    // Check to see if the passed date is actually a valid date.
-    // This can be done by disabling the strict parsing
-    const isActualDate = parseDate(value, format).isValid();
-
-    if (!isActualDate) {
-      return validationError('date', value, options);
-    } else if (!date.isValid()) {
-      return validationError('wrongDateFormat', value, options);
+  if (!value) {
+    if (format) {
+      date = new Intl.DateTimeFormat(locale, format).format(new Date());
     }
+
+    date = new Date();
+  } else if (!isValidDate(new Date(value))) {
+    return validationError('date', value, options);
   } else {
-    date = parseDate(value);
-
-    if (!date.isValid()) {
-      return validationError('date', value, options);
-    }
+    date = parseAsDate(value, format, locale);
   }
 
   if (before) {
-    before = parseDate(before, format);
+    before = parseAsDate(before, format, locale);
 
-    if (!date.isBefore(before, precision)) {
-      set(options, 'before', before.format(errorFormat));
+    if (!isBefore(date, before)) {
+      set(options, 'before', parseDateError(before, errorFormat, locale));
       return validationError('before', value, options);
     }
   }
 
   if (onOrBefore) {
-    onOrBefore = parseDate(onOrBefore, format);
+    onOrBefore = parseAsDate(onOrBefore, format, locale);
 
-    if (!date.isSameOrBefore(onOrBefore, precision)) {
-      set(options, 'onOrBefore', onOrBefore.format(errorFormat));
+    if (!isSameOrBefore(date, onOrBefore)) {
+      set(
+        options,
+        'onOrBefore',
+        parseDateError(onOrBefore, errorFormat, locale)
+      );
       return validationError('onOrBefore', value, options);
     }
   }
 
   if (after) {
-    after = parseDate(after, format);
+    after = parseAsDate(after, format, locale);
 
-    if (!date.isAfter(after, precision)) {
-      set(options, 'after', after.format(errorFormat));
+    if (!isAfter(date, after)) {
+      set(options, 'after', parseDateError(after, errorFormat, locale));
       return validationError('after', value, options);
     }
   }
 
   if (onOrAfter) {
-    onOrAfter = parseDate(onOrAfter, format);
+    onOrAfter = parseAsDate(onOrAfter, format, locale);
 
-    if (!date.isSameOrAfter(onOrAfter, precision)) {
-      set(options, 'onOrAfter', onOrAfter.format(errorFormat));
+    if (!isSameOrAfter(date, onOrAfter)) {
+      set(options, 'onOrAfter', parseDateError(onOrAfter, errorFormat, locale));
       return validationError('onOrAfter', value, options);
     }
   }
@@ -97,12 +87,73 @@ export default function validateDate(value, options) {
   return true;
 }
 
-export function parseDate(date, format, useStrict = false) {
-  if (date === 'now' || isEmpty(date)) {
-    return moment();
-  }
+/**
+ * This is a forcing function.  If `format` provided, date and comparison date will be in String format.  Otherwise, instances of Date.
+ * I don't think there is a need to force iso8601 strings.
+ * @function parseDate
+ * @param {Date|String} date
+ * @param {Object} format - { dateStyle: 'long' } or { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
+ * If you need to obtain precision (just compare years), use { year: 'numeric' }.
+ * @param {String} locale
+ * @returns {Date|String}
+ */
+export function parseDate(date, format, locale) {
+  if (format) {
+    // new Date("2015") will give the last day in 2014.  This is problematic
+    let yearOnly = isYearFormat(format);
 
-  return isNone(format)
-    ? moment(new Date(date))
-    : moment(date, format, useStrict);
+    if (!(date instanceof Date)) {
+      // format date into string
+      // we have already checked this a valid date
+      let d = yearOnly ? new Date(date, 0) : new Date(date);
+      return new Intl.DateTimeFormat(locale, format).format(d);
+    }
+
+    // format date into string
+    let d = yearOnly ? new Date(date.getFullYear(), 0) : date;
+    return new Intl.DateTimeFormat(locale, format).format(d);
+  } else {
+    // Date constructor accepts a variety of formats including properly represented strings and Date instances.
+    // However, a variety of formats return an "Invalid Date" literal including DD/MM/YYYY
+    return new Date(date);
+  }
+}
+
+function parseDateError(date, format, locale) {
+  return parseDate(date, format, locale);
+}
+
+function parseAsDate(date, format, locale) {
+  if (format && isYearFormat(format)) {
+    return new Date(parseDate(date, format, locale), 0);
+  }
+  return new Date(parseDate(date, format, locale));
+}
+
+function isValidDate(d) {
+  return d instanceof Date && !isNaN(d);
+}
+
+function isSame(date, comp) {
+  return date.getTime() === comp.getTime();
+}
+
+function isBefore(date, comp) {
+  return date < comp;
+}
+
+function isAfter(date, comp) {
+  return date > comp;
+}
+
+function isSameOrAfter(date, comp) {
+  return isSame(date, comp) || isAfter(date, comp);
+}
+
+function isSameOrBefore(date, comp) {
+  return isSame(date, comp) || isBefore(date, comp);
+}
+
+function isYearFormat(format) {
+  return Object.keys(format).length === 1 && format.year;
 }

@@ -1,5 +1,17 @@
 # Changelog
 
+## v4.0.0
+- [[Major]: Remove Moment and Node 10](https://github.com/offirgolan/ember-validators/pull/100);
+    - Remove Node 10 minimum requirement in favor of Node 12
+    - removed custom String 'now' argument.  
+    - remove momentjs
+    - Remove `precision` argument.  If you need to compare based on precision, you can use the Intl.DateTimeFormat [APIs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat#using_options) to hone in on the comparison - `{ year: 'numeric' }` 
+    - Added `locale` option. Defaults to en-us when creating date times using `Intl.DateTimeFormat` API.
+
+## v3.0.0
+
+- Remove node v4
+
 ## v2.0.0
 
 ### Pull Requests
