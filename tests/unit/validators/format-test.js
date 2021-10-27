@@ -155,6 +155,9 @@ test('phone', function (assert) {
 
   result = validate('(408) 555-1234', options);
   assert.equal(processResult(result), true);
+
+  result = validate('+38765512811', options);
+  assert.equal(processResult(result), true);
 });
 
 test('url', function (assert) {
