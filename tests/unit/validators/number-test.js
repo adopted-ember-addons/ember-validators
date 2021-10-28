@@ -11,13 +11,13 @@ test('no options', function (assert) {
   assert.expect(3);
 
   result = validate(undefined, {});
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 
   result = validate('', {});
-  assert.equal(processResult(result), 'This field must be a number');
+  assert.strictEqual(processResult(result), 'This field must be a number');
 
   result = validate(22, cloneOptions(options));
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 });
 
 test('allow string', function (assert) {
@@ -28,24 +28,24 @@ test('allow string', function (assert) {
   };
 
   result = validate('22', cloneOptions(options));
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 
   result = validate('22.22', cloneOptions(options));
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 
   result = validate('test', cloneOptions(options));
-  assert.equal(processResult(result), 'This field must be a number');
+  assert.strictEqual(processResult(result), 'This field must be a number');
 
   result = validate('', cloneOptions(options));
-  assert.equal(processResult(result), 'This field must be a number');
+  assert.strictEqual(processResult(result), 'This field must be a number');
 
   options.allowString = false;
 
   result = validate('22', cloneOptions(options));
-  assert.equal(processResult(result), 'This field must be a number');
+  assert.strictEqual(processResult(result), 'This field must be a number');
 
   result = validate('22.22', cloneOptions(options));
-  assert.equal(processResult(result), 'This field must be a number');
+  assert.strictEqual(processResult(result), 'This field must be a number');
 });
 
 test('integer', function (assert) {
@@ -56,13 +56,13 @@ test('integer', function (assert) {
   };
 
   result = validate(22, cloneOptions(options));
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 
   result = validate(22.22, cloneOptions(options));
-  assert.equal(processResult(result), 'This field must be an integer');
+  assert.strictEqual(processResult(result), 'This field must be an integer');
 
   result = validate(-2.2, cloneOptions(options));
-  assert.equal(processResult(result), 'This field must be an integer');
+  assert.strictEqual(processResult(result), 'This field must be an integer');
 });
 
 test('is', function (assert) {
@@ -73,10 +73,10 @@ test('is', function (assert) {
   };
 
   result = validate(1, cloneOptions(options));
-  assert.equal(processResult(result), 'This field must be equal to 22');
+  assert.strictEqual(processResult(result), 'This field must be equal to 22');
 
   result = validate(22, cloneOptions(options));
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 });
 
 test('lt', function (assert) {
@@ -87,13 +87,13 @@ test('lt', function (assert) {
   };
 
   result = validate(21, cloneOptions(options));
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 
   result = validate(22, cloneOptions(options));
-  assert.equal(processResult(result), 'This field must be less than 22');
+  assert.strictEqual(processResult(result), 'This field must be less than 22');
 
   result = validate(23, cloneOptions(options));
-  assert.equal(processResult(result), 'This field must be less than 22');
+  assert.strictEqual(processResult(result), 'This field must be less than 22');
 });
 
 test('lte', function (assert) {
@@ -104,13 +104,13 @@ test('lte', function (assert) {
   };
 
   result = validate(21, cloneOptions(options));
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 
   result = validate(22, cloneOptions(options));
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 
   result = validate(23, cloneOptions(options));
-  assert.equal(
+  assert.strictEqual(
     processResult(result),
     'This field must be less than or equal to 22'
   );
@@ -124,13 +124,19 @@ test('gt', function (assert) {
   };
 
   result = validate(21, cloneOptions(options));
-  assert.equal(processResult(result), 'This field must be greater than 22');
+  assert.strictEqual(
+    processResult(result),
+    'This field must be greater than 22'
+  );
 
   result = validate(22, cloneOptions(options));
-  assert.equal(processResult(result), 'This field must be greater than 22');
+  assert.strictEqual(
+    processResult(result),
+    'This field must be greater than 22'
+  );
 
   result = validate(23, cloneOptions(options));
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 });
 
 test('multipleOf', function (assert) {
@@ -141,16 +147,22 @@ test('multipleOf', function (assert) {
   };
 
   result = validate(5, cloneOptions(options));
-  assert.equal(processResult(result), 'This field must be a multiple of 2');
+  assert.strictEqual(
+    processResult(result),
+    'This field must be a multiple of 2'
+  );
 
   result = validate(17, cloneOptions(options));
-  assert.equal(processResult(result), 'This field must be a multiple of 2');
+  assert.strictEqual(
+    processResult(result),
+    'This field must be a multiple of 2'
+  );
 
   result = validate(22, cloneOptions(options));
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 
   result = validate(0, cloneOptions(options));
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 });
 
 test('gte', function (assert) {
@@ -161,16 +173,16 @@ test('gte', function (assert) {
   };
 
   result = validate(21, cloneOptions(options));
-  assert.equal(
+  assert.strictEqual(
     processResult(result),
     'This field must be greater than or equal to 22'
   );
 
   result = validate(22, cloneOptions(options));
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 
   result = validate(23, cloneOptions(options));
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 });
 
 test('positive', function (assert) {
@@ -181,16 +193,16 @@ test('positive', function (assert) {
   };
 
   result = validate(-1, cloneOptions(options));
-  assert.equal(processResult(result), 'This field must be positive');
+  assert.strictEqual(processResult(result), 'This field must be positive');
 
   result = validate(-144, cloneOptions(options));
-  assert.equal(processResult(result), 'This field must be positive');
+  assert.strictEqual(processResult(result), 'This field must be positive');
 
   result = validate(0, cloneOptions(options));
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 
   result = validate(22, cloneOptions(options));
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 });
 
 test('odd', function (assert) {
@@ -201,22 +213,22 @@ test('odd', function (assert) {
   };
 
   result = validate(22, cloneOptions(options));
-  assert.equal(processResult(result), 'This field must be odd');
+  assert.strictEqual(processResult(result), 'This field must be odd');
 
   result = validate(-144, cloneOptions(options));
-  assert.equal(processResult(result), 'This field must be odd');
+  assert.strictEqual(processResult(result), 'This field must be odd');
 
   result = validate(21.21, cloneOptions(options));
-  assert.equal(processResult(result), 'This field must be odd');
+  assert.strictEqual(processResult(result), 'This field must be odd');
 
   result = validate(0, cloneOptions(options));
-  assert.equal(processResult(result), 'This field must be odd');
+  assert.strictEqual(processResult(result), 'This field must be odd');
 
   result = validate(21, cloneOptions(options));
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 
   result = validate(-21, cloneOptions(options));
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 });
 
 test('even', function (assert) {
@@ -227,22 +239,22 @@ test('even', function (assert) {
   };
 
   result = validate(22, cloneOptions(options));
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 
   result = validate(-22, cloneOptions(options));
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 
   result = validate(0, cloneOptions(options));
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 
   result = validate(22.22, cloneOptions(options));
-  assert.equal(processResult(result), 'This field must be even');
+  assert.strictEqual(processResult(result), 'This field must be even');
 
   result = validate(21, cloneOptions(options));
-  assert.equal(processResult(result), 'This field must be even');
+  assert.strictEqual(processResult(result), 'This field must be even');
 
   result = validate(-33, cloneOptions(options));
-  assert.equal(processResult(result), 'This field must be even');
+  assert.strictEqual(processResult(result), 'This field must be even');
 });
 
 test('allowBlank', function (assert) {
@@ -253,13 +265,13 @@ test('allowBlank', function (assert) {
   };
 
   result = validate(null, cloneOptions(options));
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 
   result = validate(undefined, cloneOptions(options));
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 
   result = validate('', cloneOptions(options));
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 });
 
 test('allowNone', function (assert) {
@@ -270,16 +282,16 @@ test('allowNone', function (assert) {
   };
 
   result = validate(null, cloneOptions(options));
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 
   result = validate(undefined, cloneOptions(options));
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 
   options.allowNone = false;
 
   result = validate(null, cloneOptions(options));
-  assert.equal(processResult(result), 'This field must be a number');
+  assert.strictEqual(processResult(result), 'This field must be a number');
 
   result = validate(undefined, cloneOptions(options));
-  assert.equal(processResult(result), 'This field must be a number');
+  assert.strictEqual(processResult(result), 'This field must be a number');
 });

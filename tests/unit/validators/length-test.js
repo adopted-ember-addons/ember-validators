@@ -23,10 +23,10 @@ test('allow blank', function (assert) {
   };
 
   result = validate('', cloneOptions(options));
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 
   result = validate('test', cloneOptions(options));
-  assert.equal(
+  assert.strictEqual(
     processResult(result),
     'This field is too short (minimum is 5 characters)'
   );
@@ -40,11 +40,11 @@ test('allow none', function (assert) {
   };
 
   result = validate(undefined, cloneOptions(options));
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 
   options.allowNone = false;
   result = validate(null, cloneOptions(options));
-  assert.equal(processResult(result), 'This field is invalid');
+  assert.strictEqual(processResult(result), 'This field is invalid');
 });
 
 test('is', function (assert) {
@@ -55,13 +55,13 @@ test('is', function (assert) {
   };
 
   result = validate('testing', cloneOptions(options));
-  assert.equal(
+  assert.strictEqual(
     processResult(result),
     'This field is the wrong length (should be 4 characters)'
   );
 
   result = validate('test', cloneOptions(options));
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 });
 
 test('min', function (assert) {
@@ -72,13 +72,13 @@ test('min', function (assert) {
   };
 
   result = validate('test', cloneOptions(options));
-  assert.equal(
+  assert.strictEqual(
     processResult(result),
     'This field is too short (minimum is 5 characters)'
   );
 
   result = validate('testing', cloneOptions(options));
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 });
 
 test('max', function (assert) {
@@ -89,13 +89,13 @@ test('max', function (assert) {
   };
 
   result = validate('testing', cloneOptions(options));
-  assert.equal(
+  assert.strictEqual(
     processResult(result),
     'This field is too long (maximum is 5 characters)'
   );
 
   result = validate('test', cloneOptions(options));
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 });
 
 test('between', function (assert) {
@@ -108,19 +108,19 @@ test('between', function (assert) {
   };
 
   result = validate('', cloneOptions(options));
-  assert.equal(
+  assert.strictEqual(
     processResult(result),
     'This field must be between 1 and 5 characters'
   );
 
   result = validate('123456', cloneOptions(options));
-  assert.equal(
+  assert.strictEqual(
     processResult(result),
     'This field must be between 1 and 5 characters'
   );
 
   result = validate('1234', cloneOptions(options));
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 });
 
 test('array', function (assert) {
@@ -131,11 +131,11 @@ test('array', function (assert) {
   };
 
   result = validate([], cloneOptions(options));
-  assert.equal(
+  assert.strictEqual(
     processResult(result),
     'This field is too short (minimum is 1 characters)'
   );
 
   result = validate([1], cloneOptions(options));
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 });
