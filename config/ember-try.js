@@ -26,6 +26,22 @@ module.exports = async function () {
         name: 'ember-lts-3.24',
         npm: {
           devDependencies: {
+            'ember-source': '~3.24.3',
+          },
+        },
+      },
+      {
+        name: 'ember-lts-3.28',
+        npm: {
+          devDependencies: {
+            'ember-source': '~3.28.0',
+          },
+        },
+      },
+      {
+        name: 'ember-lts-3.24',
+        npm: {
+          devDependencies: {
             'ember-source': '~3.24.0',
           },
         },
@@ -51,19 +67,6 @@ module.exports = async function () {
         npm: {
           devDependencies: {
             'ember-source': await getChannelURL('canary'),
-          },
-        },
-      },
-      {
-        name: 'ember-default-with-jquery',
-        env: {
-          EMBER_OPTIONAL_FEATURES: JSON.stringify({
-            'jquery-integration': true,
-          }),
-        },
-        npm: {
-          devDependencies: {
-            '@ember/jquery': '^1.1.0',
           },
         },
       },
