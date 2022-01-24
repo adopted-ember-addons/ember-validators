@@ -7,6 +7,10 @@ on:
       - master
   pull_request: {}
 
+concurrency:
+   group: ci-${{ github.head_ref || github.ref }}
+   cancel-in-progress: true
+
 jobs:
   test:
     name: "Tests"
@@ -29,6 +33,7 @@ jobs:
   floating:
     name: "Floating Dependencies"
     runs-on: ubuntu-latest
+    timeout-minutes: 10
 
     steps:
       - uses: actions/checkout@v2
@@ -54,13 +59,13 @@ jobs:
           - ember-lts-3.16
           - ember-lts-3.20
           - ember-lts-3.24
+          - ember-lts-3.28
           - ember-release
-          #- ember-beta
-          #- ember-canary
+          - ember-beta
+          - ember-canary
           - ember-classic
-          - ember-default-with-jquery
-          #- embroider-safe
-          #- embroider-optimized
+          - embroider-safe
+          - embroider-optimized
 
     steps:
       - uses: actions/checkout@v2
