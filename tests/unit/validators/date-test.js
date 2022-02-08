@@ -385,7 +385,7 @@ test("we don't mutate any option", function (assert) {
   };
 
   validate('1/1/2020', afterOptions);
-  validate('1/1/2010', onOrAfterOptions);
+  validate('1/1/2020', onOrAfterOptions);
   validate('1/1/2010', beforeOptions);
   validate('1/1/2010', onOrBeforeOptions);
 
