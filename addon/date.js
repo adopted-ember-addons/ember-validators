@@ -50,7 +50,7 @@ export default function validateDate(value, options) {
       return validationError(
         'before',
         value,
-        Object.assign(options, {
+        Object.assign({}, options, {
           before: parseDateError(beforeCompare, errorFormat, locale),
         })
       );
@@ -64,7 +64,7 @@ export default function validateDate(value, options) {
       return validationError(
         'onOrBefore',
         value,
-        Object.assign(options, {
+        Object.assign({}, options, {
           onOrBefore: parseDateError(onOrBeforeCompare, errorFormat, locale),
         })
       );
@@ -78,7 +78,7 @@ export default function validateDate(value, options) {
       return validationError(
         'after',
         value,
-        Object.assign(options, {
+        Object.assign({}, options, {
           after: parseDateError(afterCompare, errorFormat, locale),
         })
       );
@@ -92,7 +92,7 @@ export default function validateDate(value, options) {
       return validationError(
         'onOrAfter',
         value,
-        Object.assign(options, {
+        Object.assign({}, options, {
           onOrAfter: parseDateError(onOrAfterCompare, errorFormat, locale),
         })
       );

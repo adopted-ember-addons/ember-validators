@@ -57,7 +57,7 @@ export default function validateFormat(value, options, model, attribute) {
     if (regexTest === regularExpressions.email) {
       regexTest = formatEmailRegex(options);
     }
-    Object.assign(options, { regex: regexTest });
+    Object.assign({}, options, { regex: regexTest });
   }
 
   if (
@@ -67,7 +67,7 @@ export default function validateFormat(value, options, model, attribute) {
     return validationError(
       type || 'invalid',
       value,
-      Object.assign(options, { regex: regexTest })
+      Object.assign({}, options, { regex: regexTest })
     );
   }
 
