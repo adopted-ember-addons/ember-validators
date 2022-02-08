@@ -1,4 +1,3 @@
-import { set } from '@ember/object';
 import validationError from 'ember-validators/utils/validation-error';
 
 /**
@@ -45,42 +44,58 @@ export default function validateDate(value, options) {
   }
 
   if (before) {
-    before = parseAsDate(before, format, locale);
+    const beforeCompare = parseAsDate(before, format, locale);
 
-    if (!isBefore(date, before)) {
-      set(options, 'before', parseDateError(before, errorFormat, locale));
-      return validationError('before', value, options);
+    if (!isBefore(date, beforeCompare)) {
+      return validationError(
+        'before',
+        value,
+        Object.assign(options, {
+          before: parseDateError(beforeCompare, errorFormat, locale),
+        })
+      );
     }
   }
 
   if (onOrBefore) {
-    onOrBefore = parseAsDate(onOrBefore, format, locale);
+    const onOrBeforeCompare = parseAsDate(onOrBefore, format, locale);
 
-    if (!isSameOrBefore(date, onOrBefore)) {
-      set(
-        options,
+    if (!isSameOrBefore(date, onOrBeforeCompare)) {
+      return validationError(
         'onOrBefore',
-        parseDateError(onOrBefore, errorFormat, locale)
+        value,
+        Object.assign(options, {
+          onOrBefore: parseDateError(onOrBeforeCompare, errorFormat, locale),
+        })
       );
-      return validationError('onOrBefore', value, options);
     }
   }
 
   if (after) {
-    after = parseAsDate(after, format, locale);
+    const afterCompare = parseAsDate(after, format, locale);
 
-    if (!isAfter(date, after)) {
-      set(options, 'after', parseDateError(after, errorFormat, locale));
-      return validationError('after', value, options);
+    if (!isAfter(date, afterCompare)) {
+      return validationError(
+        'after',
+        value,
+        Object.assign(options, {
+          after: parseDateError(afterCompare, errorFormat, locale),
+        })
+      );
     }
   }
 
   if (onOrAfter) {
-    onOrAfter = parseAsDate(onOrAfter, format, locale);
+    const onOrAfterCompare = parseAsDate(onOrAfter, format, locale);
 
-    if (!isSameOrAfter(date, onOrAfter)) {
-      set(options, 'onOrAfter', parseDateError(onOrAfter, errorFormat, locale));
-      return validationError('onOrAfter', value, options);
+    if (!isSameOrAfter(date, onOrAfterCompare)) {
+      return validationError(
+        'onOrAfter',
+        value,
+        Object.assign(options, {
+          onOrAfter: parseDateError(onOrAfterCompare, errorFormat, locale),
+        })
+      );
     }
   }
 
