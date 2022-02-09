@@ -18,12 +18,12 @@ test('attribute', function (assert) {
   });
 
   result = validate('bar@gmail.com', cloneOptions(options), model);
-  assert.equal(processResult(result), "This field doesn't match email");
+  assert.strictEqual(processResult(result), "This field doesn't match email");
 
   model.set('emailConfirmation', 'foo@gmail.com');
 
   result = validate('foo@gmail.com', cloneOptions(options), model);
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 });
 
 test('allowBlank', function (assert) {
@@ -32,5 +32,5 @@ test('allowBlank', function (assert) {
   options = { on: 'email', allowBlank: true };
 
   result = validate('', cloneOptions(options), model);
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 });

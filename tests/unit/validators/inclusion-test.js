@@ -26,10 +26,13 @@ test('allow blank', function (assert) {
   };
 
   result = validate('', cloneOptions(options));
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 
   result = validate('test', cloneOptions(options));
-  assert.equal(processResult(result), 'This field is not included in the list');
+  assert.strictEqual(
+    processResult(result),
+    'This field is not included in the list'
+  );
 });
 
 test('in array', function (assert) {
@@ -40,16 +43,19 @@ test('in array', function (assert) {
   };
 
   result = validate('test', cloneOptions(options));
-  assert.equal(processResult(result), 'This field is not included in the list');
+  assert.strictEqual(
+    processResult(result),
+    'This field is not included in the list'
+  );
 
   result = validate('foo', cloneOptions(options));
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 
   result = validate('bar', cloneOptions(options));
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 
   result = validate('baz', cloneOptions(options));
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 });
 
 test('in range', function (assert) {
@@ -60,19 +66,25 @@ test('in range', function (assert) {
   };
 
   result = validate(0, cloneOptions(options));
-  assert.equal(processResult(result), 'This field is not included in the list');
+  assert.strictEqual(
+    processResult(result),
+    'This field is not included in the list'
+  );
 
   result = validate(100, cloneOptions(options));
-  assert.equal(processResult(result), 'This field is not included in the list');
+  assert.strictEqual(
+    processResult(result),
+    'This field is not included in the list'
+  );
 
   result = validate(1, cloneOptions(options));
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 
   result = validate(5, cloneOptions(options));
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 
   result = validate(10, cloneOptions(options));
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 });
 
 test('range type check - number', function (assert) {
@@ -83,25 +95,37 @@ test('range type check - number', function (assert) {
   };
 
   result = validate('0', cloneOptions(options));
-  assert.equal(processResult(result), 'This field is not included in the list');
+  assert.strictEqual(
+    processResult(result),
+    'This field is not included in the list'
+  );
 
   result = validate(0, cloneOptions(options));
-  assert.equal(processResult(result), 'This field is not included in the list');
+  assert.strictEqual(
+    processResult(result),
+    'This field is not included in the list'
+  );
 
   result = validate('1', cloneOptions(options));
-  assert.equal(processResult(result), 'This field is not included in the list');
+  assert.strictEqual(
+    processResult(result),
+    'This field is not included in the list'
+  );
 
   result = validate('5', cloneOptions(options));
-  assert.equal(processResult(result), 'This field is not included in the list');
+  assert.strictEqual(
+    processResult(result),
+    'This field is not included in the list'
+  );
 
   result = validate(1, cloneOptions(options));
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 
   result = validate(5, cloneOptions(options));
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 
   result = validate(10, cloneOptions(options));
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 
   result = validate(NaN, cloneOptions({ description: 'NaN', ...options }));
   assert.equal(processResult(result), 'NaN is not included in the list');
@@ -115,17 +139,23 @@ test('range type check - string', function (assert) {
   };
 
   result = validate(97, cloneOptions(options));
-  assert.equal(processResult(result), 'This field is not included in the list');
+  assert.strictEqual(
+    processResult(result),
+    'This field is not included in the list'
+  );
 
   result = validate('zzz', cloneOptions(options));
-  assert.equal(processResult(result), 'This field is not included in the list');
+  assert.strictEqual(
+    processResult(result),
+    'This field is not included in the list'
+  );
 
   result = validate('a', cloneOptions(options));
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 
   result = validate('o', cloneOptions(options));
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 
   result = validate('z', cloneOptions(options));
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 });

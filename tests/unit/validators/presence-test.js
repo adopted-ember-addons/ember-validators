@@ -13,7 +13,7 @@ test('presence - value present', function (assert) {
   options = { presence: true };
 
   result = validate('value', cloneOptions(options));
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 });
 
 test('presence - value blank', function (assert) {
@@ -22,7 +22,7 @@ test('presence - value blank', function (assert) {
   options = { presence: true };
 
   result = validate(' ', cloneOptions(options));
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 });
 
 test('presence with ignoreBlank - value blank', function (assert) {
@@ -31,7 +31,7 @@ test('presence with ignoreBlank - value blank', function (assert) {
   options = { presence: true, ignoreBlank: true };
 
   result = validate(' ', cloneOptions(options));
-  assert.equal(processResult(result), "This field can't be blank");
+  assert.strictEqual(processResult(result), "This field can't be blank");
 });
 
 test('presence - value not present', function (assert) {
@@ -40,7 +40,7 @@ test('presence - value not present', function (assert) {
   options = { presence: true };
 
   result = validate(undefined, cloneOptions(options));
-  assert.equal(processResult(result), "This field can't be blank");
+  assert.strictEqual(processResult(result), "This field can't be blank");
 });
 
 test('absence - value present', function (assert) {
@@ -49,7 +49,7 @@ test('absence - value present', function (assert) {
   options = { presence: false };
 
   result = validate('value', cloneOptions(options));
-  assert.equal(processResult(result), 'This field must be blank');
+  assert.strictEqual(processResult(result), 'This field must be blank');
 });
 
 test('absence - value not present', function (assert) {
@@ -58,5 +58,5 @@ test('absence - value not present', function (assert) {
   options = { presence: false };
 
   result = validate(undefined, cloneOptions(options));
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 });

@@ -26,7 +26,7 @@ test('works with empty object', function (assert) {
   model = EmberObject.create();
 
   result = validate(undefined, undefined, model, 'username');
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 });
 
 test('it works', function (assert) {
@@ -38,12 +38,31 @@ test('it works', function (assert) {
   });
 
   result = validate(undefined, undefined, model, 'username');
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 
   model.get('errors').set('username', 'Username is not unique');
 
   result = validate(undefined, undefined, model, 'username');
-  assert.equal(processResult(result), 'Username is not unique');
+  assert.strictEqual(processResult(result), 'Username is not unique');
+});
+
+test('it works with nested objects', function (assert) {
+  assert.expect(2);
+
+  model = EmberObject.create({
+    foo: {
+      errors: new DSErrors(),
+      username: null,
+    },
+  });
+
+  result = validate(undefined, undefined, model, 'foo.username');
+  assert.true(processResult(result));
+
+  model.get('foo.errors').set('username', 'Username is not unique');
+
+  result = validate(undefined, undefined, model, 'foo.username');
+  assert.strictEqual(processResult(result), 'Username is not unique');
 });
 
 test('gets last message', function (assert) {
@@ -55,11 +74,11 @@ test('gets last message', function (assert) {
   });
 
   result = validate(undefined, undefined, model, 'username');
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 
   model.get('errors').set('username', 'Username is not unique');
   model.get('errors').set('username', 'Username is too long');
 
   result = validate(undefined, undefined, model, 'username');
-  assert.equal(processResult(result), 'Username is too long');
+  assert.strictEqual(processResult(result), 'Username is too long');
 });

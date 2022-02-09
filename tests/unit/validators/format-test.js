@@ -45,10 +45,10 @@ test('allow blank', function (assert) {
   options = cloneOptions(options);
 
   result = validate(undefined, options);
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 
   result = validate('email', options);
-  assert.equal(
+  assert.strictEqual(
     processResult(result),
     'This field must be a valid email address'
   );
@@ -148,13 +148,13 @@ test('phone', function (assert) {
   options = cloneOptions(options);
 
   result = validate('123', options);
-  assert.equal(
+  assert.strictEqual(
     processResult(result),
     'This field must be a valid phone number'
   );
 
   result = validate('(408) 555-1234', options);
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 });
 
 test('url', function (assert) {
@@ -167,10 +167,10 @@ test('url', function (assert) {
   options = cloneOptions(options);
 
   result = validate('offirgolan', options);
-  assert.equal(processResult(result), 'This field must be a valid url');
+  assert.strictEqual(processResult(result), 'This field must be a valid url');
 
   result = validate('http://www.offirgolan.com', options);
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 });
 
 test('inverse - with type', function (assert) {
@@ -184,13 +184,13 @@ test('inverse - with type', function (assert) {
   options = cloneOptions(options);
 
   result = validate('email@domain.com', options);
-  assert.equal(
+  assert.strictEqual(
     processResult(result),
     'This field must be a valid email address'
   );
 
   result = validate('foobar123', options);
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 });
 
 test('inverse - custom', function (assert) {
@@ -204,10 +204,10 @@ test('inverse - custom', function (assert) {
   options = cloneOptions(options);
 
   result = validate('Pass123', options);
-  assert.equal(processResult(result), 'This field is invalid');
+  assert.strictEqual(processResult(result), 'This field is invalid');
 
   result = validate('foobar', options);
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 });
 
 test('custom', function (assert) {
@@ -220,13 +220,13 @@ test('custom', function (assert) {
   options = cloneOptions(options);
 
   result = validate(null, options);
-  assert.equal(processResult(result), 'This field is invalid');
+  assert.strictEqual(processResult(result), 'This field is invalid');
 
   result = validate('password', options);
-  assert.equal(processResult(result), 'This field is invalid');
+  assert.strictEqual(processResult(result), 'This field is invalid');
 
   result = validate('Pass123', options);
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 });
 
 test('custom with g flag', function (assert) {
@@ -239,11 +239,24 @@ test('custom with g flag', function (assert) {
   options = cloneOptions(options);
 
   result = validate('foo', options);
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 
   result = validate('foo', options);
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 
   result = validate('bar', options);
-  assert.equal(processResult(result), 'This field is invalid');
+  assert.strictEqual(processResult(result), 'This field is invalid');
+});
+
+test("we don't mutate any option", function (assert) {
+  const type = 'email';
+
+  const options = {
+    type,
+    regex: 'hello!',
+  };
+
+  validate('not an email', options);
+
+  assert.strictEqual(options.regex, 'hello!', 'regex option mutated');
 });

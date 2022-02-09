@@ -1,5 +1,5 @@
 'use strict';
 
 module.exports = {
-  name: 'ember-validators',
+  name: require('./package').name,
 };

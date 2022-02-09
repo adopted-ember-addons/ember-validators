@@ -10,7 +10,7 @@ module('Unit | Validator | date');
 test('no options', function (assert) {
   options = {};
   result = validate(undefined, options);
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 });
 
 test('allow blank', function (assert) {
@@ -20,19 +20,19 @@ test('allow blank', function (assert) {
   };
 
   result = validate('', cloneOptions(options));
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 
   result = validate(null, cloneOptions(options));
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 
   result = validate(0, cloneOptions(options));
-  assert.equal(
+  assert.strictEqual(
     processResult(result),
     'This field must be before January 1, 2015'
   );
 
   result = validate('1/1/2016', cloneOptions(options));
-  assert.equal(
+  assert.strictEqual(
     processResult(result),
     'This field must be before January 1, 2015'
   );
@@ -42,10 +42,10 @@ test('valid date', function (assert) {
   options = {};
 
   result = validate('abc', cloneOptions(options));
-  assert.equal(processResult(result), 'This field must be a valid date');
+  assert.strictEqual(processResult(result), 'This field must be a valid date');
 
   result = validate(new Date(), cloneOptions(options));
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 });
 
 test('valid input date format', function (assert) {
@@ -54,20 +54,20 @@ test('valid input date format', function (assert) {
   };
 
   result = validate('27/3/15', cloneOptions(options));
-  assert.equal(
+  assert.strictEqual(
     processResult(result),
     'This field must be a valid date'
     // 'This field must be in the format of DD/M/YYYY'
   );
 
   result = validate('30/2/2015', cloneOptions(options));
-  assert.equal(processResult(result), 'This field must be a valid date');
+  assert.strictEqual(processResult(result), 'This field must be a valid date');
 
   result = validate('27/3/2015', cloneOptions(options));
-  assert.equal(processResult(result), 'This field must be a valid date');
+  assert.strictEqual(processResult(result), 'This field must be a valid date');
 
   result = validate(new Date('3/27/2015'), cloneOptions(options));
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 });
 
 test('error date format', function (assert) {
@@ -77,7 +77,10 @@ test('error date format', function (assert) {
   };
 
   result = validate('1/1/2016', cloneOptions(options));
-  assert.equal(processResult(result), 'This field must be before 1/1/2015');
+  assert.strictEqual(
+    processResult(result),
+    'This field must be before 1/1/2015'
+  );
 });
 
 test('before', function (assert) {
@@ -86,35 +89,35 @@ test('before', function (assert) {
   };
 
   result = validate('1/1/2016', cloneOptions(options));
-  assert.equal(
+  assert.strictEqual(
     processResult(result),
     'This field must be before January 1, 2015'
   );
 
   result = validate('1/1/2014', cloneOptions(options));
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 
   result = validate(new Date('1/1/2014'), cloneOptions(options));
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 
   options = {
     before: '1/1/2015',
   };
   result = validate(new Date('1/1/2014'), cloneOptions(options));
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 
   options = {
     before: '2015',
     format: { year: 'numeric' },
   };
   result = validate(new Date('2014'), cloneOptions(options));
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 
   options = {
     before: 1420070400000,
   };
   result = validate(1388534400000, cloneOptions(options));
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 });
 
 test('before now', function (assert) {
@@ -128,7 +131,7 @@ test('before now', function (assert) {
     new Date('1/1/3015')
   );
   result = validate(now, cloneOptions(options));
-  assert.equal(
+  assert.strictEqual(
     processResult(result),
     `This field must be before ${options.before}`
   );
@@ -137,7 +140,7 @@ test('before now', function (assert) {
     new Date('1/1/2014')
   );
   result = validate(now, cloneOptions(options));
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 });
 
 test('before or on', function (assert) {
@@ -151,7 +154,7 @@ test('before or on', function (assert) {
   };
 
   result = validate(now, cloneOptions(options));
-  assert.equal(
+  assert.strictEqual(
     processResult(result),
     'This field must be on or before January 1, 2015'
   );
@@ -160,32 +163,34 @@ test('before or on', function (assert) {
     new Date('1/1/2014')
   );
   result = validate(now, cloneOptions(options));
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 
   now = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).format(
     new Date('1/1/2015')
   );
   result = validate(now, cloneOptions(options));
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 
   options = {
     onOrBefore: new Date(2015, 0),
     format: { year: 'numeric' },
   };
   result = validate(new Date(2015, 0), cloneOptions(options));
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 
   result = validate(new Date(2016, 0), cloneOptions(options));
-  assert.equal(processResult(result), 'This field must be on or before 2015');
+  assert.strictEqual(
+    processResult(result),
+    'This field must be on or before 2015'
+  );
 
   options = {
     onOrBefore: new Date('2015'),
     format: { year: 'numeric' },
   };
   result = validate(new Date('2015'), cloneOptions(options));
-  assert.equal(
+  assert.true(
     processResult(result),
-    true,
     'same dates with onOrBefore Date instance'
   );
 
@@ -194,22 +199,14 @@ test('before or on', function (assert) {
     format: { year: 'numeric' },
   };
   result = validate(new Date('2015'), cloneOptions(options));
-  assert.equal(
-    processResult(result),
-    true,
-    'same dates with onOrBefore string'
-  );
+  assert.true(processResult(result), 'same dates with onOrBefore string');
 
   options = {
     onOrBefore: '2015',
     format: null,
   };
   result = validate(new Date('2015'), cloneOptions(options));
-  assert.equal(
-    processResult(result),
-    true,
-    'same dates with onOrBefore string'
-  );
+  assert.true(processResult(result), 'same dates with onOrBefore string');
 });
 
 test('before now or on', function (assert) {
@@ -219,7 +216,7 @@ test('before now or on', function (assert) {
   };
 
   result = validate(new Date('1/1/3015'), cloneOptions(options));
-  assert.equal(
+  assert.strictEqual(
     processResult(result),
     `This field must be on or before ${new Intl.DateTimeFormat('en', {
       dateStyle: 'long',
@@ -227,10 +224,10 @@ test('before now or on', function (assert) {
   );
 
   result = validate(new Date('1/1/2014'), cloneOptions(options));
-  assert.equal(processResult(result), true, 'before date should be true');
+  assert.true(processResult(result), 'before date should be true');
 
   result = validate(now, cloneOptions(options));
-  assert.equal(processResult(result), true, 'on date should be true');
+  assert.true(processResult(result), 'on date should be true');
 });
 
 skip('before or on precision', function (assert) {
@@ -272,13 +269,13 @@ test('after', function (assert) {
   };
 
   result = validate('1/1/2014', cloneOptions(options));
-  assert.equal(
+  assert.strictEqual(
     processResult(result),
     'This field must be after January 1, 2015'
   );
 
   result = validate('1/1/2016', cloneOptions(options));
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 });
 
 test('after now', function (assert) {
@@ -288,10 +285,10 @@ test('after now', function (assert) {
   };
 
   result = validate('1/1/2014', cloneOptions(options));
-  assert.equal(processResult(result), `This field must be after ${now}`);
+  assert.strictEqual(processResult(result), `This field must be after ${now}`);
 
   result = validate('1/1/3015', cloneOptions(options));
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 });
 
 test('after or on', function (assert) {
@@ -300,23 +297,23 @@ test('after or on', function (assert) {
   };
 
   result = validate('1/1/2014', cloneOptions(options));
-  assert.equal(
+  assert.strictEqual(
     processResult(result),
     'This field must be on or after January 1, 2015'
   );
 
   result = validate('1/1/2016', cloneOptions(options));
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 
   result = validate('1/1/2015', cloneOptions(options));
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 
   options = {
     onOrAfter: '2015',
     format: { year: 'numeric' },
   };
   result = validate(new Date('2015', 0), cloneOptions(options));
-  assert.equal(processResult(result), true, 'same dates with onOrAfter string');
+  assert.true(processResult(result), 'same dates with onOrAfter string');
 });
 
 test('after or on dateStyle full', function (assert) {
@@ -325,9 +322,8 @@ test('after or on dateStyle full', function (assert) {
     format: { dateStyle: 'full' },
   };
   result = validate(new Date('2015', 0), cloneOptions(options));
-  assert.equal(
+  assert.true(
     processResult(result),
-    true,
     'same dates with onOrAfter string with dateStyle full'
   );
 
@@ -336,7 +332,7 @@ test('after or on dateStyle full', function (assert) {
     format: { dateStyle: 'full' },
   };
   result = validate(new Date('2014', 0), cloneOptions(options));
-  assert.equal(
+  assert.strictEqual(
     processResult(result),
     'This field must be on or after Thursday, January 1, 2015',
     'after date with onOrAfter string with dateStyle full'
@@ -347,9 +343,8 @@ test('after or on dateStyle full', function (assert) {
     format: { dateStyle: 'full' },
   };
   result = validate(new Date('2016', 0), cloneOptions(options));
-  assert.equal(
+  assert.true(
     processResult(result),
-    true,
     'after date with onOrAfter string with dateStyle full'
   );
 });
@@ -362,13 +357,50 @@ test('after now or on', function (assert) {
   };
 
   result = validate('1/1/2014', cloneOptions(options));
-  assert.equal(processResult(result), `This field must be on or after ${now}`);
+  assert.strictEqual(
+    processResult(result),
+    `This field must be on or after ${now}`
+  );
 
   result = validate('1/1/3015', cloneOptions(options));
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
 
   result = validate(new Date(), cloneOptions(options));
-  assert.equal(processResult(result), true);
+  assert.true(processResult(result));
+});
+
+test("we don't mutate any option", function (assert) {
+  const dateRef = new Date('1/1/2015');
+  const onOrAfterOptions = {
+    onOrAfter: dateRef,
+  };
+  const afterOptions = {
+    after: dateRef,
+  };
+  const beforeOptions = {
+    before: dateRef,
+  };
+  const onOrBeforeOptions = {
+    onOrBefore: dateRef,
+  };
+
+  validate('1/1/2020', afterOptions);
+  validate('1/1/2020', onOrAfterOptions);
+  validate('1/1/2010', beforeOptions);
+  validate('1/1/2010', onOrBeforeOptions);
+
+  assert.strictEqual(afterOptions.after, dateRef, 'after option mutated');
+  assert.strictEqual(
+    onOrAfterOptions.onOrAfter,
+    dateRef,
+    'onOrAfter option mutated'
+  );
+  assert.strictEqual(beforeOptions.before, dateRef, 'before option mutated');
+  assert.strictEqual(
+    onOrBeforeOptions.onOrBefore,
+    dateRef,
+    'onOrBefore option mutated'
+  );
 });
 
 skip('after or on precision', function (assert) {

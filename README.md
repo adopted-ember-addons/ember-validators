@@ -1,6 +1,6 @@
 # Ember Validators
 
-[![Build Status](https://travis-ci.org/offirgolan/ember-validators.svg)](https://travis-ci.org/offirgolan/ember-validators)
+[![Build Status](https://github.com/offirgolan/ember-validators/actions/workflows/ci.yml/badge.svg)](https://github.com/offirgolan/ember-validators/actions/workflows/ci.yml)
 [![npm version](https://badge.fury.io/js/ember-validators.svg)](http://badge.fury.io/js/ember-validators)
 
 A collection of EmberJS validators
