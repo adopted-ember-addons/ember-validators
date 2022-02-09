@@ -369,6 +369,40 @@ test('after now or on', function (assert) {
   assert.true(processResult(result));
 });
 
+test("we don't mutate any option", function (assert) {
+  const dateRef = new Date('1/1/2015');
+  const onOrAfterOptions = {
+    onOrAfter: dateRef,
+  };
+  const afterOptions = {
+    after: dateRef,
+  };
+  const beforeOptions = {
+    before: dateRef,
+  };
+  const onOrBeforeOptions = {
+    onOrBefore: dateRef,
+  };
+
+  validate('1/1/2020', afterOptions);
+  validate('1/1/2020', onOrAfterOptions);
+  validate('1/1/2010', beforeOptions);
+  validate('1/1/2010', onOrBeforeOptions);
+
+  assert.strictEqual(afterOptions.after, dateRef, 'after option mutated');
+  assert.strictEqual(
+    onOrAfterOptions.onOrAfter,
+    dateRef,
+    'onOrAfter option mutated'
+  );
+  assert.strictEqual(beforeOptions.before, dateRef, 'before option mutated');
+  assert.strictEqual(
+    onOrBeforeOptions.onOrBefore,
+    dateRef,
+    'onOrBefore option mutated'
+  );
+});
+
 skip('after or on precision', function (assert) {
   let precisions = ['second', 'minute', 'hour', 'day', 'month', 'year'];
 

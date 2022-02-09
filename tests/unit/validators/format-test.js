@@ -247,3 +247,16 @@ test('custom with g flag', function (assert) {
   result = validate('bar', options);
   assert.strictEqual(processResult(result), 'This field is invalid');
 });
+
+test("we don't mutate any option", function (assert) {
+  const type = 'email';
+
+  const options = {
+    type,
+    regex: 'hello!',
+  };
+
+  validate('not an email', options);
+
+  assert.strictEqual(options.regex, 'hello!', 'regex option mutated');
+});
