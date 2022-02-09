@@ -128,7 +128,7 @@ test('range type check - number', function (assert) {
   assert.true(processResult(result));
 
   result = validate(NaN, cloneOptions({ description: 'NaN', ...options }));
-  assert.equal(processResult(result), 'NaN is not included in the list');
+  assert.strictEqual(processResult(result), 'NaN is not included in the list');
 });
 
 test('range type check - string', function (assert) {
