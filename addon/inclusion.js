@@ -38,8 +38,9 @@ export default function validateInclusion(value, options, model, attribute) {
     let [min, max] = range;
     let equalType =
       typeOf(value) === typeOf(min) && typeOf(value) === typeOf(max);
+    let isInvalidNumber = typeOf(value) === 'number' && isNaN(value);
 
-    if (!equalType || min > value || value > max) {
+    if (!equalType || isInvalidNumber || min > value || value > max) {
       return validationError('inclusion', value, options);
     }
   }
