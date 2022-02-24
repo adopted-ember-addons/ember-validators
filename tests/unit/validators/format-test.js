@@ -173,6 +173,67 @@ test('url', function (assert) {
   assert.true(processResult(result));
 });
 
+test('url + scheme as true', function (assert) {
+  assert.expect(5);
+
+  options = {
+    type: 'url',
+    scheme: true,
+  };
+
+  options = cloneOptions(options);
+
+  result = validate('offirgolan', options);
+  assert.strictEqual(processResult(result), 'This field must be a valid url');
+
+  result = validate('offir.golan', options);
+  assert.strictEqual(processResult(result), 'This field must be a valid url');
+
+  result = validate('ht_tp://offir.golan', options);
+  assert.strictEqual(processResult(result), 'This field must be a valid url');
+
+  result = validate('http://www.offirgolan.com', options);
+  assert.true(processResult(result));
+
+  result = validate('a+B.c-d&e://www.offirgolan.com', options);
+  assert.true(processResult(result));
+});
+
+test('url + scheme as array', function (assert) {
+  assert.expect(8);
+
+  options = {
+    type: 'url',
+    scheme: ['https', 'http'],
+  };
+
+  options = cloneOptions(options);
+
+  result = validate('offirgolan', options);
+  assert.strictEqual(processResult(result), 'This field must be a valid url');
+
+  result = validate('offir.golan', options);
+  assert.strictEqual(processResult(result), 'This field must be a valid url');
+
+  result = validate('htt://offirgolan.com', options);
+  assert.strictEqual(processResult(result), 'This field must be a valid url');
+
+  result = validate('httpextra://www.offirgolan.com', options);
+  assert.strictEqual(processResult(result), 'This field must be a valid url');
+
+  result = validate('extrahttp://www.offirgolan.com', options);
+  assert.strictEqual(processResult(result), 'This field must be a valid url');
+
+  result = validate('httphttps://www.offirgolan.com', options);
+  assert.strictEqual(processResult(result), 'This field must be a valid url');
+
+  result = validate('http://www.offirgolan.com', options);
+  assert.true(processResult(result));
+
+  result = validate('https://www.offirgolan.com', options);
+  assert.true(processResult(result));
+});
+
 test('inverse - with type', function (assert) {
   assert.expect(2);
 
