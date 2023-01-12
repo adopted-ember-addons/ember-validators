@@ -118,6 +118,19 @@ test('before', function (assert) {
   };
   result = validate(1388534400000, cloneOptions(options));
   assert.true(processResult(result));
+  
+  options = {
+    before: new Date(2015, 1, 1),
+    format: { year: 'numeric', month: 'numeric', day: 'numeric' },
+    errorFormat: { year: 'numeric', month: 'numeric', day: 'numeric' },
+    locale: 'de',
+  };
+  
+  result = validate(new Date(2016, 1, 1), cloneOptions(options));
+  assert.strictEqual(
+    processResult(result),
+    `This field must be before ${new Intl.DateTimeFormat(options.locale, options.format).format(options.before)}`
+  );
 });
 
 test('before now', function (assert) {
@@ -207,6 +220,19 @@ test('before or on', function (assert) {
   };
   result = validate(new Date('2015'), cloneOptions(options));
   assert.true(processResult(result), 'same dates with onOrBefore string');
+  
+  options = {
+    onOrBefore: new Date(2015, 1, 1),
+    format: { year: 'numeric', month: 'numeric', day: 'numeric' },
+    errorFormat: { year: 'numeric', month: 'numeric', day: 'numeric' },
+    locale: 'de',
+  };
+  
+  result = validate(new Date(2016, 1, 1), cloneOptions(options));
+  assert.strictEqual(
+    processResult(result),
+    `This field must be on or before ${new Intl.DateTimeFormat(options.locale, options.format).format(options.onOrBefore)}`
+  );
 });
 
 test('before now or on', function (assert) {
@@ -276,6 +302,19 @@ test('after', function (assert) {
 
   result = validate('1/1/2016', cloneOptions(options));
   assert.true(processResult(result));
+  
+  options = {
+    after: new Date(2015, 1, 1),
+    format: { year: 'numeric', month: 'numeric', day: 'numeric' },
+    errorFormat: { year: 'numeric', month: 'numeric', day: 'numeric' },
+    locale: 'de',
+  };
+  
+  result = validate(new Date(2014, 1, 1), cloneOptions(options));
+  assert.strictEqual(
+    processResult(result),
+    `This field must be after ${new Intl.DateTimeFormat(options.locale, options.format).format(options.after)}`
+  );
 });
 
 test('after now', function (assert) {
@@ -314,6 +353,19 @@ test('after or on', function (assert) {
   };
   result = validate(new Date('2015', 0), cloneOptions(options));
   assert.true(processResult(result), 'same dates with onOrAfter string');
+  
+  options = {
+    onOrAfter: new Date(2015, 1, 1),
+    format: { year: 'numeric', month: 'numeric', day: 'numeric' },
+    errorFormat: { year: 'numeric', month: 'numeric', day: 'numeric' },
+    locale: 'de',
+  };
+  
+  result = validate(new Date(2014, 1, 1), cloneOptions(options));
+  assert.strictEqual(
+    processResult(result),
+    `This field must be on or after ${new Intl.DateTimeFormat(options.locale, options.format).format(options.onOrAfter)}`
+  );
 });
 
 test('after or on dateStyle full', function (assert) {
