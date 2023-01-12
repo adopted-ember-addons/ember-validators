@@ -129,7 +129,10 @@ test('before', function (assert) {
   result = validate(new Date(2016, 1, 1), cloneOptions(options));
   assert.strictEqual(
     processResult(result),
-    `This field must be before ${new Intl.DateTimeFormat(options.locale, options.format).format(options.before)}`
+    `This field must be before ${new Intl.DateTimeFormat(
+      options.locale,
+      options.format
+    ).format(options.before)}`
   );
 });
 
@@ -231,7 +234,10 @@ test('before or on', function (assert) {
   result = validate(new Date(2016, 1, 1), cloneOptions(options));
   assert.strictEqual(
     processResult(result),
-    `This field must be on or before ${new Intl.DateTimeFormat(options.locale, options.format).format(options.onOrBefore)}`
+    `This field must be on or before ${new Intl.DateTimeFormat(
+      options.locale,
+      options.format
+    ).format(options.onOrBefore)}`
   );
 });
 
@@ -313,7 +319,10 @@ test('after', function (assert) {
   result = validate(new Date(2014, 1, 1), cloneOptions(options));
   assert.strictEqual(
     processResult(result),
-    `This field must be after ${new Intl.DateTimeFormat(options.locale, options.format).format(options.after)}`
+    `This field must be after ${new Intl.DateTimeFormat(
+      options.locale,
+      options.format
+    ).format(options.after)}`
   );
 });
 
@@ -364,7 +373,10 @@ test('after or on', function (assert) {
   result = validate(new Date(2014, 1, 1), cloneOptions(options));
   assert.strictEqual(
     processResult(result),
-    `This field must be on or after ${new Intl.DateTimeFormat(options.locale, options.format).format(options.onOrAfter)}`
+    `This field must be on or after ${new Intl.DateTimeFormat(
+      options.locale,
+      options.format
+    ).format(options.onOrAfter)}`
   );
 });
 
