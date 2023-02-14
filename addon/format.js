@@ -21,6 +21,7 @@ const { canInvoke } = Ember;
  * @param {Regex} options.regex The regular expression to test against
  * @param {Boolean} options.allowNonTld If true, the predefined regular expression `email` allows non top-level domains
  * @param {Number} options.minTldLength The min length of the top-level domain on the predefined `email` regular expression
+ * @param {Any} options.scheme Adds scheme requirements on the predefined regular expression `url`
  * @param {Object} model
  * @param {String} attribute
  */
@@ -58,6 +59,11 @@ export default function validateFormat(value, options, model, attribute) {
       regexTest = formatEmailRegex(options);
     }
     Object.assign({}, options, { regex: regexTest });
+  } else if (type === 'url') {
+    if (regexTest === regularExpressions.url) {
+      regexTest = formatUrlRegex(options);
+    }
+    Object.assign({}, options, { regex: regexTest });
   }
 
   if (
@@ -93,4 +99,17 @@ function formatEmailRegex(options) {
   }
 
   return new RegExp(source, 'i');
+}
+
+function formatUrlRegex(options) {
+  let { source } = regularExpressions.url;
+  let { scheme } = options;
+
+  if (scheme === true) {
+    source = `^([a-zA-Z0-9-+&.]+)://${source}`;
+  } else if (scheme instanceof Array) {
+    source = `^(${scheme.join('|')}){1}://${source}`;
+  }
+
+  return new RegExp(source);
 }
