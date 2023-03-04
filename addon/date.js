@@ -40,11 +40,11 @@ export default function validateDate(value, options) {
   } else if (!isValidDate(new Date(value))) {
     return validationError('date', value, options);
   } else {
-    date = parseAsDate(value, format, locale);
+    date = parseAsDate(value, format);
   }
 
   if (before) {
-    const beforeCompare = parseAsDate(before, format, locale);
+    const beforeCompare = parseAsDate(before, format);
 
     if (!isBefore(date, beforeCompare)) {
       return validationError(
@@ -58,7 +58,7 @@ export default function validateDate(value, options) {
   }
 
   if (onOrBefore) {
-    const onOrBeforeCompare = parseAsDate(onOrBefore, format, locale);
+    const onOrBeforeCompare = parseAsDate(onOrBefore, format);
 
     if (!isSameOrBefore(date, onOrBeforeCompare)) {
       return validationError(
@@ -72,7 +72,7 @@ export default function validateDate(value, options) {
   }
 
   if (after) {
-    const afterCompare = parseAsDate(after, format, locale);
+    const afterCompare = parseAsDate(after, format);
 
     if (!isAfter(date, afterCompare)) {
       return validationError(
@@ -86,7 +86,7 @@ export default function validateDate(value, options) {
   }
 
   if (onOrAfter) {
-    const onOrAfterCompare = parseAsDate(onOrAfter, format, locale);
+    const onOrAfterCompare = parseAsDate(onOrAfter, format);
 
     if (!isSameOrAfter(date, onOrAfterCompare)) {
       return validationError(
@@ -138,11 +138,11 @@ function parseDateError(date, format, locale) {
   return parseDate(date, format, locale);
 }
 
-function parseAsDate(date, format, locale) {
+function parseAsDate(date, format) {
   if (format && isYearFormat(format)) {
-    return new Date(parseDate(date, format, locale), 0);
+    return new Date(parseDate(date, format, 'en-us'), 0);
   }
-  return new Date(parseDate(date, format, locale));
+  return new Date(parseDate(date, format, 'en-us'));
 }
 
 function isValidDate(d) {
