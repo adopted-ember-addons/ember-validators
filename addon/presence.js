@@ -14,14 +14,19 @@ import unwrapProxy from 'ember-validators/utils/unwrap-proxy';
  * @param {Object} options
  * @param {Boolean} options.presence If true validates that the given value is not empty,
  *                                   if false, validates that the given value is empty.
- * @param {Boolean} options.ignoreBlank If true, treats an empty or whitespace string as not present
+ * @param {Boolean} options.ignoreBlank If true, treats a whitespace string as not present
+ * @param {Boolean} options.allowEmpty If true, treats an empty string as present
  * @param {Object} model
  * @param {String} attribute
  */
 export default function validatePresence(value, options, model, attribute) {
-  let { presence, ignoreBlank } = options;
+  let { presence, ignoreBlank, allowEmpty } = options;
   let v = unwrapProxy(value);
   let _isPresent = ignoreBlank ? isPresent(v) : !isEmpty(v);
+
+  if (!_isPresent && allowEmpty && v === '') {
+    _isPresent = true;
+  }
 
   assert(
     `[validator:presence] [${attribute}] option 'presence' is required`,
