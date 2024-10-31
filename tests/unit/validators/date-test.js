@@ -118,14 +118,14 @@ test('before', function (assert) {
   };
   result = validate(1388534400000, cloneOptions(options));
   assert.true(processResult(result));
-  
+
   options = {
     before: new Date(2015, 1, 1),
     format: { year: 'numeric', month: 'numeric', day: 'numeric' },
     errorFormat: { year: 'numeric', month: 'numeric', day: 'numeric' },
     locale: 'de',
   };
-  
+
   result = validate(new Date(2016, 1, 1), cloneOptions(options));
   assert.strictEqual(
     processResult(result),
@@ -223,14 +223,14 @@ test('before or on', function (assert) {
   };
   result = validate(new Date('2015'), cloneOptions(options));
   assert.true(processResult(result), 'same dates with onOrBefore string');
-  
+
   options = {
     onOrBefore: new Date(2015, 1, 1),
     format: { year: 'numeric', month: 'numeric', day: 'numeric' },
     errorFormat: { year: 'numeric', month: 'numeric', day: 'numeric' },
     locale: 'de',
   };
-  
+
   result = validate(new Date(2016, 1, 1), cloneOptions(options));
   assert.strictEqual(
     processResult(result),
@@ -308,14 +308,14 @@ test('after', function (assert) {
 
   result = validate('1/1/2016', cloneOptions(options));
   assert.true(processResult(result));
-  
+
   options = {
     after: new Date(2015, 1, 1),
     format: { year: 'numeric', month: 'numeric', day: 'numeric' },
     errorFormat: { year: 'numeric', month: 'numeric', day: 'numeric' },
     locale: 'de',
   };
-  
+
   result = validate(new Date(2014, 1, 1), cloneOptions(options));
   assert.strictEqual(
     processResult(result),
@@ -362,14 +362,14 @@ test('after or on', function (assert) {
   };
   result = validate(new Date('2015', 0), cloneOptions(options));
   assert.true(processResult(result), 'same dates with onOrAfter string');
-  
+
   options = {
     onOrAfter: new Date(2015, 1, 1),
     format: { year: 'numeric', month: 'numeric', day: 'numeric' },
     errorFormat: { year: 'numeric', month: 'numeric', day: 'numeric' },
     locale: 'de',
   };
-  
+
   result = validate(new Date(2014, 1, 1), cloneOptions(options));
   assert.strictEqual(
     processResult(result),
