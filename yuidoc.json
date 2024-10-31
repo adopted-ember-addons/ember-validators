@@ -1,7 +1,7 @@
 {
   "name": "Ember Validators",
   "description": "A collection of EmberJS validators",
-  "url": "https://github.com/offirgolan/ember-validators",
+  "url": "https://github.com/adopted-ember-addons/ember-validators",
   "indexModule": "Validators",
   "options": {
     "enabledEnvironments": ["development", "production"],
