@@ -1,6 +1,6 @@
 # Ember Validators
 
-[![Build Status](https://github.com/offirgolan/ember-validators/actions/workflows/ci.yml/badge.svg)](https://github.com/offirgolan/ember-validators/actions/workflows/ci.yml)
+[![Build Status](https://github.com/adopted-ember-addons/ember-validators/actions/workflows/ci.yml/badge.svg)](https://github.com/adopted-ember-addons/ember-validators/actions/workflows/ci.yml)
 [![npm version](https://badge.fury.io/js/ember-validators.svg)](http://badge.fury.io/js/ember-validators)
 
 A collection of EmberJS validators
@@ -17,7 +17,7 @@ ember install ember-validators
 
 ## Looking for help?
 
-If it is a bug [please open an issue on GitHub](http://github.com/offirgolan/ember-validators/issues).
+If it is a bug [please open an issue on GitHub](http://github.com/adopted-ember-addons/ember-validators/issues).
 
 ## Usage
 
