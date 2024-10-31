@@ -16,6 +16,24 @@ test('presence - value present', function (assert) {
   assert.true(processResult(result));
 });
 
+test('presence - value empty', function (assert) {
+  assert.expect(1);
+
+  options = { presence: true };
+
+  result = validate('', cloneOptions(options));
+  assert.strictEqual(processResult(result), "This field can't be blank");
+});
+
+test('presence with allowEmpty - value empty', function (assert) {
+  assert.expect(1);
+
+  options = { presence: true, allowEmpty: true };
+
+  result = validate('', cloneOptions(options));
+  assert.true(processResult(result));
+});
+
 test('presence - value blank', function (assert) {
   assert.expect(1);
 
