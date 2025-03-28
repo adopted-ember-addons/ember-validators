@@ -29,7 +29,10 @@ export default {
    * @param  {Object} options
    * @return {String}
    */
-  getDescriptionFor(attribute, context = {}) {
+  getDescriptionFor(
+    attribute: string,
+    context: { description?: string } = {},
+  ): string {
     return context.description || this.defaultDescription;
   },
 
@@ -40,8 +43,8 @@ export default {
    * @param  {Object} context
    * @return {String}
    */
-  getMessageFor(type, context = {}) {
-    return this.formatMessage(get(this, type), context);
+  getMessageFor(type: string, context = {}) {
+    return this.formatMessage(get(this, type) as string, context);
   },
 
   /**
@@ -51,13 +54,20 @@ export default {
    * @param  {Object} context
    * @return {String}
    */
-  formatMessage(message, context = {}) {
+  formatMessage(
+    message: string,
+    context: Record<string, unknown> = {},
+  ): string {
     let m = message;
 
     if (isNone(m) || typeof m !== 'string') {
       m = this.invalid;
     }
-    return m.replace(this._regex, (s, attr) => get(context, attr));
+
+    return m.replace(
+      this._regex,
+      (s: string, attr: string) => get(context, attr) as string,
+    );
   },
 
   /**

@@ -1,7 +1,14 @@
 import { assert } from '@ember/debug';
 import { isPresent, isEmpty } from '@ember/utils';
-import validationError from './utils/validation-error.js';
-import unwrapProxy from './utils/unwrap-proxy.js';
+import unwrapProxy from './utils/unwrap-proxy.ts';
+import validationError, {
+  type IValidationError,
+} from './utils/validation-error.ts';
+
+type IOptions = {
+  presence: boolean;
+  ignoreBlank?: boolean;
+};
 
 /**
  *  @class Presence
@@ -18,10 +25,15 @@ import unwrapProxy from './utils/unwrap-proxy.js';
  * @param {Object} model
  * @param {String} attribute
  */
-export default function validatePresence(value, options, model, attribute) {
-  let { presence, ignoreBlank } = options;
-  let v = unwrapProxy(value);
-  let _isPresent = ignoreBlank ? isPresent(v) : !isEmpty(v);
+export default function validatePresence(
+  value: unknown,
+  options: IOptions,
+  model: object,
+  attribute: string,
+): true | IValidationError<unknown, IOptions> {
+  const { presence, ignoreBlank } = options;
+  const v = unwrapProxy(value);
+  const _isPresent = ignoreBlank ? isPresent(v) : !isEmpty(v);
 
   assert(
     `[validator:presence] [${attribute}] option 'presence' is required`,

@@ -1,8 +1,37 @@
 import { assert } from '@ember/debug';
 import { isPresent } from '@ember/utils';
 import { importSync } from '@embroider/macros';
+import type { IValidationError } from './utils/validation-error.ts';
 
-export function validate(type, ...args) {
+type DateTimeFormatOptions = Parameters<typeof Intl.DateTimeFormat>[1];
+
+type IValidator = (
+  value: unknown,
+  options: Record<
+    string,
+    boolean | number | string | Date | DateTimeFormatOptions
+  >,
+  _model: object,
+  attribute: string,
+) => true | IValidationError<unknown, object>;
+
+type KnownValidator =
+  | 'collection'
+  | 'confirmation'
+  | 'date'
+  | 'ds-error'
+  | 'exclusion'
+  | 'format'
+  | 'inclusion'
+  | 'length'
+  | 'messages'
+  | 'number'
+  | 'presence';
+
+export function validate(
+  type: KnownValidator,
+  ...args: Parameters<IValidator>
+): true | IValidationError<unknown, object> {
   let validator;
 
   if (type === 'collection') {
@@ -31,7 +60,7 @@ export function validate(type, ...args) {
 
   assert(`Validator not found of type: ${type}.`, isPresent(validator));
 
-  return validator.default(...args);
+  return (validator as { default: IValidator }).default(...args);
 }
 
 function import_collection() {
