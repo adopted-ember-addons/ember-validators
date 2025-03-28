@@ -1,4 +1,19 @@
-import validationError from './utils/validation-error.js';
+import validationError, {
+  type IValidationError,
+} from './utils/validation-error.ts';
+
+type DateTimeFormatOptions = Parameters<typeof Intl.DateTimeFormat>[1];
+
+interface IOptions {
+  allowBlank?: boolean;
+  before?: string | Date;
+  onOrBefore?: string | Date;
+  after?: string | Date;
+  onOrAfter?: string | Date;
+  format?: DateTimeFormatOptions;
+  errorFormat?: DateTimeFormatOptions;
+  locale?: string;
+}
 
 /**
  * @class Date
@@ -19,11 +34,14 @@ import validationError from './utils/validation-error.js';
  *  If you need to obtain precision (just compare years), use { year: 'numeric' }
  * @param {String} options.errorFormat Error output date format. Defaults to options.format or { dateStyle: 'long' }
  */
-export default function validateDate(value, options) {
-  let { locale = 'en-us', format, allowBlank } = options;
-  let { before, onOrBefore, after, onOrAfter } = options;
+export default function validateDate(
+  value: number | string | Date,
+  options: IOptions,
+): true | IValidationError<number | string | Date, IOptions> {
+  const { locale = 'en-us', format, allowBlank } = options;
+  const { before, onOrBefore, after, onOrAfter } = options;
 
-  let errorFormat = options.errorFormat || format || { dateStyle: 'long' };
+  const errorFormat = options.errorFormat || format || { dateStyle: 'long' };
 
   if ((allowBlank && value === null) || value === undefined || value === '') {
     return true;
@@ -112,20 +130,24 @@ export default function validateDate(value, options) {
  * @param {String} locale
  * @returns {Date|String}
  */
-export function parseDate(date, format, locale) {
+export function parseDate(
+  date: string | number | Date,
+  format?: DateTimeFormatOptions,
+  locale?: string | string[],
+): string | Date {
   if (format) {
     // new Date("2015") will give the last day in 2014.  This is problematic
-    let yearOnly = isYearFormat(format);
+    const yearOnly = isYearFormat(format);
 
     if (!(date instanceof Date)) {
       // format date into string
       // we have already checked this a valid date
-      let d = yearOnly ? new Date(date, 0) : new Date(date);
+      const d = yearOnly ? new Date(date as number, 0) : new Date(date);
       return new Intl.DateTimeFormat(locale, format).format(d);
     }
 
     // format date into string
-    let d = yearOnly ? new Date(date.getFullYear(), 0) : date;
+    const d = yearOnly ? new Date(date.getFullYear(), 0) : date;
     return new Intl.DateTimeFormat(locale, format).format(d);
   } else {
     // Date constructor accepts a variety of formats including properly represented strings and Date instances.
@@ -134,41 +156,48 @@ export function parseDate(date, format, locale) {
   }
 }
 
-function parseDateError(date, format, locale) {
+function parseDateError(
+  date: string | number | Date,
+  format?: DateTimeFormatOptions,
+  locale?: string | string[],
+) {
   return parseDate(date, format, locale);
 }
 
-function parseAsDate(date, format) {
+function parseAsDate(
+  date: string | number | Date,
+  format?: DateTimeFormatOptions,
+): Date {
   if (format && isYearFormat(format)) {
-    return new Date(parseDate(date, format, 'en-us'), 0);
+    return new Date(parseDate(date, format, 'en-us') as unknown as number, 0);
   }
   return new Date(parseDate(date, format, 'en-us'));
 }
 
-function isValidDate(d) {
-  return d instanceof Date && !isNaN(d);
+function isValidDate(d: unknown): boolean {
+  return d instanceof Date && !isNaN(d as unknown as number);
 }
 
-function isSame(date, comp) {
+function isSame(date: Date, comp: Date): boolean {
   return date.getTime() === comp.getTime();
 }
 
-function isBefore(date, comp) {
+function isBefore(date: Date, comp: Date): boolean {
   return date < comp;
 }
 
-function isAfter(date, comp) {
+function isAfter(date: Date, comp: Date): boolean {
   return date > comp;
 }
 
-function isSameOrAfter(date, comp) {
+function isSameOrAfter(date: Date, comp: Date): boolean {
   return isSame(date, comp) || isAfter(date, comp);
 }
 
-function isSameOrBefore(date, comp) {
+function isSameOrBefore(date: Date, comp: Date): boolean {
   return isSame(date, comp) || isBefore(date, comp);
 }
 
-function isYearFormat(format) {
-  return Object.keys(format).length === 1 && format.year;
+function isYearFormat(format: object): format is { year: string } {
+  return Object.keys(format).length === 1 && 'year' in format;
 }

@@ -1,7 +1,5 @@
-import Ember from 'ember';
+import { canInvoke } from './can-invoke.ts';
 
-const { canInvoke } = Ember;
-
-export default function isPromise(p) {
+export default function isPromise(p: unknown): boolean {
   return !!(p && canInvoke(p, 'then'));
 }
