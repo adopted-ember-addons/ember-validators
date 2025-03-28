@@ -1,6 +1,14 @@
 import { assert } from '@ember/debug';
 import { isEmpty, typeOf } from '@ember/utils';
-import validationError from './utils/validation-error.js';
+import validationError, {
+  type IValidationError,
+} from './utils/validation-error.ts';
+
+type IOptions = {
+  allowBlank?: boolean;
+  in: unknown[];
+  range: [min: number, max: number];
+};
 
 /**
  *  @class Inclusion
@@ -17,9 +25,14 @@ import validationError from './utils/validation-error.js';
  * @param {Object} model
  * @param {String} attribute
  */
-export default function validateInclusion(value, options, model, attribute) {
-  let array = options.in;
-  let { range, allowBlank } = options;
+export default function validateInclusion(
+  value: unknown,
+  options: IOptions,
+  model: object,
+  attribute: string,
+): true | IValidationError<unknown, IOptions> {
+  const array = options.in;
+  const { range, allowBlank } = options;
 
   assert(
     `[validator:inclusion] [${attribute}] no options were passed in`,
@@ -35,12 +48,18 @@ export default function validateInclusion(value, options, model, attribute) {
   }
 
   if (range && range.length === 2) {
-    let [min, max] = range;
-    let equalType =
+    const [min, max] = range;
+    const equalType =
       typeOf(value) === typeOf(min) && typeOf(value) === typeOf(max);
-    let isInvalidNumber = typeOf(value) === 'number' && isNaN(value);
+    const isInvalidNumber =
+      typeOf(value) === 'number' && isNaN(value as number);
 
-    if (!equalType || isInvalidNumber || min > value || value > max) {
+    if (
+      !equalType ||
+      isInvalidNumber ||
+      min > (value as number) ||
+      (value as number) > max
+    ) {
       return validationError('inclusion', value, options);
     }
   }
