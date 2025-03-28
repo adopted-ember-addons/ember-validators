@@ -1,4 +1,4 @@
-import validationError from 'ember-validators/utils/validation-error';
+import validationError from './utils/validation-error.js';
 import { get } from '@ember/object';
 
 /**
@@ -24,7 +24,7 @@ export default function validateDsError(value, options, model, attribute) {
       'ds',
       null,
       options,
-      errorsFor.length ? errorsFor[errorsFor.length - 1].message : []
+      errorsFor.length ? errorsFor[errorsFor.length - 1].message : [],
     );
   }
 

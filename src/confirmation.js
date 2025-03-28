@@ -1,7 +1,7 @@
 import { get } from '@ember/object';
 import { assert } from '@ember/debug';
 import { isPresent, isEmpty, isEqual } from '@ember/utils';
-import validationError from 'ember-validators/utils/validation-error';
+import validationError from './utils/validation-error.js';
 
 /**
  *  @class Confirmation
@@ -23,7 +23,7 @@ export default function validateConfirmation(value, options, model, attribute) {
 
   assert(
     `[validator:confirmation] [${attribute}] option 'on' is required`,
-    isPresent(on)
+    isPresent(on),
   );
 
   if (allowBlank && isEmpty(value)) {

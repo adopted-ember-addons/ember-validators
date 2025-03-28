@@ -1,5 +1,6 @@
 languages:
   JavaScript: true
 exclude_paths:
-- "tests/*"
-- "config/*"
+  - "config/*"
+  - "tests/*"
+  - "unpublished-development-types/*"

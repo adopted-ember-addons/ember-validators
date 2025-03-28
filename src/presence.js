@@ -1,7 +1,7 @@
 import { assert } from '@ember/debug';
 import { isPresent, isEmpty } from '@ember/utils';
-import validationError from 'ember-validators/utils/validation-error';
-import unwrapProxy from 'ember-validators/utils/unwrap-proxy';
+import validationError from './utils/validation-error.js';
+import unwrapProxy from './utils/unwrap-proxy.js';
 
 /**
  *  @class Presence
@@ -25,7 +25,7 @@ export default function validatePresence(value, options, model, attribute) {
 
   assert(
     `[validator:presence] [${attribute}] option 'presence' is required`,
-    isPresent(presence)
+    isPresent(presence),
   );
 
   if (presence === true && !_isPresent) {

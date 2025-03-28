@@ -3,43 +3,49 @@
 ## v4.1.2 (2022-02-08)
 
 #### :rocket: Enhancement
-* [#120](https://github.com/adopted-ember-addons/ember-validators/pull/120) Fix lint ([@snewcomer](https://github.com/snewcomer))
-* [#107](https://github.com/adopted-ember-addons/ember-validators/pull/107) [BUG] Invalidate NaN in a number-typed range ([@frykten](https://github.com/frykten))
+
+- [#120](https://github.com/adopted-ember-addons/ember-validators/pull/120) Fix lint ([@snewcomer](https://github.com/snewcomer))
+- [#107](https://github.com/adopted-ember-addons/ember-validators/pull/107) [BUG] Invalidate NaN in a number-typed range ([@frykten](https://github.com/frykten))
 
 #### Committers: 2
+
 - Johan Frykten Gache ([@frykten](https://github.com/frykten))
 - Scott Newcomer ([@snewcomer](https://github.com/snewcomer))
-
 
 ## v4.1.0 (2022-01-26)
 
 #### :rocket: Enhancement
-* [#118](https://github.com/adopted-ember-addons/ember-validators/pull/118) Run `ember-cli-update --to=v4.1.1` to sync with latest addon blueprint ([@SergeAstapov](https://github.com/SergeAstapov))
-* [#115](https://github.com/adopted-ember-addons/ember-validators/pull/115) Bump `@embroider/*` packages to v1 ([@SergeAstapov](https://github.com/SergeAstapov))
+
+- [#118](https://github.com/adopted-ember-addons/ember-validators/pull/118) Run `ember-cli-update --to=v4.1.1` to sync with latest addon blueprint ([@SergeAstapov](https://github.com/SergeAstapov))
+- [#115](https://github.com/adopted-ember-addons/ember-validators/pull/115) Bump `@embroider/*` packages to v1 ([@SergeAstapov](https://github.com/SergeAstapov))
 
 #### Committers: 1
-- Sergey Astapov ([@SergeAstapov](https://github.com/SergeAstapov))
 
+- Sergey Astapov ([@SergeAstapov](https://github.com/SergeAstapov))
 
 ## v4.0.1 (2022-01-06)
 
 #### :rocket: Enhancement
-* [#108](https://github.com/adopted-ember-addons/ember-validators/pull/108) Disable Ember.js v4 scenarios, use npm in GH actions and make CI pass ([@SergeAstapov](https://github.com/SergeAstapov))
+
+- [#108](https://github.com/adopted-ember-addons/ember-validators/pull/108) Disable Ember.js v4 scenarios, use npm in GH actions and make CI pass ([@SergeAstapov](https://github.com/SergeAstapov))
 
 #### :bug: Bug Fix
-* [#111](https://github.com/adopted-ember-addons/ember-validators/pull/111) Fix ds-error validator for handling nested objects ([@herzzanu](https://github.com/herzzanu))
+
+- [#111](https://github.com/adopted-ember-addons/ember-validators/pull/111) Fix ds-error validator for handling nested objects ([@herzzanu](https://github.com/herzzanu))
 
 #### Committers: 2
+
 - Sabin Hertanu ([@herzzanu](https://github.com/herzzanu))
 - Sergey Astapov ([@SergeAstapov](https://github.com/SergeAstapov))
 
 ## v4.0.0
+
 - [[Major]: Remove Moment and Node 10](https://github.com/offirgolan/ember-validators/pull/100);
-    - Remove Node 10 minimum requirement in favor of Node 12
-    - removed custom String 'now' argument.  
-    - remove momentjs
-    - Remove `precision` argument.  If you need to compare based on precision, you can use the Intl.DateTimeFormat [APIs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat#using_options) to hone in on the comparison - `{ year: 'numeric' }` 
-    - Added `locale` option. Defaults to en-us when creating date times using `Intl.DateTimeFormat` API.
+  - Remove Node 10 minimum requirement in favor of Node 12
+  - removed custom String 'now' argument.
+  - remove momentjs
+  - Remove `precision` argument. If you need to compare based on precision, you can use the Intl.DateTimeFormat [APIs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat#using_options) to hone in on the comparison - `{ year: 'numeric' }`
+  - Added `locale` option. Defaults to en-us when creating date times using `Intl.DateTimeFormat` API.
 
 ## v3.0.0
 

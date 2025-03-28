@@ -1,7 +1,7 @@
 import { assert } from '@ember/debug';
 import { isArray } from '@ember/array';
 import { isPresent } from '@ember/utils';
-import validationError from 'ember-validators/utils/validation-error';
+import validationError from './utils/validation-error.js';
 
 /**
  *  @class Collection
@@ -21,7 +21,7 @@ export default function validateCollection(value, options, model, attribute) {
 
   assert(
     `[validator:collection] [${attribute}] option 'collection' is required`,
-    isPresent(collection)
+    isPresent(collection),
   );
 
   if (collection === true && !isArray(value)) {

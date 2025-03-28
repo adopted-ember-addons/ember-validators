@@ -8,6 +8,7 @@ A collection of EmberJS validators
 ## Compatibility
 
 - Ember.js v4.8 or above
+- Embroider or ember-auto-import v2
 
 ## Installation
 
@@ -96,3 +97,11 @@ function (value, options, model, attribute) {}
   - message (**String**):
 
     The error message. If this is specified, use this string as the error message instead of building one.
+
+## Contributing
+
+See the [Contributing](CONTRIBUTING.md) guide for details.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE.md).

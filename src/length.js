@@ -1,5 +1,5 @@
 import { isEmpty, isNone } from '@ember/utils';
-import validationError from 'ember-validators/utils/validation-error';
+import validationError from './utils/validation-error.js';
 
 /**
  *  @class Length

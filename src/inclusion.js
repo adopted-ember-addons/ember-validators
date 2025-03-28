@@ -1,6 +1,6 @@
 import { assert } from '@ember/debug';
 import { isEmpty, typeOf } from '@ember/utils';
-import validationError from 'ember-validators/utils/validation-error';
+import validationError from './utils/validation-error.js';
 
 /**
  *  @class Inclusion
@@ -23,7 +23,7 @@ export default function validateInclusion(value, options, model, attribute) {
 
   assert(
     `[validator:inclusion] [${attribute}] no options were passed in`,
-    !isEmpty(Object.keys(options))
+    !isEmpty(Object.keys(options)),
   );
 
   if (allowBlank && isEmpty(value)) {

@@ -1,6 +1,6 @@
 import { isEmpty, typeOf } from '@ember/utils';
 import { assert } from '@ember/debug';
-import validationError from 'ember-validators/utils/validation-error';
+import validationError from './utils/validation-error.js';
 
 /**
  *  @class Exclusion
@@ -23,7 +23,7 @@ export default function validateExclusion(value, options, model, attribute) {
 
   assert(
     `[validator:exclusion] [${attribute}] no options were passed in`,
-    !isEmpty(Object.keys(options))
+    !isEmpty(Object.keys(options)),
   );
 
   if (allowBlank && isEmpty(value)) {
