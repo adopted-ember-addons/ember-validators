@@ -17,11 +17,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Install Node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
-          node-version: 12.x
+          node-version: 18
           cache: npm
       - name: Install Dependencies
         run: npm ci
@@ -36,10 +36,10 @@ jobs:
     timeout-minutes: 10
 
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: 12.x
+          node-version: 18
           cache: npm
       - name: Install Dependencies
         run: npm install --no-shrinkwrap
@@ -68,11 +68,11 @@ jobs:
           - embroider-optimized
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Install Node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
-          node-version: 12.x
+          node-version: 18
           cache: npm
       - name: Install Dependencies
         run: npm ci
