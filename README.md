@@ -5,6 +5,11 @@
 
 A collection of EmberJS validators
 
+## Compatibility
+
+- Ember.js v4.8 or above
+
+## Installation
 
 ```shell
 ember install ember-validators
