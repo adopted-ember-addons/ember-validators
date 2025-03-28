@@ -5,15 +5,14 @@
   "indexModule": "Validators",
   "options": {
     "enabledEnvironments": ["development", "production"],
-    "paths": [
-      "app",
-      "addon"
-    ],
+    "paths": ["app", "addon"],
     "external": {
-      "data": [{
-        "base": "http://emberjs.com/api/",
-        "json": "http://builds.emberjs.com/tags/v2.10.0/ember-docs.json"
-      }]
+      "data": [
+        {
+          "base": "http://emberjs.com/api/",
+          "json": "http://builds.emberjs.com/tags/v2.10.0/ember-docs.json"
+        }
+      ]
     },
     "themedir": "node_modules/yuidoc-ember-theme",
     "helpers": ["node_modules/yuidoc-ember-theme/helpers/helpers.js"],

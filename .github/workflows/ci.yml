@@ -8,27 +8,33 @@ on:
   pull_request: {}
 
 concurrency:
-   group: ci-${{ github.head_ref || github.ref }}
-   cancel-in-progress: true
+  group: ci-${{ github.head_ref || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   test:
     name: "Tests"
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
 
     steps:
-      - uses: actions/checkout@v2
-      - name: Install Node
-        uses: actions/setup-node@v2
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: 12.x
-          cache: npm
+          node-version: 22
+          cache: pnpm
       - name: Install Dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
       - name: Lint
-        run: npm run lint
+        run: pnpm lint
       - name: Run Tests
-        run: npm run test:ember
+        run: pnpm run test:ember
+      - id: set-matrix
+        run: echo "::set-output name=matrix::$(pnpm --silent scenario-tester list --files ./scenarios.js --matrix 'pnpm qunit ./scenarios.js --filter %s:')"
+        working-directory: test-app
 
   floating:
     name: "Floating Dependencies"
@@ -36,41 +42,33 @@ jobs:
     timeout-minutes: 10
 
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: 12.x
-          cache: npm
+          node-version: 22
+          cache: pnpm
       - name: Install Dependencies
-        run: npm install --no-shrinkwrap
+        run: pnpm install --no-lockfile
       - name: Run Tests
-        run: npm run test:ember
+        run: pnpm run test:ember
 
-  try-scenarios:
-    name: ${{ matrix.try-scenario }}
+  compat-scenarios:
+    needs: test
+    name: ${{ matrix.name }}
     runs-on: ubuntu-latest
-    timeout-minutes: 10
-    needs: 'test'
-
     strategy:
       fail-fast: false
-      matrix:
-        try-scenario:
-          - ember-release
-          - ember-beta
-          - ember-canary
-          - ember-classic
-          - embroider-safe
-          - embroider-optimized
-
+      matrix: ${{fromJson(needs.test.outputs.matrix)}}
     steps:
-      - uses: actions/checkout@v2
-      - name: Install Node
-        uses: actions/setup-node@v2
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: 12.x
-          cache: npm
+          node-version: 22
+          cache: pnpm
       - name: Install Dependencies
-        run: npm ci
-      - name: Run Tests
-        run: ./node_modules/.bin/ember try:one ${{ matrix.try-scenario }}
+        run: pnpm install --frozen-lockfile
+      - name: test
+        run: ${{ matrix.command }}
+        working-directory: test-app
