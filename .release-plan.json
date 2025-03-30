@@ -1,0 +1,34 @@
+{
+  "solution": {
+    "ember-validators": {
+      "impact": "major",
+      "oldVersion": "4.1.2",
+      "newVersion": "5.0.0",
+      "tagName": "latest",
+      "constraints": [
+        {
+          "impact": "major",
+          "reason": "Appears in changelog section :boom: Breaking Change"
+        },
+        {
+          "impact": "minor",
+          "reason": "Appears in changelog section :rocket: Enhancement"
+        },
+        {
+          "impact": "patch",
+          "reason": "Appears in changelog section :bug: Bug Fix"
+        },
+        {
+          "impact": "patch",
+          "reason": "Appears in changelog section :memo: Documentation"
+        },
+        {
+          "impact": "patch",
+          "reason": "Appears in changelog section :house: Internal"
+        }
+      ],
+      "pkgJSONPath": "./package.json"
+    }
+  },
+  "description": "## Release (2025-03-30)\n\n* ember-validators 5.0.0 (major)\n\n#### :boom: Breaking Change\n* `ember-validators`\n  * [#151](https://github.com/adopted-ember-addons/ember-validators/pull/151) Convert addon to v2 format ([@SergeAstapov](https://github.com/SergeAstapov))\n  * [#152](https://github.com/adopted-ember-addons/ember-validators/pull/152) Drop support for Ember.js versions below 4.8 ([@SergeAstapov](https://github.com/SergeAstapov))\n\n#### :rocket: Enhancement\n* `ember-validators`\n  * [#154](https://github.com/adopted-ember-addons/ember-validators/pull/154) Convert to TypeScript ([@SergeAstapov](https://github.com/SergeAstapov))\n\n#### :bug: Bug Fix\n* `ember-validators`\n  * [#138](https://github.com/adopted-ember-addons/ember-validators/pull/138) Fix date time format ([@mkszepp](https://github.com/mkszepp))\n\n#### :memo: Documentation\n* `ember-validators`\n  * [#147](https://github.com/adopted-ember-addons/ember-validators/pull/147) Update repository url after migration ([@SergeAstapov](https://github.com/SergeAstapov))\n  * [#144](https://github.com/adopted-ember-addons/ember-validators/pull/144) chore: Update URL for documentation ([@TSenter](https://github.com/TSenter))\n\n#### :house: Internal\n* `ember-validators`\n  * [#153](https://github.com/adopted-ember-addons/ember-validators/pull/153) Bum release-plan to v0.16 ([@SergeAstapov](https://github.com/SergeAstapov))\n  * [#148](https://github.com/adopted-ember-addons/ember-validators/pull/148) Setup release-plan and changelog ([@SergeAstapov](https://github.com/SergeAstapov))\n\n#### Committers: 3\n- Markus Sanin ([@mkszepp](https://github.com/mkszepp))\n- Sergey Astapov ([@SergeAstapov](https://github.com/SergeAstapov))\n- Tyler Senter ([@TSenter](https://github.com/TSenter))\n"
+}
