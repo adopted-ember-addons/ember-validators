@@ -1,6 +1,14 @@
 import { isEmpty, typeOf } from '@ember/utils';
 import { assert } from '@ember/debug';
-import validationError from './utils/validation-error.js';
+import validationError, {
+  type IValidationError,
+} from './utils/validation-error.ts';
+
+interface IOptions {
+  allowBlank?: boolean;
+  in?: unknown[];
+  range: [min: number, max: number];
+}
 
 /**
  *  @class Exclusion
@@ -17,9 +25,14 @@ import validationError from './utils/validation-error.js';
  * @param {Object} model
  * @param {String} attribute
  */
-export default function validateExclusion(value, options, model, attribute) {
-  let array = options.in;
-  let { range, allowBlank } = options;
+export default function validateExclusion(
+  value: unknown,
+  options: IOptions,
+  model: object,
+  attribute: string,
+): true | IValidationError<unknown, IOptions> {
+  const array = options.in;
+  const { range, allowBlank } = options;
 
   assert(
     `[validator:exclusion] [${attribute}] no options were passed in`,
@@ -35,11 +48,11 @@ export default function validateExclusion(value, options, model, attribute) {
   }
 
   if (range && range.length === 2) {
-    let [min, max] = range;
-    let equalType =
+    const [min, max] = range;
+    const equalType =
       typeOf(value) === typeOf(min) && typeOf(value) === typeOf(max);
 
-    if (equalType && min <= value && value <= max) {
+    if (equalType && min <= (value as number) && (value as number) <= max) {
       return validationError('exclusion', value, options);
     }
   }

@@ -1,7 +1,14 @@
 import { get } from '@ember/object';
 import { assert } from '@ember/debug';
 import { isPresent, isEmpty, isEqual } from '@ember/utils';
-import validationError from './utils/validation-error.js';
+import validationError, {
+  type IValidationError,
+} from './utils/validation-error.ts';
+
+interface IOptions {
+  on: string;
+  allowBlank?: boolean;
+}
 
 /**
  *  @class Confirmation
@@ -17,9 +24,14 @@ import validationError from './utils/validation-error.js';
  * @param {Object} model
  * @param {String} attribute
  */
-export default function validateConfirmation(value, options, model, attribute) {
-  let on = options.on;
-  let allowBlank = options.allowBlank;
+export default function validateConfirmation(
+  value: unknown,
+  options: IOptions,
+  model: object,
+  attribute: string,
+): true | IValidationError<unknown, IOptions> {
+  const on = options.on;
+  const allowBlank = options.allowBlank;
 
   assert(
     `[validator:confirmation] [${attribute}] option 'on' is required`,

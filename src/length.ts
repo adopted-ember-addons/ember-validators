@@ -1,5 +1,16 @@
 import { isEmpty, isNone } from '@ember/utils';
-import validationError from './utils/validation-error.js';
+import validationError, {
+  type IValidationError,
+} from './utils/validation-error.ts';
+
+type IOptions = {
+  allowBlank?: boolean;
+  allowNone?: boolean;
+  useBetweenMessage?: boolean;
+  is?: number;
+  min?: number;
+  max?: number;
+};
 
 /**
  *  @class Length
@@ -19,8 +30,11 @@ import validationError from './utils/validation-error.js';
  * @param {Object} model
  * @param {String} attribute
  */
-export default function validateLength(value, options) {
-  let {
+export default function validateLength(
+  value: string,
+  options: IOptions,
+): true | IValidationError<string, IOptions> {
+  const {
     allowNone = true,
     allowBlank,
     useBetweenMessage,
@@ -37,7 +51,7 @@ export default function validateLength(value, options) {
     return true;
   }
 
-  let length = value.length;
+  const length = value.length;
 
   if (!isNone(is) && is !== length) {
     return validationError('wrongLength', value, options);

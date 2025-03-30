@@ -2,10 +2,27 @@
 import { isEmpty, isNone } from '@ember/utils';
 import { assert } from '@ember/debug';
 
-import Ember from 'ember';
-import validationError from './utils/validation-error.js';
+import { canInvoke } from './utils/can-invoke.ts';
+import validationError, {
+  type IValidationError,
+} from './utils/validation-error.ts';
 
-const { canInvoke } = Ember;
+type IEmailOptions = {
+  allowBlank?: boolean;
+  type?: 'email';
+  inverse?: boolean;
+  regex?: RegExp;
+  allowNonTld?: boolean;
+  minTldLength?: number;
+};
+type IOptions =
+  | IEmailOptions
+  | {
+      allowBlank?: boolean;
+      type?: 'phone' | 'url';
+      inverse?: boolean;
+      regex?: RegExp;
+    };
 
 /**
  *  @class Format
@@ -33,10 +50,15 @@ export const regularExpressions = {
     /^([\+]?1\s*[-\/\.]?\s*)?(\((\d{3})\)|(\d{3}))\s*[-\/\.]?\s*(\d{3})\s*[-\/\.]?\s*(\d{4})\s*(([xX]|[eE][xX][tT]?[\.]?|extension)\s*([#*\d]+))*$/,
 
   url: /(?:([A-Za-z]+):)?(\/{0,3})[a-zA-Z0-9][a-zA-Z-0-9]*(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-{}]*[\w@?^=%&amp;\/~+#-{}])??/,
-};
+} as const;
 
-export default function validateFormat(value, options, model, attribute) {
-  let { regex, type, inverse = false, allowBlank } = options;
+export default function validateFormat(
+  value: unknown,
+  options: IOptions,
+  model: object,
+  attribute: string,
+): true | IValidationError<unknown, IOptions> {
+  const { regex, type, inverse = false, allowBlank } = options;
 
   assert(
     `[validator:format] [${attribute}] no options were passed in`,
@@ -62,7 +84,7 @@ export default function validateFormat(value, options, model, attribute) {
 
   if (
     !canInvoke(value, 'match') ||
-    (regexTest && isEmpty(value.match(regexTest)) !== inverse)
+    (regexTest && isEmpty((value as string).match(regexTest)) !== inverse)
   ) {
     return validationError(
       type || 'invalid',
@@ -74,9 +96,9 @@ export default function validateFormat(value, options, model, attribute) {
   return true;
 }
 
-function formatEmailRegex(options) {
+function formatEmailRegex(options: IEmailOptions): RegExp {
   let { source } = regularExpressions.email;
-  let { allowNonTld, minTldLength } = options;
+  const { allowNonTld, minTldLength } = options;
 
   if (!isNone(minTldLength) && typeof minTldLength === 'number') {
     source = source.replace(
