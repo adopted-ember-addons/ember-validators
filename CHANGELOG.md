@@ -1,5 +1,37 @@
 # Changelog
 
+## Release (2025-03-30)
+
+* ember-validators 5.0.0 (major)
+
+#### :boom: Breaking Change
+* `ember-validators`
+  * [#151](https://github.com/adopted-ember-addons/ember-validators/pull/151) Convert addon to v2 format ([@SergeAstapov](https://github.com/SergeAstapov))
+  * [#152](https://github.com/adopted-ember-addons/ember-validators/pull/152) Drop support for Ember.js versions below 4.8 ([@SergeAstapov](https://github.com/SergeAstapov))
+
+#### :rocket: Enhancement
+* `ember-validators`
+  * [#154](https://github.com/adopted-ember-addons/ember-validators/pull/154) Convert to TypeScript ([@SergeAstapov](https://github.com/SergeAstapov))
+
+#### :bug: Bug Fix
+* `ember-validators`
+  * [#138](https://github.com/adopted-ember-addons/ember-validators/pull/138) Fix date time format ([@mkszepp](https://github.com/mkszepp))
+
+#### :memo: Documentation
+* `ember-validators`
+  * [#147](https://github.com/adopted-ember-addons/ember-validators/pull/147) Update repository url after migration ([@SergeAstapov](https://github.com/SergeAstapov))
+  * [#144](https://github.com/adopted-ember-addons/ember-validators/pull/144) chore: Update URL for documentation ([@TSenter](https://github.com/TSenter))
+
+#### :house: Internal
+* `ember-validators`
+  * [#153](https://github.com/adopted-ember-addons/ember-validators/pull/153) Bum release-plan to v0.16 ([@SergeAstapov](https://github.com/SergeAstapov))
+  * [#148](https://github.com/adopted-ember-addons/ember-validators/pull/148) Setup release-plan and changelog ([@SergeAstapov](https://github.com/SergeAstapov))
+
+#### Committers: 3
+- Markus Sanin ([@mkszepp](https://github.com/mkszepp))
+- Sergey Astapov ([@SergeAstapov](https://github.com/SergeAstapov))
+- Tyler Senter ([@TSenter](https://github.com/TSenter))
+
 ## v4.1.2 (2022-02-08)
 
 #### :rocket: Enhancement
