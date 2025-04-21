@@ -10,5 +10,7 @@
 
 # ember-try
 /.node_modules.ember-try/
-/pnpm-lock.ember-try.yaml
 /pnpm-lock.yaml
+
+# release-plan
+/CHANGELOG.md
