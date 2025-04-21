@@ -1,5 +1,16 @@
 # Changelog
 
+## Release (2025-04-21)
+
+* ember-validators 5.0.1 (patch)
+
+#### :house: Internal
+* `ember-validators`
+  * [#155](https://github.com/adopted-ember-addons/ember-validators/pull/155) Make Prettier happy after release ([@SergeAstapov](https://github.com/SergeAstapov))
+
+#### Committers: 1
+- Sergey Astapov ([@SergeAstapov](https://github.com/SergeAstapov))
+
 ## Release (2025-03-30)
 
 - ember-validators 5.0.0 (major)
