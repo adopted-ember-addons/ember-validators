@@ -1,6 +1,6 @@
 {
   "name": "ember-validators",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "description": "A collection of EmberJS validators",
   "keywords": [
     "ember-addon",
