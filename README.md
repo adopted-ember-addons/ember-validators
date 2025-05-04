@@ -46,6 +46,21 @@ validate("presence", "foo", { presence: true });
 validate("length", "foo", { min: 1 });
 ```
 
+### Messages
+When validation fails, you can build the error message manually.
+
+```js
+import messages from 'ember-validators/messages';
+import validateLength from 'ember-validators/length';
+
+const options = { min: 5 };
+const result = validateLength('foo', options);
+
+const errorMessage = messages.getMessageFor(result.type, { ...options, description: 'Page title' });
+
+alert(errorMessage); // "Page title is too short (minimum is 5 characters)"
+```
+
 ## Validator Method Signature
 
 Each validator has the following signature:
